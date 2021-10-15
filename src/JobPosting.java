@@ -9,7 +9,7 @@ public class JobPosting {
     private ArrayList<JobApplication> applicants;
 
     public JobPosting(Employer employer, String description, ArrayList<String> requirements, 
-    double hourlyWage, JobPostingStatus status, ArrayList<JobApplication> applicants) {
+    double hourlyWage, String status, ArrayList<JobApplication> applicants) {
         this.employer = employer;
         this.description = description;
         this.requirements = requirements;
