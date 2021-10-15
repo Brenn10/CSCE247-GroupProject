@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class JobSystem {
-    private static User currentUser; // admin, employeer, student
-    private ArrayList<User> users; // for getting current user (login)
+    //private static User currentUser; // admin, employeer, student
+    //private ArrayList<User> users; // for getting current user (login)
 
     // 0 unapproved users, 1 prof, 2 student, 3 employer, 4 admin (easy to check)
     private static int userVerify; 
@@ -13,21 +13,22 @@ public class JobSystem {
 
     public boolean login (String username, String password) {
         // depends on how users/user will function 
-        if (users.haveUser(username)) {
-            if(users.matchPassword(username, password)) {
-                currentUser = users.getUser(username);
-                userVerify = currentUser.getVerify;
-                return true;
-            }
-        }
-        return false;
+        //if (users.haveUser(username)) {
+            //if(users.matchPassword(username, password)) {
+                //currentUser = users.getUser(username);
+               // userVerify = currentUser.getVerify;
+                //return true;
+           // }
+        //}
+    return false;
     }
     public User getCurrentUser() {
-        return currentUser;
+        //return currentUser;
+        return null;
     }
     public void createAccount() {
-        User newuser = User();
-        currentUser = newUser;
+        //User newuser = User();
+        //currentUser = newUser;
         return;
     }
     public void addPosting() {
