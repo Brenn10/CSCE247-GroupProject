@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1179061605,
+        "username": "portiaportia",
+        "password": "W$%V^$*%^B&NB#$&V%",
+        "email": "pplante@cse.sc.edu",
+        "firstName": "Portia",
+        "lastName": "Plante",
+        "approved": true
+    },
+    {
+        "id": 2085269099,
+        "username": "yiannisr",
+        "password": "WE$%TVE$%^B&SE%VY",
+        "email": "yiannisr@cse.sc.edu",
+        "firstName": "Ioannis",
+        "lastName": "Rekleitis",
+        "approved": true
+    }
+]

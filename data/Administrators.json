@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1665639041,
+        "username": "admin1",
+        "password": "adminPass",
+        "email": "best_admin@email.sc.edu",
+        "firstName": "Cool",
+        "lastName": "Person",
+        "approved": true
+    },
+    {
+        "id": 387607123,
+        "username": "admin2",
+        "password": "adminPass2",
+        "email": "other_admin@email.sc.edu",
+        "firstName": "Lame",
+        "lastName": "Person",
+        "approved": false
+    }
+]

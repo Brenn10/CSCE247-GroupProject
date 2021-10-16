@@ -1,0 +1,22 @@
+[
+    {
+        "id": 33955371,
+        "username": "amazon",
+        "password": "p9ab8t6acV@#$bwaal",
+        "email": "hiring@amazon.jobs",
+        "firstName": "Amazon",
+        "lastName": "Rep",
+        "approved": true,
+        "company": "Amazon"
+    },
+    {
+        "id": 1524779110,
+        "username": "google",
+        "password": "WE$%TVE$%^B&SE%VY",
+        "email": "go@og.le",
+        "firstName": "Hiring",
+        "lastName": "Representative",
+        "approved": false,
+        "company": "Google"
+    }
+]
