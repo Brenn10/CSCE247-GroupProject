@@ -1,0 +1,92 @@
+[
+    {
+        "employerId": 33955371,
+        "jobTitle": "Software Developement Intern",
+        "description": "Develop new tools for the UI/UX team",
+        "requirements": [
+            "Team Player",
+            "Rust",
+            "C++"
+        ],
+
+        "hourlyWage": "10.00",
+        "jobPostingStatus": "Open",
+        "applications": [
+            {
+                "applicantId": 1448939116,
+                "employments": [
+                    {
+                        "company": "Teraki GmbH",
+                        "position": "R&D Intern",
+                        "dates": "January 2020 - August 2020",
+                        "details": [
+                            "Worked with customers to develop end to end solutions",
+                            "Used C++ and Python to create SDKs and APIs"
+                        ]
+                    }
+                ],
+                "educations": [
+                    {
+                        "place": "University of South Carolina",
+                        "degree": "Bachelor of Science",
+                        "major": "Computer Engineering",
+                        "gpa": 3.92,
+                        "gradDate": "December 2021"
+                    },
+                    {
+                        "place": "SC Governor's School for Science and Math",
+                        "degree": "High School Diploma",
+                        "major": "Computer Science and Math",
+                        "gpa": 4.6,
+                        "gradDate": "May 2017"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "employerId": 1524779110,
+        "jobTitle": "Computer Vision Interm",
+        "description": "Develop novel CV algorithms",
+        "requirements": [
+            "Team Player",
+            "OpenCV",
+            "C++"
+        ],
+
+        "hourlyWage": "20.00",
+        "jobPostingStatus": "Pending",
+        "aplications": [
+            {
+                "applicantId": 1448939116,
+                "employments": [
+                    {
+                        "company": "Teraki GmbH",
+                        "position": "R&D Intern",
+                        "dates": "January 2020 - August 2020",
+                        "details": [
+                            "Implemented Homography and optical flow tracking",
+                            "Designed RGB-D SLAM applications for mobile devices"
+                        ]
+                    }
+                ],
+                "educations": [
+                    {
+                        "place": "University of South Carolina",
+                        "degree": "Bachelor of Science",
+                        "major": "Computer Engineering",
+                        "gpa": 3.92,
+                        "gradDate": "December 2021"
+                    },
+                    {
+                        "place": "SC Governor's School for Science and Math",
+                        "degree": "High School Diploma",
+                        "major": "Computer Science and Math",
+                        "gpa": 4.6,
+                        "gradDate": "May 2017"
+                    }
+                ]
+            }
+        ]
+    }
+]
