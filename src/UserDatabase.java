@@ -7,10 +7,10 @@ public class UserDatabase {
 
     private UserDatabase() {
         users = new ArrayList<User>();
-        removedUsers = new ArrayList<Users>();
+        removedUsers = new ArrayList<User>();
     }
 
-    public ReviewDatabase getInstance() {
+    public UserDatabase getInstance() {
         userDatabase = new UserDatabase();
         return userDatabase;
     }

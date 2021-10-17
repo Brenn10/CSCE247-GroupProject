@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Employer extends User {
     private String company;
     private ArrayList<JobPosting> postings;
@@ -5,7 +7,7 @@ public class Employer extends User {
     private double averageRating;
 
     public Employer(String username, String password, String email, String company) {
-        super();
+        super(username, password, email);
     }
     public void makePosting(JobPosting job) {
 
@@ -16,7 +18,7 @@ public class Employer extends User {
     public void removePosting(JobPosting job) {
 
     }
-    public ArrayList<Student> viewApplicants(JobPosting job) {
+    public ArrayList<JobPosting> viewApplicants(JobPosting job) {
          return postings;
     }
     public void rateStudent(Student student, double rating, String comment) {

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Student extends User {
     private Resume resume;
     private String major;
@@ -5,7 +7,7 @@ public class Student extends User {
     private ArrayList<Review> reviews;
 
     public Student(String username, String password, String email, String major) {
-        super();
+        super(username, password, email);
     }
     private boolean isEmailValid(String email) {
         return true;
@@ -38,7 +40,7 @@ public class Student extends User {
         return 7.0;
     }
     public Resume getResume() {
-
+        return null;
     }
     public void addEducation() {
 

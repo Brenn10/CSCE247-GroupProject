@@ -1,6 +1,6 @@
 public class Administrator extends User {
     public Administrator(String username, String password, String email) {
-        super();
+        super(username, password, email);
     }
     private boolean isEmailValid(String email) {
         return true;

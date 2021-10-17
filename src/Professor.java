@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class Professor extends User {
-    private ArrayList<Students> studentReviewed;
+    private ArrayList<Student> studentReviewed;
 
     public Professor(String username, String password, String email) {
-        super();
+        super(username, password, email);
     }
     private boolean isEmailValid(String email) {
         return true;
