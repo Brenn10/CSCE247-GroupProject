@@ -3,7 +3,7 @@ public class Administrator extends User {
         super(username, password, email);
     }
     private boolean isEmailValid(String email) {
-        return true;
+        return email.contains("email.sc.edu");
     }
     public void editUser(UserDatabase user, String toChange) {
 
@@ -24,7 +24,7 @@ public class Administrator extends User {
         // something with database
     }
     public void addUser(User user, String userType) {
-        
+
     }
     public void addEmployer(JobPostingDatabase employer) {
 
