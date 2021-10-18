@@ -8,23 +8,23 @@ public class Administrator extends User {
     public void editUser(UserDatabase user, String toChange) {
 
     }
-    public void setJobPosting(Employer employer, JobPostingDatabase job) {
-
+    public void setJobPosting(Employer employer, JobPosting job) {
+        employer.makePosting(job);
     }
     public void removeUser(User user) {
-
+        // something with database
     }
     public void removeReviews(Review review) {
-
+        // something with database
     }
     public void removeResume(Student student) {
-
+        // something with database
     }
     public void removeJobPosting(Employer employer, JobPosting jobposting) {
-
+        // something with database
     }
     public void addUser(User user, String userType) {
-
+        
     }
     public void addEmployer(JobPostingDatabase employer) {
 
