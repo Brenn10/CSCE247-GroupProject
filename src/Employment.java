@@ -10,10 +10,14 @@ public class Employment {
         this.company = company;
         this.title = title;
         this.dates = dates;
-        this.details = details;
+        this.details = description;
     }
 
     public String toString(){
-        return "";
+        String toReturn = "Employed at " + company + " as a " + title + " during " + dates + "\n Additional Details";
+
+        for(String detail: details) 
+            toReturn = toReturn + "\n-" + detail;
+        return toReturn;
     }
 }

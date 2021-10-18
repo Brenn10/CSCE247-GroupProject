@@ -18,4 +18,8 @@ public class JobPosting {
         this.applicants = applicants;
     }
 
+    public ArrayList<JobApplication> getApplicants() {
+        return this.applicants;
+    }
+
 }

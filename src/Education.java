@@ -10,6 +10,6 @@ public class Education {
     }
 
     public String toString() {
-        return "";
+        return "Educated at " + place + " until graduation on " + gradDate + ". GPA at graduation: " + GPA;
     }
 }
