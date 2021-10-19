@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Employer extends User {
     private String company;
@@ -6,8 +7,16 @@ public class Employer extends User {
     private ArrayList<Review> reviews;
     private double averageRating;
 
-    public Employer(String username, String password, String email, String company) {
-        super(username, password, email);
+    public Employer(UUID id, 
+            String username, 
+            String password,
+            String email, 
+            String firstName,
+            String lastName,
+            boolean approved,
+            String company
+            ) {
+        super(id, username, password, email, firstName, lastName, approved);
         this.company = company;
     }
     public void makePosting(JobPosting job) {

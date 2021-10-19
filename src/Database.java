@@ -28,9 +28,10 @@ public class Database {
     }
 
     public void loadFromFile() {
-        users = reader.getUsers();
-        reviews = reader.getReviews();
-        postings = reader.getJobPostings();
+        DataBlob blob = reader.read();
+        users = blob.getUsers();
+        reviews = blob.getReviews();
+        postings = blob.getJobPostings();
     }
 
     public void writeToFile() {
@@ -38,14 +39,14 @@ public class Database {
     }
 
     public ArrayList<JobPosting> getJobPostings() {
-        return reader.getJobPostings();
+        return postings;
     }
 
     public ArrayList<Review> getReviews() {
-        return reader.getReviews();
+        return reviews;
     }
 
     public ArrayList<User> getUsers() {
-        return reader.getUsers();
+        return users;
     }
 }

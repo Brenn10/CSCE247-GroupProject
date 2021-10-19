@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Student extends User {
     private Resume resume;
@@ -6,8 +7,17 @@ public class Student extends User {
     private boolean createdResume;
     private ArrayList<Review> reviews;
 
-    public Student(String username, String password, String email, String major) {
-        super(username, password, email);
+    public Student(UUID id, 
+            String username, 
+            String password, 
+            String email, 
+            String firstName,
+            String lastName,
+            boolean approved,
+            String major,
+            boolean createdResume,
+            ArrayList<Review> reviews) {
+        super(id, username, password, email, firstName, lastName, approved);
         this.username = username;
         this.password = password;
         this.email = email;

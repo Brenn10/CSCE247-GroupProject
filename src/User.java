@@ -1,4 +1,7 @@
+import java.util.UUID;
+
 public abstract class User {
+    protected UUID id;
     protected String username;
     protected String password;
     protected String email;
@@ -6,12 +9,19 @@ public abstract class User {
     protected String lastName;
     protected boolean approved;
 
-  
-    public User(String username, String password, String email) {
+    public User(UUID id,
+                String username, 
+                String password, 
+                String email,
+                String firstName,
+                String lastName,
+                boolean approved) {
         this.username = username;
         this.password = password;
         this.email = email;
-        
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.approved = approved;
     }
     protected boolean isPasswordValid(String username, String password) {
          return this.username == username && this.password == password;

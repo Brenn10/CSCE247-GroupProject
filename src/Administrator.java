@@ -1,9 +1,17 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Administrator extends User {
-    public Administrator(String username, String password, String email) {
-         super(username, password, email);
+    public Administrator(UUID id,
+                         String username, 
+                         String password, 
+                         String email,
+                         String firstName,
+                         String lastName,
+                         boolean approved) {
+         super(id, username, password, email, firstName, lastName, approved);
     }
+
     private boolean isEmailValid(String email) {
         return email.contains("email.sc.edu");
     }
@@ -25,20 +33,8 @@ public class Administrator extends User {
     public void removeJobPosting(Employer employer, JobPosting jobposting) {
         // TO-DO something with database
     }
-    public void addUser(String userType, ArrayList<String> neededInfo) {
-        User toAdd;
-        userType = userType.toLowerCase();
-        // neededInfo will contain the write information about the new user
-        // the first three indeces will always be username, password, email
-        if(userType.equals("administrator"))
-            toAdd = new Administrator(neededInfo.get(0), neededInfo.get(1), neededInfo.get(2));
-        else if(userType.equals("professor"))
-            toAdd = new Professor(neededInfo.get(0), neededInfo.get(1), neededInfo.get(2));
-        else if(userType.equals("student"))
-            toAdd = new Student(neededInfo.get(0), neededInfo.get(1), neededInfo.get(2), neededInfo.get(3)); // index 3 will equal major if student
-        else if(userType.equals("employer"))
-            toAdd = new Employer(neededInfo.get(0), neededInfo.get(1), neededInfo.get(2), neededInfo.get(3)); // index 3 will eqyal company if student
-        // TO-DO something with the database to add the user
+    public void addUser(User user) {
+        
     }
     /*public void addEmployer(Employer employer) {
         Employer toADD = employer;
@@ -75,4 +71,62 @@ public class Administrator extends User {
         this.email = email;
     }
 
+    public static class Builder {
+        private UUID id;
+        private String username;
+        private String password;
+        private String email;
+        private String firstName;
+        private String lastName;
+        private boolean approved;
+
+        public Builder() {
+            id = UUID.randomUUID();
+            username = "";
+            password = "";
+            email = "";
+            firstName = "";
+            lastName = "";
+            approved = false;
+        }
+
+        public Builder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder approved(boolean approved) {
+            this.approved = approved;
+            return this;
+        }
+
+        public Administrator build() {
+            return new Administrator(id, username, password, email, firstName, lastName, approved);
+        }
+    }
 }
