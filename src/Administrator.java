@@ -8,22 +8,22 @@ public class Administrator extends User {
         return email.contains("email.sc.edu");
     }
     public void editUser(UserDatabase user, String toChange) {
-        
+        // TO-DO 
     }
     public void setJobPosting(Employer employer, JobPosting job) {
         employer.makePosting(job);
     }
     public void removeUser(User user) {
-        // something with database
+        // TO-DO something with database
     }
     public void removeReviews(Review review) {
-        // something with database
+        // TO-DO something with database
     }
     public void removeResume(Student student) {
-        // something with database
+        // TO-DO something with database
     }
     public void removeJobPosting(Employer employer, JobPosting jobposting) {
-        // something with database
+        // TO-DO something with database
     }
     public void addUser(String userType, ArrayList<String> neededInfo) {
         User toAdd;
@@ -38,7 +38,7 @@ public class Administrator extends User {
             toAdd = new Student(neededInfo.get(0), neededInfo.get(1), neededInfo.get(2), neededInfo.get(3)); // index 3 will equal major if student
         else if(userType.equals("employer"))
             toAdd = new Employer(neededInfo.get(0), neededInfo.get(1), neededInfo.get(2), neededInfo.get(3)); // index 3 will eqyal company if student
-        // do something with the database to add the user
+        // TO-DO something with the database to add the user
     }
     /*public void addEmployer(Employer employer) {
         Employer toADD = employer;
