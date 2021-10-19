@@ -32,4 +32,38 @@ public class Employer extends User {
     public void rateStudent(Student student, int score, String comment) {
         Review rating = new Review(this, student, score, comment);
     }
+
+    public String getCompany() {
+        return this.company;
+    }
+
+    public ArrayList<JobPosting> getPostings() {
+        return this.postings;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return this.reviews;
+    }
+
+    public double getAverageRating() {
+        return this.averageRating;
+    }
+
+    
+    public void setCompany(String company) {
+       this.company = company;
+    }
+
+    public void getPostings(ArrayList<JobPosting> postings) {
+        this.postings = postings;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+       this.reviews = reviews;
+    }
+
+    public void setAverageRating(double rating) {
+        this.averageRating = rating;
+    }
+
 }

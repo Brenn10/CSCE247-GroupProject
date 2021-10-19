@@ -1,6 +1,6 @@
 public class Administrator extends User {
     public Administrator(String username, String password, String email) {
-        super(username, password, email);
+         super(username, password, email);
     }
     private boolean isEmailValid(String email) {
         return email.contains("email.sc.edu");
@@ -30,9 +30,9 @@ public class Administrator extends User {
 
     }
     public void addResume(Resume resume) {
-
+        //add resume to resume database
     }
-    public void addReview(Review review) {
-
-    }
+    /*public void addReview(Review review) {
+        
+    }*/
 }
