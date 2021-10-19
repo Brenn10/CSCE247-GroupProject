@@ -1,6 +1,6 @@
 [
     {
-        "employerId": 33955371,
+        "employerId": "ee51f05b-c153-4536-8900-5d475768164c",
         "jobTitle": "Software Developement Intern",
         "description": "Develop new tools for the UI/UX team",
         "requirements": [
@@ -13,7 +13,7 @@
         "jobPostingStatus": "Open",
         "applications": [
             {
-                "applicantId": 1448939116,
+                "applicantId": "110c60ef-e00f-436a-98af-9067e89fbf83",
                 "employments": [
                     {
                         "company": "Teraki GmbH",
@@ -45,7 +45,7 @@
         ]
     },
     {
-        "employerId": 1524779110,
+        "employerId": "69599de1-4423-4573-b40d-145d290282e1",
         "jobTitle": "Computer Vision Interm",
         "description": "Develop novel CV algorithms",
         "requirements": [
@@ -58,7 +58,7 @@
         "jobPostingStatus": "Pending",
         "aplications": [
             {
-                "applicantId": 1448939116,
+                "applicantId": "110c60ef-e00f-436a-98af-9067e89fbf83",
                 "employments": [
                     {
                         "company": "Teraki GmbH",
