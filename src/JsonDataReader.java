@@ -36,7 +36,12 @@ public class JsonDataReader extends DataReader {
         ArrayList<Administrator> adminList = readAdministrators();
         for (Administrator admin : adminList) {
             dataBlob.addUser(admin);
-        }       
+        }
+        
+        ArrayList<Student> studentList = readStudents();
+        for (Student student : studentList) {
+            dataBlob.addUser(student);
+        }
 
         return dataBlob;
     }
@@ -66,7 +71,84 @@ public class JsonDataReader extends DataReader {
     }
 
     private ArrayList<Student> readStudents() {
-        return null;
+        ArrayList<Student> studentList = new ArrayList<Student>();
+        try {
+            FileReader reader = new FileReader(studentFilePath);
+            JSONArray jsonList = (JSONArray) parser.parse(reader);
+            for (Object studentObj : jsonList) {
+                JSONObject studentJson = (JSONObject) studentObj;
+
+                ArrayList<String> skills = new ArrayList<String>();
+                JSONArray skillsJson = (JSONArray) studentJson.get("skills");
+                for (Object skillObj : skillsJson) {
+                    skills.add((String) skillObj);
+                }
+
+                ArrayList<Employment> employments = new ArrayList<Employment>();
+                JSONArray employmentsJson = (JSONArray) studentJson.get("employments");
+                for (Object employmentObj : employmentsJson) {
+                    JSONObject employmentJson = (JSONObject) employmentObj;
+
+                    ArrayList<String> details = new ArrayList<String>();
+                    for (Object detail : (JSONArray) employmentJson.get("details")) {
+                        details.add((String) detail);
+                    }
+
+                    Employment employment = new Employment.Builder()
+                        .company((String) employmentJson.get("company"))
+                        .title((String) employmentJson.get("title"))
+                        .dates((String) employmentJson.get("dates"))
+                        .details(details)
+                        .build();
+                    employments.add(employment);
+                }
+
+                ArrayList<Education> educations = new ArrayList<Education>();
+                JSONArray educationsJson = (JSONArray) studentJson.get("educations");
+                for (Object educationObj : educationsJson) {
+                    JSONObject educationJson = (JSONObject) educationObj;
+
+                    Education education = new Education.Builder()
+                        .place((String) educationJson.get("place"))
+                        .gpa((double) educationJson.get("gpa"))
+                        .gradDate((String) educationJson.get("gradDate"))
+                        .build();
+                    educations.add(education);
+                }
+
+                Major major = Major.NA;
+                String majorStr = (String) studentJson.get("major");
+                if (majorStr.equalsIgnoreCase("computer science")) {
+                    major = Major.COMPUTER_SCIENCE;
+                } else if (majorStr.equalsIgnoreCase("computer engineering")) {
+                    major = Major.COMPUTER_ENGINEERING;
+                } else if (majorStr.equalsIgnoreCase("computer information systems")) {
+                    major = Major.COMPUTER_INFORMATION_SYSTEMS;
+                } else if (majorStr.equalsIgnoreCase("integrated information technology")) {
+                    major = Major.INTEGRATED_INFORMATION_TECHNOLOGY;
+                }
+
+                Student student = new Student.Builder()
+                    .id(UUID.fromString((String) studentJson.get("id")))
+                    .username((String) studentJson.get("username"))
+                    .password((String) studentJson.get("password"))
+                    .email((String) studentJson.get("email"))
+                    .firstName((String) studentJson.get("firstName"))
+                    .lastName((String) studentJson.get("lastName"))
+                    .approved((boolean) studentJson.get("approved"))
+                    .major((String) studentJson.get("major"))
+                    .createdResume((boolean) studentJson.get("createdResume"))
+                    .employments(employments)
+                    .educations(educations)
+                    .technicalSkills(skills)
+                    .averageRating((double) studentJson.get("averageRating"))
+                    .build();
+                studentList.add(student);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return studentList;
     }
 
     private ArrayList<Employer> readEmployers() {

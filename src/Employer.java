@@ -26,7 +26,7 @@ public class Employer extends User {
 
     //overload make posting method
     public void makePosting(String description, ArrayList<String> requirements, 
-    double hourlyWage, String status, ArrayList<JobApplication> applicants) {
+    double hourlyWage, String status, ArrayList<Student> applicants) {
         makePosting(new JobPosting(this, description, requirements, hourlyWage, status, applicants));
     }
 
@@ -36,7 +36,7 @@ public class Employer extends User {
     public void removePosting(JobPosting job) {
         // something with the database that I am unsure about
     }
-    public ArrayList<JobApplication> viewApplicants(JobPosting job) {
+    public ArrayList<Student> viewApplicants(JobPosting job) {
          return job.getApplicants();
     }
     public void rateStudent(Student student, int score, String comment) {

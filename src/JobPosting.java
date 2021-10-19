@@ -6,10 +6,10 @@ public class JobPosting {
     private ArrayList<String> requirements;
     private double hourlyWage;
     private String status;
-    private ArrayList<JobApplication> applicants;
+    private ArrayList<Student> applicants;
 
     public JobPosting(Employer employer, String description, ArrayList<String> requirements, 
-    double hourlyWage, String status, ArrayList<JobApplication> applicants) {
+    double hourlyWage, String status, ArrayList<Student> applicants) {
         this.employer = employer;
         this.description = description;
         this.requirements = requirements;
@@ -22,7 +22,7 @@ public class JobPosting {
         this.requirements.add(requirement);
     }
 
-    public void addApplicant(JobApplication applicant) {
+    public void addApplicant(Student applicant) {
         this.applicants.add(applicant);
     }
 
@@ -46,7 +46,7 @@ public class JobPosting {
         return this.status;
     }
 
-    public ArrayList<JobApplication> getApplicants() {
+    public ArrayList<Student> getApplicants() {
         return this.applicants;
     }
 
@@ -71,7 +71,7 @@ public class JobPosting {
         this.status = status;
     }
 
-    public void setApplicants(ArrayList<JobApplication> applicants) {
+    public void setApplicants(ArrayList<Student> applicants) {
        this.applicants = applicants;
     }
 

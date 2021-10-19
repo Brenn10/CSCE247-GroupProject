@@ -1,10 +1,16 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Professor extends User {
-    private ArrayList<Student> studentReviewed;
 
-    public Professor(String username, String password, String email) {
-        super(username, password, email);
+    public Professor(UUID id, 
+            String username, 
+            String password,
+            String email, 
+            String firstName,
+            String lastName,
+            boolean approved) {
+        super(id, username, password, email, firstName, lastName, approved);
     }
     private boolean isEmailValid(String email) {
         return true;
@@ -15,7 +21,7 @@ public class Professor extends User {
     }
 
     public ArrayList<Student> getStudentReviewed() {
-        return this.studentReviewed;
+        return null;
     }
 
     public String getUsername() {
@@ -28,10 +34,6 @@ public class Professor extends User {
 
     public String getEmail() {
         return this.email;
-    }
-
-    public void setStudentReviewed(ArrayList<Student> studentReviewed) {
-        this.studentReviewed = studentReviewed;
     }
 
     public void setUsername(String username) {
