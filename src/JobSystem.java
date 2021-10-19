@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class JobSystem {
-    //private static User currentUser; // admin, employeer, student
+    private static User currentUser; // admin, employeer, student
     //private ArrayList<User> users; // for getting current user (login)
 
     // 0 unapproved users, 1 prof, 2 student, 3 employer, 4 admin (easy to check)
@@ -11,10 +11,10 @@ public class JobSystem {
         // update vars from json files 
     }
 
-    public boolean login (String username, String password) {
+    public static boolean login (String username, String password) {
         // depends on how users/user will function 
-        //if (users.haveUser(username)) {
-            //if(users.matchPassword(username, password)) {
+        //if (UserDatabase.haveUser(username)) {
+            //if(Users.matchPassword(username, password)) {
                 //currentUser = users.getUser(username);
                // userVerify = currentUser.getVerify;
                 //return true;
@@ -22,14 +22,12 @@ public class JobSystem {
         //}
     return false;
     }
-    public User getCurrentUser() {
-        //return currentUser;
-        return null;
+    public static boolean signup (String username, String password) {
+        // scanner in here to make sure password == confirm password
+        return false;
     }
-    public void createAccount() {
-        //User newuser = User();
-        //currentUser = newUser;
-        return;
+    public User getCurrentUser() {
+        return currentUser;
     }
     public void addPosting() {
         
@@ -93,5 +91,8 @@ public class JobSystem {
     }
     public void removeAccount() {
         
+    }
+    public int getVerify() {
+        return userVerify;
     }
 }

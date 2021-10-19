@@ -15,5 +15,9 @@ public class JobPostingDatabase {
         return jobPostingDatabase;
     }
 
+    public void addPostng(JobPosting posting) {
+        // add posting to database 
+    }
+
   
 }

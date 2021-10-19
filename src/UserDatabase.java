@@ -19,5 +19,9 @@ public class UserDatabase {
         return this.users;
     }
 
+    public void addUser(User user) {
+        // add user to databse
+    }
+
 }
 

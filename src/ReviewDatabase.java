@@ -15,7 +15,7 @@ public class ReviewDatabase {
         return reviewDatabase;
     }
 
-    public void addRating(Review review) {
+    public void addReview(Review review) {
         
     }
 

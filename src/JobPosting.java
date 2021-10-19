@@ -18,8 +18,61 @@ public class JobPosting {
         this.applicants = applicants;
     }
 
+    public void addRequirement(String requirement) {
+        this.requirements.add(requirement);
+    }
+
+    public void addApplicant(JobApplication applicant) {
+        this.applicants.add(applicant);
+    }
+
+    public Employer getEmployer() {
+        return this.employer;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public ArrayList<String> getRequirements() {
+        return this.requirements;
+    }
+
+    public double getWage() {
+        return this.hourlyWage;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
     public ArrayList<JobApplication> getApplicants() {
         return this.applicants;
+    }
+
+    public void setEmployer(Employer employer) {
+        this.employer = employer;
+    }
+
+    public void setDescription(String description) {
+       this.description = description;
+    }
+
+    public void Requirements(ArrayList<String> requirements) {
+        this.requirements = requirements;
+    }
+
+    public void setWage(double hourlyWage) {
+        this.hourlyWage = hourlyWage;
+    }
+
+    public void setStatus(String status) {
+        // would require something with the enum
+        this.status = status;
+    }
+
+    public void setApplicants(ArrayList<JobApplication> applicants) {
+       this.applicants = applicants;
     }
 
 }

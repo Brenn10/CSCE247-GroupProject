@@ -8,16 +8,17 @@ public class Employer extends User {
 
     public Employer(String username, String password, String email, String company) {
         super(username, password, email);
+        this.company = company;
     }
     public void makePosting(JobPosting job) {
-        JobPosting jobToAdd = job;
+        postings.add(job);
         // add to database somehow
     }
 
+    //overload make posting method
     public void makePosting(String description, ArrayList<String> requirements, 
     double hourlyWage, String status, ArrayList<JobApplication> applicants) {
-        JobPosting posting = new JobPosting(this, description, requirements, hourlyWage, status, applicants);
-        // somehow add it to the database 
+        makePosting(new JobPosting(this, description, requirements, hourlyWage, status, applicants));
     }
 
     public void editPosting(JobPosting job, String toChange) {
@@ -31,6 +32,7 @@ public class Employer extends User {
     }
     public void rateStudent(Student student, int score, String comment) {
         Review rating = new Review(this, student, score, comment);
+        // do something with the database 
     }
 
     public String getCompany() {
@@ -49,7 +51,18 @@ public class Employer extends User {
         return this.averageRating;
     }
 
-    
+     public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
     public void setCompany(String company) {
        this.company = company;
     }
@@ -64,6 +77,18 @@ public class Employer extends User {
 
     public void setAverageRating(double rating) {
         this.averageRating = rating;
+    }
+
+     public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }
