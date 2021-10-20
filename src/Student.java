@@ -45,8 +45,8 @@ public class Student extends User {
     public void addEducation(Education education) {
         this.resume.addEducation(education);
     }
-    public void removeEducation() {
-        this.resume
+    public void removeEducation(Education education) {
+        this.resume.getEducation().remove(education);
     }
     // get and set methods 
    
