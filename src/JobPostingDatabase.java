@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class JobPostingDatabase {
-    private JobPostingDatabase jobPostingDatabase;
+    private static JobPostingDatabase jobPostingDatabase;
     private ArrayList<JobPosting> postings;
     private ArrayList<JobPosting> removedPostings;
 
@@ -10,12 +10,13 @@ public class JobPostingDatabase {
         removedPostings = new ArrayList<JobPosting>();
     }
 
-    public JobPostingDatabase getInstance() {
-        jobPostingDatabase = new JobPostingDatabase();
+    public static JobPostingDatabase getInstance() {
+        if(jobPostingDatabase == null)
+            jobPostingDatabase = new JobPostingDatabase();
         return jobPostingDatabase;
     }
 
-    public void addPostng(JobPosting posting) {
+    public void addPosting(JobPosting posting) {
         // add posting to database 
     }
 

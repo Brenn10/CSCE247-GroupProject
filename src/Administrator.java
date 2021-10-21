@@ -12,12 +12,9 @@ public class Administrator extends User {
          super(id, username, password, email, firstName, lastName, approved);
     }
 
-    private boolean isEmailValid(String email) {
-        return email.contains("email.sc.edu");
-    }
-    public void editUser(UserDatabase user, String toChange) {
+    /*public void editUser(UserDatabase user, String toChange) {
         // TO-DO 
-    }
+    }*/
     public void setJobPosting(Employer employer, JobPosting job) {
         employer.makePosting(job);
     }

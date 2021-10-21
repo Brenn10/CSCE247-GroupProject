@@ -12,12 +12,10 @@ public class Professor extends User {
             boolean approved) {
         super(id, username, password, email, firstName, lastName, approved);
     }
-    private boolean isEmailValid(String email) {
-        return true;
-    }
+   
     public void rateStudent(Student student, int rating, String comment) {
-        Review reveiwToAdd = new Review(this, student, rating, comment);
-        // add to database somehow
+        Review reviewToAdd = new Review(this, student, rating, comment);
+        ReviewDatabase.getInstance().addReview(reviewToAdd); 
     }
 
     public ArrayList<Student> getStudentReviewed() {

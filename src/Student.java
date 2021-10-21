@@ -31,9 +31,6 @@ public class Student extends User {
         this.averageRating = averageRating;
     }
 
-    private boolean isEmailValid(String email) {
-        return email.contains("email.sc.edu");
-    }
     public void reviewEmployer(double rating) {
         
     }

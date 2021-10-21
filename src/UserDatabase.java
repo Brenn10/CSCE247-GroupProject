@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class UserDatabase {
   
-    private UserDatabase userDatabase;
+    private static UserDatabase userDatabase;
     private ArrayList<User> users;
     private ArrayList<User> removedUsers;
 
@@ -10,8 +10,9 @@ public class UserDatabase {
         removedUsers = new ArrayList<User>();
     }
 
-    public UserDatabase getInstance() {
-        userDatabase = new UserDatabase();
+    public static UserDatabase getInstance() {
+        if(userDatabase == null)
+            userDatabase = new UserDatabase();
         return userDatabase;
     }
 
