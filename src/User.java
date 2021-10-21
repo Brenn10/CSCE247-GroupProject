@@ -23,6 +23,10 @@ public abstract class User {
         this.lastName = lastName;
         this.approved = approved;
     }
+
+    public static boolean isEmailValid(String email) {
+        return email.contains("email.sc.edu");
+    }
     protected boolean isPasswordValid(String username, String password) {
          return this.username == username && this.password == password;
     }

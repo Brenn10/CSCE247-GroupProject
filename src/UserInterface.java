@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class UserInterface {
     private JobSystem jobSystem;
     // when created, run the program
-    // should this be in a public method instead of the constructor?
     public UserInterface() {
         Scanner input = new Scanner (System.in);
         int inputter;
@@ -73,16 +72,28 @@ public class UserInterface {
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
-                // resume focused menu
+                // show current resume if availiable, ask which part to edit
+                resumeMenu();
                 keepLooping = false;
             } else if (option == 2) {
+                // show all jobs, ask for specific job name 
+                jobMenu();
                 keepLooping = false;
             } else if (option == 3) {
+                // show all reviews attatched to self
+                jobSystem.getSelfReviews();
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
             }
         }
+    }
+    private void resumeMenu() {
+        jobSystem.createResume();
+        // ask what the user would like to change (number options)
+    }
+    private void jobMenu() {
+        jobSystem.showAllJobs();
     }
     /**
      * employer
@@ -108,8 +119,10 @@ public class UserInterface {
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
+                // show all self jobs, ask which to edit
                 keepLooping = false;
             } else if (option == 2) {
+                // same as Prof write review
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
@@ -137,12 +150,22 @@ public class UserInterface {
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
+                // show all students, ask for student, write review
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
             }
         }
     }
+    private void reviewMenuStudent() {
+        // same for proffessors AND Employers
+        jobSystem.showAllStudent();
+        //ask for specific student
+
+        jobSystem.rateStudent(); // chosen student
+        // loop until 0 chosen
+    }
+
     /**
      * Admin 
      * Does everything that each other would do
@@ -167,8 +190,10 @@ public class UserInterface {
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
+                // ask what type of class, then select user
                 keepLooping = false;
             } else if (option == 2) {
+                // show all users, ask for deletion, or approval
                 keepLooping = false;   
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");

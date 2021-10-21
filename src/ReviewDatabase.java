@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ReviewDatabase {
-    private ReviewDatabase reviewDatabase;
+    private static ReviewDatabase reviewDatabase;
     private ArrayList<Review> reviews;
     private ArrayList<Review> removedReviews;
 
@@ -10,8 +10,9 @@ public class ReviewDatabase {
         removedReviews = new ArrayList<Review>();
     }
 
-    public ReviewDatabase getInstance() {
-        reviewDatabase = new ReviewDatabase();
+    public static ReviewDatabase getInstance() {
+        if(reviewDatabase == null)
+            reviewDatabase = new ReviewDatabase();
         return reviewDatabase;
     }
 
