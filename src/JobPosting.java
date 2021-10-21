@@ -22,6 +22,10 @@ public class JobPosting {
         this.requirements.add(requirement);
     }
 
+    public void removeRequriement(String toRemove) {
+        this.requirements.remove(toRemove);
+    }
+
     public void addApplicant(Student applicant) {
         this.applicants.add(applicant);
     }
@@ -74,5 +78,7 @@ public class JobPosting {
     public void setApplicants(ArrayList<Student> applicants) {
        this.applicants = applicants;
     }
+
+    
 
 }
