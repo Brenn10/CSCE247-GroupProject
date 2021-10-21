@@ -35,7 +35,7 @@ public class Student extends User {
         return email.contains("email.sc.edu");
     }
     public void reviewEmployer(double rating) {
-        
+        get
     }
     public void apply(JobPosting job) {
         job.addApplicant(this);
