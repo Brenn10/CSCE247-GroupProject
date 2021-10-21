@@ -14,6 +14,28 @@ public abstract class User {
         
     }
     protected boolean isPasswordValid(String username, String password) {
-         return true;
+         return this.username == username && this.password == password;
     }
+
+    protected String getUsername() {
+        return this.username;
+    }
+
+    protected String getPassword() {
+        return this.password;
+    }
+    
+    protected String getEmail() {
+        return this.email;
+    }
+
+    protected String getFirstName() {
+        return this.firstName;
+    }
+
+    protected String getLastName() {
+        return this.lastName;
+    }
+
+
 }

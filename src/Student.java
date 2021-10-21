@@ -12,10 +12,12 @@ public class Student extends User {
         this.password = password;
         this.email = email;
         this.major = major;
+        createdResume = false;
+        reviews = new ArrayList<Review>();
 
     }
     private boolean isEmailValid(String email) {
-        return true;
+        return email.contains("email.sc.edu");
     }
     public void reviewEmployer(double rating) {
         
