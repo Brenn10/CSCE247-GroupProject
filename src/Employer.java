@@ -30,8 +30,18 @@ public class Employer extends User {
         makePosting(new JobPosting(this, description, requirements, hourlyWage, status, applicants));
     }
 
-    public void editPosting(JobPosting job, String toChange) {
+    public void editPostingDescription(JobPosting job, String toChange) {
+       setPostings(postings); // need to access an point in array l
         // for this to work, we would need getters/setters? and define how to Change works
+    }
+    public void editPostingRequirements(JobPosting job, String toChange, int index) {
+        this.job.addRequirements(requirements);
+    }
+    public void editPostingWage(JobPosting job, double wage) {
+
+    }
+    public void editPostingStatus(JobPosting job, String status) {
+
     }
     public void removePosting(JobPosting job) {
         // something with the database that I am unsure about
@@ -76,7 +86,7 @@ public class Employer extends User {
        this.company = company;
     }
 
-    public void getPostings(ArrayList<JobPosting> postings) {
+    public void setPostings(ArrayList<JobPosting> postings) {
         this.postings = postings;
     }
 
