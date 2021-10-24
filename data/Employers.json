@@ -7,7 +7,8 @@
         "firstName": "Amazon",
         "lastName": "Rep",
         "approved": true,
-        "company": "Amazon"
+        "company": "Amazon",
+        "averageRating": 4.9
     },
     {
         "id": "69599de1-4423-4573-b40d-145d290282e1",
@@ -17,6 +18,7 @@
         "firstName": "Hiring",
         "lastName": "Representative",
         "approved": false,
-        "company": "Google"
+        "company": "Google",
+        "averageRating": 4.2
     }
 ]

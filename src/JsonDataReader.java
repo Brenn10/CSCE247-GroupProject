@@ -43,6 +43,11 @@ public class JsonDataReader extends DataReader {
             dataBlob.addUser(student);
         }
 
+        ArrayList<Employer> employerList = readEmployers();
+        for (Employer employer : employerList) {
+            dataBlob.addUser(employer);
+        }
+
         return dataBlob;
     }
 
@@ -152,7 +157,30 @@ public class JsonDataReader extends DataReader {
     }
 
     private ArrayList<Employer> readEmployers() {
-        return null;
+        ArrayList<Employer> employerList = new ArrayList<Employer>();
+        try {
+            FileReader reader = new FileReader(employerFilePath);
+            JSONArray jsonList = (JSONArray) parser.parse(reader);
+            for (Object employerObj : jsonList) {
+                JSONObject employerJson = (JSONObject) employerObj;
+
+                Employer employer = new Employer.Builder()
+                    .id(UUID.fromString((String) employerJson.get("id")))
+                    .username((String) employerJson.get("username"))
+                    .password((String) employerJson.get("password"))
+                    .email((String) employerJson.get("email"))
+                    .firstName((String) employerJson.get("firstName"))
+                    .lastName((String) employerJson.get("lastName"))
+                    .approved((boolean) employerJson.get("approved"))
+                    .company((String) employerJson.get("company"))
+                    .averageRating(((double) employerJson.get("averageRating")))
+                    .build();
+                employerList.add(employer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return employerList;
     }
 
     private ArrayList<Professor> readProfessors() {
