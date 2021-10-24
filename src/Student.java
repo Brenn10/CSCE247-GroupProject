@@ -32,6 +32,7 @@ public class Student extends User {
     }
 
     public void reviewEmployer(double rating) {
+        //TODO database
     }
     public void apply(JobPosting job) {
         job.addApplicant(this);
