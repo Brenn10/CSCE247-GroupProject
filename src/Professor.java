@@ -47,4 +47,57 @@ public class Professor extends User {
         this.email = email;
     }
 
+
+    public static class Builder {
+        private UUID id;
+        private String username;
+        private String password;
+        private String email;
+        private String firstName;
+        private String lastName;
+        private boolean approved;
+
+        public Builder() {
+            this.id = UUID.randomUUID();
+        }
+
+        public Builder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder approved(boolean approved) {
+            this.approved = approved;
+            return this;
+        }
+
+        public Professor build() {
+            return new Professor(id, username, password, email, firstName, lastName, approved);
+        }
+    }
 }

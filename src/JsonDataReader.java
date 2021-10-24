@@ -48,6 +48,11 @@ public class JsonDataReader extends DataReader {
             dataBlob.addUser(employer);
         }
 
+        ArrayList<Professor> professorList = readProfessors();
+        for (Professor professor : professorList) {
+            dataBlob.addUser(professor);
+        }        
+
         return dataBlob;
     }
 
@@ -184,7 +189,28 @@ public class JsonDataReader extends DataReader {
     }
 
     private ArrayList<Professor> readProfessors() {
-        return null;
+        ArrayList<Professor> professorList = new ArrayList<Professor>();
+        try {
+            FileReader reader = new FileReader(professorFilePath);
+            JSONArray jsonList = (JSONArray) parser.parse(reader);
+            for (Object professorObj : jsonList) {
+                JSONObject professorJson = (JSONObject) professorObj;
+
+                Professor professor = new Professor.Builder()
+                    .id(UUID.fromString((String) professorJson.get("id")))
+                    .username((String) professorJson.get("username"))
+                    .password((String) professorJson.get("password"))
+                    .email((String) professorJson.get("email"))
+                    .firstName((String) professorJson.get("firstName"))
+                    .lastName((String) professorJson.get("lastName"))
+                    .approved((boolean) professorJson.get("approved"))
+                    .build();
+                professorList.add(professor);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return professorList;
     }
 
     private ArrayList<Review> readReviews() {
