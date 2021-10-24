@@ -55,7 +55,11 @@ public class Employer extends User {
     }
     
     public void rateStudent(Student student, int score, String comment) {
-        Review rating = new Review(this, student, score, comment);
+        Review rating = new Review.Builder().reviewer(this)
+                                            .reviewee(student)
+                                            .rating(score)
+                                            .comment(comment)
+                                            .build();
         // do something with the database 
     }
 

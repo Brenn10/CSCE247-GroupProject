@@ -14,7 +14,12 @@ public class Professor extends User {
     }
    
     public void rateStudent(Student student, int rating, String comment) {
-        Review reviewToAdd = new Review(this, student, rating, comment);
+        Review reviewToAdd = new Review.Builder()
+                                       .reviewer(this)
+                                       .reviewee(student)
+                                       .rating(rating)
+                                       .comment(comment)
+                                       .build();
         ReviewDatabase.getInstance().addReview(reviewToAdd); 
     }
 

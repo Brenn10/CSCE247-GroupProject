@@ -16,6 +16,7 @@ public abstract class User {
                 String firstName,
                 String lastName,
                 boolean approved) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -31,25 +32,27 @@ public abstract class User {
          return this.username == username && this.password == password;
     }
 
-    protected String getUsername() {
+    public UUID getId() {
+        return id;
+    }
+
+    public String getUsername() {
         return this.username;
     }
 
-    protected String getPassword() {
+    public String getPassword() {
         return this.password;
     }
     
-    protected String getEmail() {
+    public String getEmail() {
         return this.email;
     }
 
-    protected String getFirstName() {
+    public String getFirstName() {
         return this.firstName;
     }
 
-    protected String getLastName() {
+    public String getLastName() {
         return this.lastName;
     }
-
-
 }

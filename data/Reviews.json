@@ -1,13 +1,13 @@
 [
     {
-        "reviewer": ""c5deba63-26dd-4a90-b981-70651c443aad"",
-        "student": ""110c60ef-e00f-436a-98af-9067e89fbf83"",
+        "reviewer": "c5deba63-26dd-4a90-b981-70651c443aad",
+        "reviewee": "110c60ef-e00f-436a-98af-9067e89fbf83",
         "rating": "4",
         "comment": "Pretty cool I guess"
     },
     {
         "reviewer": "619692960",
-        "student": ""d76cd90a-0954-481f-a4c6-d3fd9af084de"",
+        "reviewee": "d76cd90a-0954-481f-a4c6-d3fd9af084de",
         "rating": "5",
         "comment": "Also pretty cool I guess"
     }

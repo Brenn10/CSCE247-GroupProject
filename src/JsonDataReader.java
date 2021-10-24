@@ -7,6 +7,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class JsonDataReader extends DataReader {
+    private DataBlob dataBlob;
+
     private String adminFilePath;
     private String studentFilePath;
     private String employerFilePath;
@@ -31,7 +33,7 @@ public class JsonDataReader extends DataReader {
     }
 
     public DataBlob read() {
-        DataBlob dataBlob = new DataBlob();
+        dataBlob = new DataBlob();
 
         ArrayList<Administrator> adminList = readAdministrators();
         for (Administrator admin : adminList) {
@@ -214,7 +216,48 @@ public class JsonDataReader extends DataReader {
     }
 
     private ArrayList<Review> readReviews() {
-        return null;
+        ArrayList<Review> reviewList = new ArrayList<Review>();
+        try {
+            FileReader reader = new FileReader(reviewFilePath);
+            JSONArray jsonList = (JSONArray) parser.parse(reader);
+            for (Object reviewObj : jsonList) {
+                JSONObject reviewJson = (JSONObject) reviewObj;
+
+                User reviewee = null;
+                for (User user : dataBlob.getUsers()) {
+                    if (user.getId().equals(UUID.fromString((String) reviewJson.get("student")))) {
+                        reviewee = user;
+                        break;
+                    }
+                }
+                if (reviewee == null) {
+                    throw new Exception("Student not found");
+                }
+
+                User reviewer = null;
+                for (User user : dataBlob.getUsers()) {
+                    if (user.getId().equals(UUID.fromString((String) reviewJson.get("reviewer")))) {
+                        reviewer = user;
+                        break;
+                    }
+                }
+                if (reviewer == null) {
+                    throw new Exception("Reviewer not found");
+                }
+
+                Review review = new Review.Builder()
+                    .id(UUID.fromString((String) reviewJson.get("id")))
+                    .reviewer(reviewer)
+                    .reviewee(reviewee)
+                    .rating((int) reviewJson.get("rating"))
+                    .comment((String) reviewJson.get("comment"))
+                    .build();
+                reviewList.add(review);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reviewList;
     }
 
     private ArrayList<JobPosting> readJobPostings() {
