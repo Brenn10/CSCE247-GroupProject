@@ -9,7 +9,14 @@ public class JobSystem {
     private static int userVerify; 
     
     public JobSystem () {
-        // update vars from json files 
+        Database.getInstance()
+                .setDataReader(new JsonDataReader(
+                        "data/Administrators.json",
+                        "data/Students.json", 
+                        "data/Employers.json",
+                        "data/Professors.json",
+                        "data/Reviews.json",
+                        "data/JobPostings.json"));
     }
 
     public static boolean login (String username, String password) {

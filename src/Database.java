@@ -12,7 +12,7 @@ public class Database {
 
     private Database() {}
     
-    public Database getInstance() {
+    public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
         }
