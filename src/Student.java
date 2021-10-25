@@ -31,8 +31,14 @@ public class Student extends User {
         this.averageRating = averageRating;
     }
 
-    public void reviewEmployer(double rating) {
-        //TODO database
+    public void reviewEmployer(Employer employer, int score, String comment) {
+        Review rating = new Review.Builder().reviewer(this)
+                                            .reviewee(employer)
+                                            .rating(score)
+                                            .comment(comment)
+                                            .build();
+        ReviewDatabase.getInstance().addReview(rating);
+        // TODO something with the database 
     }
     public void apply(JobPosting job) {
         job.addApplicant(this);

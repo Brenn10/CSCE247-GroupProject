@@ -61,7 +61,7 @@ public class Employer extends User {
                                             .comment(comment)
                                             .build();
         ReviewDatabase.getInstance().addReview(rating);
-        // do something with the database 
+        //TODO something with the database 
     }
 
     // get and set methods 
