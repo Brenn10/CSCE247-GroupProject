@@ -31,6 +31,10 @@ public class Review {
         return this.comment;
     }
 
+    public UUID getID() {
+        return this.id;
+    }
+
     public void setRating(int rating) {
         this.rating = rating;
     }

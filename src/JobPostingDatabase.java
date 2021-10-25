@@ -17,7 +17,16 @@ public class JobPostingDatabase {
     }
 
     public void addPosting(JobPosting posting) {
+        postings.add(posting);
         // add posting to database 
+    }
+
+    public ArrayList<JobPosting> getPostings() {
+        return this.postings;
+    }
+
+    public ArrayList<JobPosting> getRemovedPostings() {
+        return this.removedPostings;
     }
 
   

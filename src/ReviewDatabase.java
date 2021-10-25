@@ -17,10 +17,14 @@ public class ReviewDatabase {
     }
 
     public void addReview(Review review) {
-        
+        reviews.add(review);
+        //TODO database
     }
 
     public void removeReveiw(Review review) {
+        // reviews.remove(review); // do we need this?
+        removedReviews.add(review);
+        //TODO database
 
     }
 

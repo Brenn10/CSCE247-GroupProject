@@ -20,7 +20,12 @@ public class UserDatabase {
         return this.users;
     }
 
+    public ArrayList<User> getRemovedUsers() {
+        return this.removedUsers;
+    }
+
     public void addUser(User user) {
+        users.add(user);
         // add user to databse
     }
 
