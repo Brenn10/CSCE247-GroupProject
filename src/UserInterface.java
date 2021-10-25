@@ -27,7 +27,7 @@ public class UserInterface {
            availableNext = true; // delete once signup is finished
            //availableNext = jobSystem.signup(login, password);
        } else {
-           // error message, restate, loop again
+           System.out.println("Please select a valid number\n");
        }
        System.out.print("\033[H\033[2J");
        System.out.flush();
@@ -46,7 +46,7 @@ public class UserInterface {
        } 
        System.out.print("\033[H\033[2J");
        System.out.flush();
-       System.out.print("Thank you for using Neurotic Job Search");
+       System.out.print("Thank you for using Neurotic Job Search!");
    }
     }
     /**
@@ -122,7 +122,7 @@ public class UserInterface {
                 // show all self jobs, ask which to edit
                 keepLooping = false;
             } else if (option == 2) {
-                // same as Prof write review
+                reviewMenuStudent();
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
@@ -150,7 +150,7 @@ public class UserInterface {
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
-                // show all students, ask for student, write review
+                reviewMenuStudent();
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
@@ -158,12 +158,16 @@ public class UserInterface {
         }
     }
     private void reviewMenuStudent() {
-        // same for proffessors AND Employers
+        // same for professors AND Employers
         jobSystem.showAllStudent();
         //ask for specific student
-
-        jobSystem.rateStudent(); // chosen student
-        // loop until 0 chosen
+        System.out.println("Please select a student's first name"); // or something similar
+        boolean studentNotFound = false;
+        
+        Scanner studentSelect = new Scanner(System.in);
+        String chosenStudent = studentSelect.nextLine();
+        jobSystem.rateStudent(chosenStudent); // chosen student
+        // loop until 0 chosen or student selected and rated successfully
     }
 
     /**
@@ -190,15 +194,27 @@ public class UserInterface {
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
-                // ask what type of class, then select user
+                disguise();
                 keepLooping = false;
             } else if (option == 2) {
                 // show all users, ask for deletion, or approval
+                approvalMenu();
                 keepLooping = false;   
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
             }
         }
+    }
+    private void disguise() {
+        // ask for what type of user you want to be as
+
+        // show all users of that type, ask which one you want to access
+        // set current user to that, run that verification type
+    }
+    private void approvalMenu() {
+        // show all users not approved OR everyone
+        // select a user, ask for either delete or approve
+        // confirm deletion
     }
     public static void main(String[] args) {
         UserInterface neurotic = new UserInterface();

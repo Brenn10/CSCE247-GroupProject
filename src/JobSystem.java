@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JobSystem {
+    //100% have unneeded methods in here
     private static User currentUser; // admin, employeer, student
-    //private ArrayList<User> users; // for getting current user (login)
+    private ArrayList<User> users; // for getting current user (login)
 
-    // 0 unapproved users, 1 prof, 2 student, 3 employer, 4 admin (easy to check)
+    // 0 unapproved users, 1 prof, 2 student, 3 employer, 4 admin
     private static int userVerify; 
     
     public JobSystem () {
@@ -20,11 +21,10 @@ public class JobSystem {
     }
 
     public static boolean login (String username, String password) {
-        // depends on how users/user will function 
         //if (UserDatabase.haveUser(username)) {
             //if(Users.matchPassword(username, password)) {
                 //currentUser = users.getUser(username);
-               // userVerify = currentUser.getVerify;
+                // getCurrentVerify();
                 //return true;
            // }
         //}
@@ -38,7 +38,7 @@ public class JobSystem {
 
         String password2 = passwordChecker.nextLine();
         if(password2 == password) {
-            // create user, make user == currentUser
+            // what type of profile, email, etc.
             getCurrentVerify();
             return true;
         }
@@ -47,7 +47,7 @@ public class JobSystem {
     private static void getCurrentVerify(){
         // only call this once the CurrentUser is set
         String userClassList = currentUser.getClass().toString();
-        // delete first 15 indecies to get name of the class
+        // delete first X indecies to get name of the class (unsure how many)
         userClassList = userClassList.substring(15);
 
 
@@ -85,8 +85,11 @@ public class JobSystem {
             // show posting with applicants
         }
     }
-    public void rateStudent() {
+    public boolean rateStudent(String studentName) {
+        // return false if couldn't find student
+        boolean studentFound  = false;
         
+        return studentFound;
     }
     public void showAllStudent() {
         // display all students
@@ -95,7 +98,7 @@ public class JobSystem {
         // display all jobPostings
     }
     public void getSelfReviews() {
-        
+
     }
     public void rateEmployer() {
         
