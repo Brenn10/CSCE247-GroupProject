@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Student extends User {
-    private String major;
+    private Major major;
     private boolean createdResume;
     private ArrayList<Employment> employments;
     private ArrayList<Education> educations;
@@ -16,7 +16,7 @@ public class Student extends User {
                    String firstName,
                    String lastName,
                    boolean approved,
-                   String major,
+                   Major major,
                    boolean createdResume,
                    ArrayList<Employment> employments,
                    ArrayList<Education> educations,
@@ -66,7 +66,7 @@ public class Student extends User {
     }
     // get and set methods 
 
-    public String getMajor() {
+    public Major getMajor() {
         return this.major;
     }
     public boolean getCreated() {
@@ -91,7 +91,7 @@ public class Student extends User {
         return this.email;
     }
 
-    public void setMajor(String major) {
+    public void setMajor(Major major) {
         this.major = major;
     }
     public void setCreated(Boolean createdResume) {
@@ -109,7 +109,7 @@ public class Student extends User {
         private String firstName;
         private String lastName;
         private boolean approved;
-        private String major;
+        private Major major;
         private boolean createdResume;
         private ArrayList<Employment> employments;
         private ArrayList<Education> educations;
@@ -124,6 +124,7 @@ public class Student extends User {
             firstName = "";
             lastName = "";
             approved = false;
+            major = Major.NA;
         }
 
         public Builder id(UUID id) {
@@ -161,7 +162,7 @@ public class Student extends User {
             return this;
         }
 
-        public Builder major(String major) {
+        public Builder major(Major major) {
             this.major = major;
             return this;
         }

@@ -66,13 +66,13 @@ public class JsonDataReader extends DataReader {
             for (Object adminObj : jsonList) {
                 JSONObject adminJson = (JSONObject) adminObj;
                 Administrator admin = new Administrator.Builder()
-                    .id(UUID.fromString((String) adminJson.get("id")))
-                    .username((String) adminJson.get("username"))
-                    .password((String) adminJson.get("password"))
-                    .email((String) adminJson.get("email"))
-                    .firstName((String) adminJson.get("firstName"))
-                    .lastName((String) adminJson.get("lastName"))
-                    .approved((boolean) adminJson.get("approved"))
+                    .id(UUID.fromString((String) adminJson.get(JsonDataLabels.USER_ID)))
+                    .username((String) adminJson.get(JsonDataLabels.USER_USERNAME))
+                    .password((String) adminJson.get(JsonDataLabels.USER_PASSWORD))
+                    .email((String) adminJson.get(JsonDataLabels.USER_EMAIL))
+                    .firstName((String) adminJson.get(JsonDataLabels.USER_FIRSTNAME))
+                    .lastName((String) adminJson.get(JsonDataLabels.USER_LASTNAME))
+                    .approved((boolean) adminJson.get(JsonDataLabels.USER_APPROVED))
                     .build();
                 adminList.add(admin);
             }
@@ -91,69 +91,69 @@ public class JsonDataReader extends DataReader {
                 JSONObject studentJson = (JSONObject) studentObj;
 
                 ArrayList<String> skills = new ArrayList<String>();
-                JSONArray skillsJson = (JSONArray) studentJson.get("skills");
+                JSONArray skillsJson = (JSONArray) studentJson.get(JsonDataLabels.STUDENT_SKILLS);
                 for (Object skillObj : skillsJson) {
                     skills.add((String) skillObj);
                 }
 
                 ArrayList<Employment> employments = new ArrayList<Employment>();
-                JSONArray employmentsJson = (JSONArray) studentJson.get("employments");
+                JSONArray employmentsJson = (JSONArray) studentJson.get(JsonDataLabels.STUDENT_EMPLOYMENTS);
                 for (Object employmentObj : employmentsJson) {
                     JSONObject employmentJson = (JSONObject) employmentObj;
 
                     ArrayList<String> details = new ArrayList<String>();
-                    for (Object detail : (JSONArray) employmentJson.get("details")) {
+                    for (Object detail : (JSONArray) employmentJson.get(JsonDataLabels.STUDENT_EMPLOYMENT_DETAILS)) {
                         details.add((String) detail);
                     }
 
                     Employment employment = new Employment.Builder()
-                        .company((String) employmentJson.get("company"))
-                        .title((String) employmentJson.get("title"))
-                        .dates((String) employmentJson.get("dates"))
+                        .company((String) employmentJson.get(JsonDataLabels.STUDENT_EMPLOYMENT_COMPANY))
+                        .title((String) employmentJson.get(JsonDataLabels.STUDENT_EMPLOYMENT_TITLE))
+                        .dates((String) employmentJson.get(JsonDataLabels.STUDENT_EMPLOYMENT_DATES))
                         .details(details)
                         .build();
                     employments.add(employment);
                 }
 
                 ArrayList<Education> educations = new ArrayList<Education>();
-                JSONArray educationsJson = (JSONArray) studentJson.get("educations");
+                JSONArray educationsJson = (JSONArray) studentJson.get(JsonDataLabels.STUDENT_EDUCATIONS);
                 for (Object educationObj : educationsJson) {
                     JSONObject educationJson = (JSONObject) educationObj;
 
                     Education education = new Education.Builder()
-                        .place((String) educationJson.get("place"))
-                        .gpa((double) educationJson.get("gpa"))
-                        .gradDate((String) educationJson.get("gradDate"))
+                        .place((String) educationJson.get(JsonDataLabels.STUDENT_EDUCATION_PLACE))
+                        .gpa((double) educationJson.get(JsonDataLabels.STUDENT_EDUCATION_GPA))
+                        .gradDate((String) educationJson.get(JsonDataLabels.STUDENT_EDUCATION_GRADDATE))
                         .build();
                     educations.add(education);
                 }
 
                 Major major = Major.NA;
-                String majorStr = (String) studentJson.get("major");
-                if (majorStr.equalsIgnoreCase("computer science")) {
+                String majorStr = (String) studentJson.get(JsonDataLabels.STUDENT_MAJOR);
+                if (majorStr.equalsIgnoreCase(Major.COMPUTER_SCIENCE.toString())) {
                     major = Major.COMPUTER_SCIENCE;
-                } else if (majorStr.equalsIgnoreCase("computer engineering")) {
+                } else if (majorStr.equalsIgnoreCase(Major.COMPUTER_ENGINEERING.toString())) {
                     major = Major.COMPUTER_ENGINEERING;
-                } else if (majorStr.equalsIgnoreCase("computer information systems")) {
+                } else if (majorStr.equalsIgnoreCase(Major.COMPUTER_INFORMATION_SYSTEMS.toString())) {
                     major = Major.COMPUTER_INFORMATION_SYSTEMS;
-                } else if (majorStr.equalsIgnoreCase("integrated information technology")) {
+                } else if (majorStr.equalsIgnoreCase(Major.INTEGRATED_INFORMATION_TECHNOLOGY.toString())) {
                     major = Major.INTEGRATED_INFORMATION_TECHNOLOGY;
                 }
 
                 Student student = new Student.Builder()
-                    .id(UUID.fromString((String) studentJson.get("id")))
-                    .username((String) studentJson.get("username"))
-                    .password((String) studentJson.get("password"))
-                    .email((String) studentJson.get("email"))
-                    .firstName((String) studentJson.get("firstName"))
-                    .lastName((String) studentJson.get("lastName"))
-                    .approved((boolean) studentJson.get("approved"))
-                    .major((String) studentJson.get("major"))
-                    .createdResume((boolean) studentJson.get("createdResume"))
+                    .id(UUID.fromString((String) studentJson.get(JsonDataLabels.USER_ID)))
+                    .username((String) studentJson.get(JsonDataLabels.USER_USERNAME))
+                    .password((String) studentJson.get(JsonDataLabels.USER_PASSWORD))
+                    .email((String) studentJson.get(JsonDataLabels.USER_EMAIL))
+                    .firstName((String) studentJson.get(JsonDataLabels.USER_FIRSTNAME))
+                    .lastName((String) studentJson.get(JsonDataLabels.USER_LASTNAME))
+                    .approved((boolean) studentJson.get(JsonDataLabels.USER_APPROVED))
+                    .major(major)
+                    .createdResume((boolean) studentJson.get(JsonDataLabels.STUDENT_CREATEDRESUME))
                     .employments(employments)
                     .educations(educations)
                     .technicalSkills(skills)
-                    .averageRating((double) studentJson.get("averageRating"))
+                    .averageRating((double) studentJson.get(JsonDataLabels.STUDENT_AVERAGERATING))
                     .build();
                 studentList.add(student);
             }
@@ -172,15 +172,15 @@ public class JsonDataReader extends DataReader {
                 JSONObject employerJson = (JSONObject) employerObj;
 
                 Employer employer = new Employer.Builder()
-                    .id(UUID.fromString((String) employerJson.get("id")))
-                    .username((String) employerJson.get("username"))
-                    .password((String) employerJson.get("password"))
-                    .email((String) employerJson.get("email"))
-                    .firstName((String) employerJson.get("firstName"))
-                    .lastName((String) employerJson.get("lastName"))
-                    .approved((boolean) employerJson.get("approved"))
-                    .company((String) employerJson.get("company"))
-                    .averageRating(((double) employerJson.get("averageRating")))
+                    .id(UUID.fromString((String) employerJson.get(JsonDataLabels.USER_ID)))
+                    .username((String) employerJson.get(JsonDataLabels.USER_USERNAME))
+                    .password((String) employerJson.get(JsonDataLabels.USER_PASSWORD))
+                    .email((String) employerJson.get(JsonDataLabels.USER_EMAIL))
+                    .firstName((String) employerJson.get(JsonDataLabels.USER_FIRSTNAME))
+                    .lastName((String) employerJson.get(JsonDataLabels.USER_LASTNAME))
+                    .approved((boolean) employerJson.get(JsonDataLabels.USER_APPROVED))
+                    .company((String) employerJson.get(JsonDataLabels.EMPLOYER_COMPANY))
+                    .averageRating(((double) employerJson.get(JsonDataLabels.EMPLOYER_AVERAGERATING)))
                     .build();
                 employerList.add(employer);
             }
@@ -199,13 +199,13 @@ public class JsonDataReader extends DataReader {
                 JSONObject professorJson = (JSONObject) professorObj;
 
                 Professor professor = new Professor.Builder()
-                    .id(UUID.fromString((String) professorJson.get("id")))
-                    .username((String) professorJson.get("username"))
-                    .password((String) professorJson.get("password"))
-                    .email((String) professorJson.get("email"))
-                    .firstName((String) professorJson.get("firstName"))
-                    .lastName((String) professorJson.get("lastName"))
-                    .approved((boolean) professorJson.get("approved"))
+                    .id(UUID.fromString((String) professorJson.get(JsonDataLabels.USER_ID)))
+                    .username((String) professorJson.get(JsonDataLabels.USER_USERNAME))
+                    .password((String) professorJson.get(JsonDataLabels.USER_PASSWORD))
+                    .email((String) professorJson.get(JsonDataLabels.USER_EMAIL))
+                    .firstName((String) professorJson.get(JsonDataLabels.USER_FIRSTNAME))
+                    .lastName((String) professorJson.get(JsonDataLabels.USER_LASTNAME))
+                    .approved((boolean) professorJson.get(JsonDataLabels.USER_APPROVED))
                     .build();
                 professorList.add(professor);
             }
@@ -225,7 +225,7 @@ public class JsonDataReader extends DataReader {
 
                 User reviewee = null;
                 for (User user : dataBlob.getUsers()) {
-                    if (user.getId().equals(UUID.fromString((String) reviewJson.get("student")))) {
+                    if (user.getId().equals(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_REVIEWEE)))) {
                         reviewee = user;
                         break;
                     }
@@ -236,7 +236,7 @@ public class JsonDataReader extends DataReader {
 
                 User reviewer = null;
                 for (User user : dataBlob.getUsers()) {
-                    if (user.getId().equals(UUID.fromString((String) reviewJson.get("reviewer")))) {
+                    if (user.getId().equals(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_REVIEWER)))) {
                         reviewer = user;
                         break;
                     }
@@ -246,11 +246,11 @@ public class JsonDataReader extends DataReader {
                 }
 
                 Review review = new Review.Builder()
-                    .id(UUID.fromString((String) reviewJson.get("id")))
+                    .id(UUID.fromString((String) reviewJson.get(JsonDataLabels.USER_ID)))
                     .reviewer(reviewer)
                     .reviewee(reviewee)
-                    .rating((int) reviewJson.get("rating"))
-                    .comment((String) reviewJson.get("comment"))
+                    .rating((int) reviewJson.get(JsonDataLabels.REVIEW_RATING))
+                    .comment((String) reviewJson.get(JsonDataLabels.REVIEW_COMMENT))
                     .build();
                 reviewList.add(review);
             }
