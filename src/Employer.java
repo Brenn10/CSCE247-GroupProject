@@ -27,8 +27,13 @@ public class Employer extends User {
 
     //overload make posting method
     public void makePosting(String description, ArrayList<String> requirements, 
-    double hourlyWage, String status, ArrayList<Student> applicants) {
-        makePosting(new JobPosting(this, description, requirements, hourlyWage, status, applicants));
+    double hourlyWage, JobPostingStatus status, ArrayList<Student> applicants) {
+        makePosting(new JobPosting.Builder().description(description)
+        .requirements(requirements)
+        .hourlyWage(hourlyWage)
+        .status(status)
+        .applicants(applicants)
+        .build());
     }
 
     // edit posting methods 
@@ -44,7 +49,7 @@ public class Employer extends User {
     public void editPostingWage(JobPosting job, double wage) {
         job.setWage(wage);
     }
-    public void editPostingStatus(JobPosting job, String status) {
+    public void editPostingStatus(JobPosting job, JobPostingStatus status) {
         job.setStatus(status);
     }
     public void removePosting(JobPosting job) {

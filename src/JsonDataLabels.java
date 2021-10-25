@@ -28,4 +28,13 @@ public class JsonDataLabels {
     public static final String REVIEW_REVIEWER = "reviewer";
     public static final String REVIEW_RATING = "rating";
     public static final String REVIEW_COMMENT = "comment";
+
+    public static final String JOBPOSTING_ID = "id";
+    public static final String JOBPOSTING_TITLE = "jobTitle";
+    public static final String JOBPOSTING_EMPLOYER = "employerId";
+    public static final String JOBPOSTING_REQUIREMENTS = "requirements";
+    public static final String JOBPOSTING_DESCRIPTION = "description";
+    public static final String JOBPOSTING_STATUS = "jobPostingStatus";
+    public static final String JOBPOSTING_APPLICANTS = "applicants";
+    public static final String JOBPOSTING_HOURLYWAGE = "hourlyWage";
 }

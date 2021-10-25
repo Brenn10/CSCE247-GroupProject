@@ -53,7 +53,17 @@ public class JsonDataReader extends DataReader {
         ArrayList<Professor> professorList = readProfessors();
         for (Professor professor : professorList) {
             dataBlob.addUser(professor);
-        }        
+        }     
+        
+        ArrayList<Review> reviewList = readReviews();
+        for (Review review : reviewList) {
+            dataBlob.addReview(review);
+        }
+
+        ArrayList<JobPosting> jobPostingList = readJobPostings();
+        for (JobPosting jobPosting : jobPostingList) {
+            dataBlob.addJobPosting(jobPosting);
+        }
 
         return dataBlob;
     }
@@ -261,7 +271,70 @@ public class JsonDataReader extends DataReader {
     }
 
     private ArrayList<JobPosting> readJobPostings() {
-        return null;
+        ArrayList<JobPosting> jobPostingList = new ArrayList<JobPosting>();
+        try {
+            FileReader reader = new FileReader(jobPostingFilePath);
+            JSONArray jsonList = (JSONArray) parser.parse(reader);
+            for (Object jobPostingObj : jsonList) {
+                JSONObject jobPostingJson = (JSONObject) jobPostingObj;
+
+                Employer employer = null;
+                for (User e : dataBlob.getUsers()) {
+                    if (e.getId().equals(UUID.fromString((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_EMPLOYER)))) {
+                        employer = (Employer) e;
+                        break;
+                    }
+                }
+                if (employer == null) {
+                    throw new Exception("Employer not found");
+                }
+
+                ArrayList<String> requirements = new ArrayList<String>();
+                JSONArray requirementList = (JSONArray) jobPostingJson.get(JsonDataLabels.JOBPOSTING_REQUIREMENTS);
+                for (Object requirementObj : requirementList) {
+                    requirements.add((String) requirementObj);
+                }
+
+                JobPostingStatus status = JobPostingStatus.valueOf((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_STATUS));
+
+                // Get students by getting UUIDS and then searching for each UUID
+                ArrayList<UUID> applicantIds = new ArrayList<UUID>();
+                JSONArray applicantList = (JSONArray) jobPostingJson.get(JsonDataLabels.JOBPOSTING_APPLICANTS);
+                for (Object applicantObj : applicantList) {
+                    applicantIds.add(UUID.fromString((String) applicantObj));
+                }
+
+                ArrayList<Student> applicants = new ArrayList<Student>();
+                for (UUID id : applicantIds) {
+                    boolean userFound = false;
+                    for (User u : dataBlob.getUsers()) {
+                        if (u.getId().equals(id)) {
+                            applicants.add((Student) u);
+                            userFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!userFound) {
+                        throw new Exception("Student not found");
+                    }
+                }
+
+                JobPosting jobPosting = new JobPosting.Builder()
+                    .id(UUID.fromString((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_ID)))
+                    .employer(employer)
+                    .description((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_DESCRIPTION))
+                    .requirements(requirements)
+                    .hourlyWage((double) jobPostingJson.get(JsonDataLabels.JOBPOSTING_HOURLYWAGE))
+                    .status(status)
+                    .applicants(applicants)
+                    .build();
+                jobPostingList.add(jobPosting);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jobPostingList;
     }
     
 }

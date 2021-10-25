@@ -1,15 +1,18 @@
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class JobPosting {
+    private UUID id;
     private Employer employer;
     private String description;
     private ArrayList<String> requirements;
     private double hourlyWage;
-    private String status;
+    private JobPostingStatus status;
     private ArrayList<Student> applicants;
 
-    public JobPosting(Employer employer, String description, ArrayList<String> requirements, 
-    double hourlyWage, String status, ArrayList<Student> applicants) {
+    public JobPosting(UUID id, Employer employer, String description, ArrayList<String> requirements, 
+    double hourlyWage, JobPostingStatus status, ArrayList<Student> applicants) {
+        this.id = id;
         this.employer = employer;
         this.description = description;
         this.requirements = requirements;
@@ -46,7 +49,7 @@ public class JobPosting {
         return this.hourlyWage;
     }
 
-    public String getStatus() {
+    public JobPostingStatus getStatus() {
         return this.status;
     }
 
@@ -62,7 +65,7 @@ public class JobPosting {
        this.description = description;
     }
 
-    public void Requirements(ArrayList<String> requirements) {
+    public void setRequirements(ArrayList<String> requirements) {
         this.requirements = requirements;
     }
 
@@ -70,7 +73,7 @@ public class JobPosting {
         this.hourlyWage = hourlyWage;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(JobPostingStatus status) {
         // would require something with the enum
         this.status = status;
     }
@@ -79,6 +82,58 @@ public class JobPosting {
        this.applicants = applicants;
     }
 
-    
+    public static class Builder {
+        private UUID id;
+        private Employer employer;
+        private String description;
+        private ArrayList<String> requirements;
+        private double hourlyWage;
+        private JobPostingStatus status;
+        private ArrayList<Student> applicants;
 
+        public Builder() {
+            id = UUID.randomUUID();
+            this.requirements = new ArrayList<String>();
+            this.applicants = new ArrayList<Student>();
+        }
+
+        public Builder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder employer(Employer employer) {
+            this.employer = employer;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder requirements(ArrayList<String> requirements) {
+            this.requirements = requirements;
+            return this;
+        }
+
+        public Builder hourlyWage(double hourlyWage) {
+            this.hourlyWage = hourlyWage;
+            return this;
+        }
+
+        public Builder status(JobPostingStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder applicants(ArrayList<Student> applicants) {
+            this.applicants = applicants;
+            return this;
+        }
+
+        public JobPosting build() {
+            return new JobPosting(id, employer, description, requirements, hourlyWage, status, applicants);
+        }
+    }
 }

@@ -11,37 +11,8 @@
 
         "hourlyWage": "10.00",
         "jobPostingStatus": "Open",
-        "applications": [
-            {
-                "applicantId": "110c60ef-e00f-436a-98af-9067e89fbf83",
-                "employments": [
-                    {
-                        "company": "Teraki GmbH",
-                        "position": "R&D Intern",
-                        "dates": "January 2020 - August 2020",
-                        "details": [
-                            "Worked with customers to develop end to end solutions",
-                            "Used C++ and Python to create SDKs and APIs"
-                        ]
-                    }
-                ],
-                "educations": [
-                    {
-                        "place": "University of South Carolina",
-                        "degree": "Bachelor of Science",
-                        "major": "Computer Engineering",
-                        "gpa": 3.92,
-                        "gradDate": "December 2021"
-                    },
-                    {
-                        "place": "SC Governor's School for Science and Math",
-                        "degree": "High School Diploma",
-                        "major": "Computer Science and Math",
-                        "gpa": 4.6,
-                        "gradDate": "May 2017"
-                    }
-                ]
-            }
+        "applicantIds": [
+            "110c60ef-e00f-436a-98af-9067e89fbf83"
         ]
     },
     {
@@ -56,37 +27,9 @@
 
         "hourlyWage": "20.00",
         "jobPostingStatus": "Pending",
-        "aplications": [
-            {
-                "applicantId": "110c60ef-e00f-436a-98af-9067e89fbf83",
-                "employments": [
-                    {
-                        "company": "Teraki GmbH",
-                        "position": "R&D Intern",
-                        "dates": "January 2020 - August 2020",
-                        "details": [
-                            "Implemented Homography and optical flow tracking",
-                            "Designed RGB-D SLAM applications for mobile devices"
-                        ]
-                    }
-                ],
-                "educations": [
-                    {
-                        "place": "University of South Carolina",
-                        "degree": "Bachelor of Science",
-                        "major": "Computer Engineering",
-                        "gpa": 3.92,
-                        "gradDate": "December 2021"
-                    },
-                    {
-                        "place": "SC Governor's School for Science and Math",
-                        "degree": "High School Diploma",
-                        "major": "Computer Science and Math",
-                        "gpa": 4.6,
-                        "gradDate": "May 2017"
-                    }
-                ]
-            }
+        "applicantIds": [
+            "110c60ef-e00f-436a-98af-9067e89fbf83",
+            "d76cd90a-0954-481f-a4c6-d3fd9af084de"
         ]
     }
 ]
