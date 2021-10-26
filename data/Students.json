@@ -35,7 +35,8 @@
                 "gpa": 4.6,
                 "gradDate": "May 2017"
             }
-        ]
+        ],
+        "removed": false
     },
     {
         "id": "d76cd90a-0954-481f-a4c6-d3fd9af084de",
@@ -46,6 +47,7 @@
         "lastName": "Garcia",
         "approved": false,
         "major": "Computer Science",
-        "createdResume": false
-        }
+        "createdResume": false,
+        "removed": false
+    }
 ]

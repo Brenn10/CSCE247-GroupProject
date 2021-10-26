@@ -14,7 +14,8 @@
         "jobPostingStatus": "Open",
         "applicantIds": [
             "110c60ef-e00f-436a-98af-9067e89fbf83"
-        ]
+        ],
+        "removed": false
     },
     {
         "id": "6760cb5e-503c-4c3f-a361-6ea4ea1739ae",
@@ -32,6 +33,7 @@
         "applicantIds": [
             "110c60ef-e00f-436a-98af-9067e89fbf83",
             "d76cd90a-0954-481f-a4c6-d3fd9af084de"
-        ]
+        ],
+        "removed": false
     }
 ]

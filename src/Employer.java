@@ -6,6 +6,7 @@ public class Employer extends User {
     private ArrayList<JobPosting> postings;
     private ArrayList<Review> reviews;
     private double averageRating;
+    private boolean removed;
 
     public Employer(UUID id, 
             String username, 
@@ -15,10 +16,12 @@ public class Employer extends User {
             String lastName,
             boolean approved,
             String company,
-            double averageRating) {
+            double averageRating,
+            boolean removed) {
         super(id, username, password, email, firstName, lastName, approved);
         this.company = company;
         this.averageRating = averageRating;
+        this.removed = removed;
     }
     public void makePosting(JobPosting job) {
         postings.add(job);
@@ -36,7 +39,7 @@ public class Employer extends User {
         .applicants(applicants)
         .build());
     }
-
+    
     // edit posting methods 
     public  void editDescription(JobPosting job, String toChange) {
         job.setDescription(toChange);
@@ -128,6 +131,14 @@ public class Employer extends User {
         this.email = email;
     }
 
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
     public static class Builder {
         private UUID id;
         private String username;
@@ -138,6 +149,7 @@ public class Employer extends User {
         private boolean approved;
         private double averageRating;
         private String company;
+        private boolean removed;
 
 
         public Builder() {
@@ -190,8 +202,13 @@ public class Employer extends User {
             return this;
         }
 
+        public Builder removed(boolean removed) {
+            this.removed = removed;
+            return this;
+        }
+
         public Employer build() {
-            return new Employer(id, username, password, email, firstName, lastName, approved, company, averageRating);
+            return new Employer(id, username, password, email, firstName, lastName, approved, company, averageRating, removed);
         }
 
     }

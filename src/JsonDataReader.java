@@ -164,6 +164,7 @@ public class JsonDataReader extends DataReader {
                     .educations(educations)
                     .technicalSkills(skills)
                     .averageRating((double) studentJson.get(JsonDataLabels.STUDENT_AVERAGERATING))
+                    .removed((boolean) studentJson.get(JsonDataLabels.REMOVED))
                     .build();
                 studentList.add(student);
             }
@@ -191,6 +192,7 @@ public class JsonDataReader extends DataReader {
                     .approved((boolean) employerJson.get(JsonDataLabels.USER_APPROVED))
                     .company((String) employerJson.get(JsonDataLabels.EMPLOYER_COMPANY))
                     .averageRating(((double) employerJson.get(JsonDataLabels.EMPLOYER_AVERAGERATING)))
+                    .removed((boolean) employerJson.get(JsonDataLabels.REMOVED))
                     .build();
                 employerList.add(employer);
             }
@@ -216,6 +218,7 @@ public class JsonDataReader extends DataReader {
                     .firstName((String) professorJson.get(JsonDataLabels.USER_FIRSTNAME))
                     .lastName((String) professorJson.get(JsonDataLabels.USER_LASTNAME))
                     .approved((boolean) professorJson.get(JsonDataLabels.USER_APPROVED))
+                    .removed((boolean) professorJson.get(JsonDataLabels.REMOVED))
                     .build();
                 professorList.add(professor);
             }
@@ -261,6 +264,7 @@ public class JsonDataReader extends DataReader {
                     .reviewee(reviewee)
                     .rating((int) reviewJson.get(JsonDataLabels.REVIEW_RATING))
                     .comment((String) reviewJson.get(JsonDataLabels.REVIEW_COMMENT))
+                    .removed((boolean) reviewJson.get(JsonDataLabels.REMOVED))
                     .build();
                 reviewList.add(review);
             }
@@ -328,6 +332,7 @@ public class JsonDataReader extends DataReader {
                     .hourlyWage((double) jobPostingJson.get(JsonDataLabels.JOBPOSTING_HOURLYWAGE))
                     .status(status)
                     .applicants(applicants)
+                    .removed((boolean) jobPostingJson.get(JsonDataLabels.REMOVED))
                     .build();
                 jobPostingList.add(jobPosting);
             }

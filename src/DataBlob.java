@@ -44,6 +44,6 @@ public class DataBlob {
     }
 
     public void setJobPostings(ArrayList<JobPosting> jobPostings) {
-        jobPostings = jobPostings;
+        this.jobPostings = jobPostings;
     }  
 }

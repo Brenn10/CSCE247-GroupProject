@@ -4,13 +4,15 @@
         "reviewer": "c5deba63-26dd-4a90-b981-70651c443aad",
         "reviewee": "110c60ef-e00f-436a-98af-9067e89fbf83",
         "rating": "4",
-        "comment": "Pretty cool I guess"
+        "comment": "Pretty cool I guess",
+        "removed": false
     },
     {
         "id": "9ce55ff7-2220-4009-8054-e2012d71e79f",
         "reviewer": "619692960",
         "reviewee": "d76cd90a-0954-481f-a4c6-d3fd9af084de",
         "rating": "5",
-        "comment": "Also pretty cool I guess"
+        "comment": "Also pretty cool I guess",
+        "removed": false
     }
 ]

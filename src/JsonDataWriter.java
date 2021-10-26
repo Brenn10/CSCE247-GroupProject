@@ -102,62 +102,96 @@ public class JsonDataWriter extends DataWriter {
             }
         }
 
-
+        FileWriter adminWriter = null, studentWriter = null, employerWriter = null, professorWriter = null;
         try {
-            FileWriter adminWriter = new FileWriter(adminFilePath);
+            adminWriter = new FileWriter(adminFilePath);
             adminWriter.write(adminArray.toJSONString());
 
-            FileWriter studentWriter = new FileWriter(studentFilePath);
+            studentWriter = new FileWriter(studentFilePath);
             studentWriter.write(studentArray.toJSONString());
 
-            FileWriter employerWriter = new FileWriter(employerFilePath);
+            employerWriter = new FileWriter(employerFilePath);
             employerWriter.write(employerArray.toJSONString());
 
-            FileWriter professorWriter = new FileWriter(professorFilePath);
+            professorWriter = new FileWriter(professorFilePath);
             professorWriter.write(professorArray.toJSONString());
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (adminWriter != null) {
+                try {
+                    adminWriter.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            if (studentWriter != null) {
+                try {
+                    studentWriter.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            if (employerWriter != null) {
+                try {
+                    employerWriter.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            if (adminWriter != null) {
+                try {
+                    adminWriter.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     private JSONObject jsonify(Student student) { //TODO: implement
         JSONObject studentJson = new JSONObject();
         studentJson.put(JsonDataLabels.USER_ID.toString(), student.getId());
-        studentJson.put(JsonDataLabels.USER_USERNAME.toString(), student.getUsername());
-        studentJson.put(JsonDataLabels.USER_PASSWORD.toString(), student.getPassword());
-        studentJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), student.getFirstName());
-        studentJson.put(JsonDataLabels.USER_LASTNAME.toString(), student.getLastName());
-        studentJson.put(JsonDataLabels.USER_EMAIL.toString(), student.getEmail());
-        studentJson.put(JsonDataLabels.USER_APPROVED.toString(), student.isApproved());
-        studentJson.put(JsonDataLabels.STUDENT_MAJOR.toString(), student.getMajor().toString());
+        studentJson.put(JsonDataLabels.USER_USERNAME, student.getUsername());
+        studentJson.put(JsonDataLabels.USER_PASSWORD, student.getPassword());
+        studentJson.put(JsonDataLabels.USER_FIRSTNAME, student.getFirstName());
+        studentJson.put(JsonDataLabels.USER_LASTNAME, student.getLastName());
+        studentJson.put(JsonDataLabels.USER_EMAIL, student.getEmail());
+        studentJson.put(JsonDataLabels.USER_APPROVED, student.isApproved());
+        studentJson.put(JsonDataLabels.STUDENT_MAJOR, student.getMajor().toString());
         
-        studentJson.put(JsonDataLabels.STUDENT_CREATEDRESUME.toString(), student.hasCreatedResume());
-
+        studentJson.put(JsonDataLabels.STUDENT_CREATEDRESUME, student.hasCreatedResume());
+        studentJson.put(JsonDataLabels.REMOVED, student.isRemoved());
         if(student.hasCreatedResume()) {
             JSONArray jsonEmployments = new JSONArray();
             for (Employment employment : student.getEmployments()) {
                 JSONObject jsonEmployment = new JSONObject();
-                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_COMPANY.toString(), employment.getCompany());
-                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_DATES.toString(), employment.getDates());
-                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_TITLE.toString(), employment.getTitle());
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_COMPANY, employment.getCompany());
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_DATES, employment.getDates());
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_TITLE, employment.getTitle());
 
                 JSONArray details = new JSONArray();
                 for (String detail : employment.getDetails()) {
                     details.add(detail);
                 }
-                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_DETAILS.toString(), details);
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_DETAILS, details);
 
                 jsonEmployments.add(jsonEmployment);
             }
-            studentJson.put(JsonDataLabels.STUDENT_EMPLOYMENTS.toString(), jsonEmployments);
+            studentJson.put(JsonDataLabels.STUDENT_EMPLOYMENTS, jsonEmployments);
         
         
             JSONArray jsonEducations = new JSONArray();
             for (Education education : student.getEducations()) {
                 JSONObject jsonEducation = new JSONObject();
-                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_GPA.toString(), education.getGpa());
-                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_GRADDATE.toString(), education.getGradDate());
-                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_PLACE.toString(), education.getPlace());
+                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_GPA, education.getGpa());
+                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_GRADDATE, education.getGradDate());
+                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_PLACE, education.getPlace());
 
                 jsonEducations.add(jsonEducation);
             }
@@ -169,78 +203,79 @@ public class JsonDataWriter extends DataWriter {
 
     private JSONObject jsonify(Employer employer) {
         JSONObject employerJson = new JSONObject();
-        employerJson.put(JsonDataLabels.USER_ID.toString(), employer.getId());
-        employerJson.put(JsonDataLabels.USER_USERNAME.toString(), employer.getUsername());
-        employerJson.put(JsonDataLabels.USER_PASSWORD.toString(), employer.getPassword());
-        employerJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), employer.getFirstName());
-        employerJson.put(JsonDataLabels.USER_LASTNAME.toString(), employer.getLastName());
-        employerJson.put(JsonDataLabels.USER_EMAIL.toString(), employer.getEmail());
-        employerJson.put(JsonDataLabels.USER_APPROVED.toString(), employer.isApproved());
-        employerJson.put(JsonDataLabels.EMPLOYER_COMPANY.toString(), employer.getCompany());
-        employerJson.put(JsonDataLabels.EMPLOYER_AVERAGERATING.toString(), employer.getAverageRating());
-
+        employerJson.put(JsonDataLabels.USER_ID, employer.getId());
+        employerJson.put(JsonDataLabels.USER_USERNAME, employer.getUsername());
+        employerJson.put(JsonDataLabels.USER_PASSWORD, employer.getPassword());
+        employerJson.put(JsonDataLabels.USER_FIRSTNAME, employer.getFirstName());
+        employerJson.put(JsonDataLabels.USER_LASTNAME, employer.getLastName());
+        employerJson.put(JsonDataLabels.USER_EMAIL, employer.getEmail());
+        employerJson.put(JsonDataLabels.USER_APPROVED, employer.isApproved());
+        employerJson.put(JsonDataLabels.EMPLOYER_COMPANY, employer.getCompany());
+        employerJson.put(JsonDataLabels.EMPLOYER_AVERAGERATING, employer.getAverageRating());
+        employerJson.put(JsonDataLabels.REMOVED, employer.isRemoved());
         return employerJson;
     }
 
-    private JSONObject jsonify(Professor professor) { //TODO: implement
+    private JSONObject jsonify(Professor professor) {
         JSONObject professorJson = new JSONObject();
-        professorJson.put(JsonDataLabels.USER_ID.toString(), professor.getId());
-        professorJson.put(JsonDataLabels.USER_USERNAME.toString(), professor.getUsername());
-        professorJson.put(JsonDataLabels.USER_PASSWORD.toString(), professor.getPassword());
-        professorJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), professor.getFirstName());
-        professorJson.put(JsonDataLabels.USER_LASTNAME.toString(), professor.getLastName());
-        professorJson.put(JsonDataLabels.USER_EMAIL.toString(), professor.getEmail());
-        professorJson.put(JsonDataLabels.USER_APPROVED.toString(), professor.isApproved());
+        professorJson.put(JsonDataLabels.USER_ID, professor.getId());
+        professorJson.put(JsonDataLabels.USER_USERNAME, professor.getUsername());
+        professorJson.put(JsonDataLabels.USER_PASSWORD, professor.getPassword());
+        professorJson.put(JsonDataLabels.USER_FIRSTNAME, professor.getFirstName());
+        professorJson.put(JsonDataLabels.USER_LASTNAME, professor.getLastName());
+        professorJson.put(JsonDataLabels.USER_EMAIL, professor.getEmail());
+        professorJson.put(JsonDataLabels.USER_APPROVED, professor.isApproved());
+        professorJson.put(JsonDataLabels.REMOVED, professor.isRemoved());
         return professorJson;
     }
 
-    private JSONObject jsonify(Administrator admin) { //TODO: implement
+    private JSONObject jsonify(Administrator admin) {
         JSONObject adminJson = new JSONObject();
-        adminJson.put(JsonDataLabels.USER_ID.toString(), admin.getId());
-        adminJson.put(JsonDataLabels.USER_USERNAME.toString(), admin.getUsername());
-        adminJson.put(JsonDataLabels.USER_PASSWORD.toString(), admin.getPassword());
-        adminJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), admin.getFirstName());
-        adminJson.put(JsonDataLabels.USER_LASTNAME.toString(), admin.getLastName());
-        adminJson.put(JsonDataLabels.USER_EMAIL.toString(), admin.getEmail());
-        adminJson.put(JsonDataLabels.USER_APPROVED.toString(), admin.isApproved());
+        adminJson.put(JsonDataLabels.USER_ID, admin.getId().toString());
+        adminJson.put(JsonDataLabels.USER_USERNAME, admin.getUsername());
+        adminJson.put(JsonDataLabels.USER_PASSWORD, admin.getPassword());
+        adminJson.put(JsonDataLabels.USER_FIRSTNAME, admin.getFirstName());
+        adminJson.put(JsonDataLabels.USER_LASTNAME, admin.getLastName());
+        adminJson.put(JsonDataLabels.USER_EMAIL, admin.getEmail());
+        adminJson.put(JsonDataLabels.USER_APPROVED, admin.isApproved());
         return adminJson;
     }
 
     private JSONObject jsonify(Review review) { //TODO: implement
         JSONObject reviewJson = new JSONObject();
 
-        reviewJson.put(JsonDataLabels.REVIEW_ID.toString(), review.getId().toString());
-        reviewJson.put(JsonDataLabels.REVIEW_REVIEWEE, review.getReviewee().getId());
-        reviewJson.put(JsonDataLabels.REVIEW_REVIEWER, review.getReviewer().getId());
-        reviewJson.put(JsonDataLabels.REVIEW_RATING.toString(), review.getRating());
-        reviewJson.put(JsonDataLabels.REVIEW_COMMENT.toString(), review.getComment());
-
+        reviewJson.put(JsonDataLabels.REVIEW_ID, review.getId().toString());
+        reviewJson.put(JsonDataLabels.REVIEW_REVIEWEE, review.getReviewee().getId().toString());
+        reviewJson.put(JsonDataLabels.REVIEW_REVIEWER, review.getReviewer().getId().toString());
+        reviewJson.put(JsonDataLabels.REVIEW_RATING, review.getRating());
+        reviewJson.put(JsonDataLabels.REVIEW_COMMENT, review.getComment());
+        reviewJson.put(JsonDataLabels.REMOVED, review.isRemoved());
         return reviewJson;
     }
 
     private JSONObject jsonify(JobPosting posting) { //TODO: implement
         JSONObject postingJson = new JSONObject();
 
-        postingJson.put(JsonDataLabels.JOBPOSTING_ID.toString(), posting.getId().toString());
-        postingJson.put(JsonDataLabels.JOBPOSTING_EMPLOYER.toString(), posting.getEmployer().getId().toString());
-        postingJson.put(JsonDataLabels.JOBPOSTING_TITLE.toString(), posting.getJobTitle());
-        postingJson.put(JsonDataLabels.JOBPOSTING_DESCRIPTION.toString(), posting.getDescription());
+        postingJson.put(JsonDataLabels.JOBPOSTING_ID, posting.getId().toString());
+        postingJson.put(JsonDataLabels.JOBPOSTING_EMPLOYER, posting.getEmployer().getId().toString());
+        postingJson.put(JsonDataLabels.JOBPOSTING_TITLE, posting.getJobTitle());
+        postingJson.put(JsonDataLabels.JOBPOSTING_DESCRIPTION, posting.getDescription());
 
         JSONArray jsonRequirements = new JSONArray();
         for (String skill : posting.getRequirements()) {
             jsonRequirements.add(skill);
         }
-        postingJson.put(JsonDataLabels.JOBPOSTING_REQUIREMENTS.toString(), jsonRequirements);
+        postingJson.put(JsonDataLabels.JOBPOSTING_REQUIREMENTS, jsonRequirements);
 
-        postingJson.put(JsonDataLabels.JOBPOSTING_HOURLYWAGE.toString(), posting.getWage());
-        postingJson.put(JsonDataLabels.JOBPOSTING_STATUS.toString(), posting.getStatus().toString());
+        postingJson.put(JsonDataLabels.JOBPOSTING_HOURLYWAGE, posting.getWage());
+        postingJson.put(JsonDataLabels.JOBPOSTING_STATUS, posting.getStatus().toString());
 
         JSONArray jsonApplicants = new JSONArray();
         for (Student student : posting.getApplicants()) {
             jsonApplicants.add(student.getId().toString());
         }
-        postingJson.put(JsonDataLabels.JOBPOSTING_APPLICANTS.toString(), jsonApplicants);
-
+        postingJson.put(JsonDataLabels.JOBPOSTING_APPLICANTS, jsonApplicants);
+        postingJson.put(JsonDataLabels.REMOVED, posting.isRemoved());
         return postingJson;
     }
 }
