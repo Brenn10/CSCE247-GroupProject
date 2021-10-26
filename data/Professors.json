@@ -6,7 +6,8 @@
         "email": "pplante@cse.sc.edu",
         "firstName": "Portia",
         "lastName": "Plante",
-        "approved": true
+        "approved": true,
+        "removed": false
     },
     {
         "id": "c5deba63-26dd-4a90-b981-70651c443aad",
@@ -15,6 +16,7 @@
         "email": "yiannisr@cse.sc.edu",
         "firstName": "Ioannis",
         "lastName": "Rekleitis",
-        "approved": true
+        "approved": true,
+        "removed": false
     }
 ]
