@@ -22,6 +22,7 @@ public class Employer extends User {
     }
     public void makePosting(JobPosting job) {
         postings.add(job);
+        JobPostingDatabase.getInstance().addPosting(job);
         // add to database somehow
     }
 
@@ -53,7 +54,8 @@ public class Employer extends User {
         job.setStatus(status);
     }
     public void removePosting(JobPosting job) {
-        // something with the database that I am unsure about
+        JobPostingDatabase.getInstance().getPostings().remove(job);
+        JobPostingDatabase.getInstance().getRemovedPostings().add(job);
     }
     public ArrayList<Student> viewApplicants(JobPosting job) {
          return job.getApplicants();
