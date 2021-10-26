@@ -167,8 +167,18 @@ public class JsonDataWriter extends DataWriter {
         return studentJson;
     }
 
-    private JSONObject jsonify(Employer employer) { //TODO: implement
+    private JSONObject jsonify(Employer employer) {
         JSONObject employerJson = new JSONObject();
+        employerJson.put(JsonDataLabels.USER_ID.toString(), employer.getId());
+        employerJson.put(JsonDataLabels.USER_USERNAME.toString(), employer.getUsername());
+        employerJson.put(JsonDataLabels.USER_PASSWORD.toString(), employer.getPassword());
+        employerJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), employer.getFirstName());
+        employerJson.put(JsonDataLabels.USER_LASTNAME.toString(), employer.getLastName());
+        employerJson.put(JsonDataLabels.USER_EMAIL.toString(), employer.getEmail());
+        employerJson.put(JsonDataLabels.USER_APPROVED.toString(), employer.isApproved());
+        employerJson.put(JsonDataLabels.EMPLOYER_COMPANY.toString(), employer.getCompany());
+        employerJson.put(JsonDataLabels.EMPLOYER_AVERAGERATING.toString(), employer.getAverageRating());
+
         return employerJson;
     }
 
