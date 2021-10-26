@@ -1,5 +1,6 @@
 public class JobSystemDriver {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        UserInterface neurotic = new UserInterface();
+        // startup is in the constructor, lmk if that should change
     }
 }

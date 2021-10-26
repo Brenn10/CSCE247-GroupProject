@@ -24,6 +24,7 @@ public class JsonDataLabels {
     public static final String EMPLOYER_COMPANY = "company";
     public static final String EMPLOYER_AVERAGERATING = "averageRating";
     
+    public static final String REVIEW_ID = "id";
     public static final String REVIEW_REVIEWEE = "reviewee";
     public static final String REVIEW_REVIEWER = "reviewer";
     public static final String REVIEW_RATING = "rating";
@@ -31,7 +32,7 @@ public class JsonDataLabels {
 
     public static final String JOBPOSTING_ID = "id";
     public static final String JOBPOSTING_TITLE = "jobTitle";
-    public static final String JOBPOSTING_EMPLOYER = "employerId";
+    public static final String JOBPOSTING_EMPLOYER = "employer";
     public static final String JOBPOSTING_REQUIREMENTS = "requirements";
     public static final String JOBPOSTING_DESCRIPTION = "description";
     public static final String JOBPOSTING_STATUS = "jobPostingStatus";

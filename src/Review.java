@@ -31,7 +31,7 @@ public class Review {
         return this.comment;
     }
 
-    public UUID getID() {
+    public UUID getId() {
         return this.id;
     }
 
