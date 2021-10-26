@@ -9,6 +9,30 @@ public class Education {
         this.gradDate = gradeDate;
     }
 
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public double getGpa() {
+        return gpa;
+    }
+
+    public void setGpa(double gpa) {
+        this.gpa = gpa;
+    }
+
+    public String getGradDate() {
+        return gradDate;
+    }
+
+    public void setGradDate(String gradDate) {
+        this.gradDate = gradDate;
+    }
+
     public String toString() {
         return "Educated at " + place + " until graduation on " + gradDate + ". GPA at graduation: " + gpa;
     }

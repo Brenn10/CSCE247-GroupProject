@@ -13,6 +13,22 @@ public class Employment {
         this.details = description;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDates() {
+        return dates;
+    }
+
+    public ArrayList<String> getDetails() {
+        return details;
+    }
+
     public String toString(){
         String toReturn = "Employed at " + company + " as a " + title + " during " + dates + "\n Additional Details";
 

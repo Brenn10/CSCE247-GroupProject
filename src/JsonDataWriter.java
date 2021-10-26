@@ -9,16 +9,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class JsonDataWriter extends DataWriter {
-    private DataBlob dataBlob;
-
     private String adminFilePath;
     private String studentFilePath;
     private String employerFilePath;
     private String professorFilePath;
     private String reviewFilePath;
     private String jobPostingFilePath;
-
-    private static final JSONParser parser = new JSONParser();
 
     public JsonDataWriter(String adminFilePath, 
                           String studentFilePath, 
@@ -126,6 +122,48 @@ public class JsonDataWriter extends DataWriter {
 
     private JSONObject jsonify(Student student) { //TODO: implement
         JSONObject studentJson = new JSONObject();
+        studentJson.put(JsonDataLabels.USER_ID.toString(), student.getId());
+        studentJson.put(JsonDataLabels.USER_USERNAME.toString(), student.getUsername());
+        studentJson.put(JsonDataLabels.USER_PASSWORD.toString(), student.getPassword());
+        studentJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), student.getFirstName());
+        studentJson.put(JsonDataLabels.USER_LASTNAME.toString(), student.getLastName());
+        studentJson.put(JsonDataLabels.USER_EMAIL.toString(), student.getEmail());
+        studentJson.put(JsonDataLabels.USER_APPROVED.toString(), student.isApproved());
+        studentJson.put(JsonDataLabels.STUDENT_MAJOR.toString(), student.getMajor().toString());
+        
+        studentJson.put(JsonDataLabels.STUDENT_CREATEDRESUME.toString(), student.hasCreatedResume());
+
+        if(student.hasCreatedResume()) {
+            JSONArray jsonEmployments = new JSONArray();
+            for (Employment employment : student.getEmployments()) {
+                JSONObject jsonEmployment = new JSONObject();
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_COMPANY.toString(), employment.getCompany());
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_DATES.toString(), employment.getDates());
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_TITLE.toString(), employment.getTitle());
+
+                JSONArray details = new JSONArray();
+                for (String detail : employment.getDetails()) {
+                    details.add(detail);
+                }
+                jsonEmployment.put(JsonDataLabels.STUDENT_EMPLOYMENT_DETAILS.toString(), details);
+
+                jsonEmployments.add(jsonEmployment);
+            }
+            studentJson.put(JsonDataLabels.STUDENT_EMPLOYMENTS.toString(), jsonEmployments);
+        
+        
+            JSONArray jsonEducations = new JSONArray();
+            for (Education education : student.getEducations()) {
+                JSONObject jsonEducation = new JSONObject();
+                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_GPA.toString(), education.getGpa());
+                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_GRADDATE.toString(), education.getGradDate());
+                jsonEducation.put(JsonDataLabels.STUDENT_EDUCATION_PLACE.toString(), education.getPlace());
+
+                jsonEducations.add(jsonEducation);
+            }
+            studentJson.put(JsonDataLabels.STUDENT_EDUCATIONS.toString(), jsonEducations);
+        }
+        
         return studentJson;
     }
 

@@ -49,6 +49,9 @@ public class Student extends User {
     public void editEmployment(ArrayList<Employment> employment) {
         this.employments = employment;
     }
+    public ArrayList<Employment> getEmployments() {
+        return this.employments;
+    }
     public void changeTechnicalSkills(ArrayList<String> technicalSkills) {
         this.technicalSkills = technicalSkills;
     }
@@ -64,12 +67,14 @@ public class Student extends User {
     public void removeEducation(Education education) {
         this.educations.remove(education);
     }
-    // get and set methods 
+    public ArrayList<Education> getEducations() {
+        return this.educations;
+    }
 
     public Major getMajor() {
         return this.major;
     }
-    public boolean getCreated() {
+    public boolean hasCreatedResume() {
         return this.createdResume;
     }
     public ArrayList<Review> getReviews() {

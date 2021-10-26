@@ -9,35 +9,33 @@
         "approved": true,
         "major": "Computer Engineering",
         "createdResume": true,
-        "resume": {
-            "employments": [
-                {
-                    "company": "Teraki GmbH",
-                    "position": "R&D Intern",
-                    "dates": "January 2020 - August 2020",
-                    "details": [
-                        "Created VIO algorithms",
-                        "Worked with customers"
-                    ]
-                }
-            ],
-            "educations": [
-                {
-                    "place": "University of South Carolina",
-                    "degree": "Bachelor of Science",
-                    "major": "Computer Engineering",
-                    "gpa": 3.92,
-                    "gradDate": "December 2021"
-                },
-                {
-                    "place": "SC Governor's School for Science and Math",
-                    "degree": "High School Diploma",
-                    "major": "Computer Science and Math",
-                    "gpa": 4.6,
-                    "gradDate": "May 2017"
-                }
-            ]
-        }
+        "employments": [
+            {
+                "company": "Teraki GmbH",
+                "position": "R&D Intern",
+                "dates": "January 2020 - August 2020",
+                "details": [
+                    "Created VIO algorithms",
+                    "Worked with customers"
+                ]
+            }
+        ],
+        "educations": [
+            {
+                "place": "University of South Carolina",
+                "degree": "Bachelor of Science",
+                "major": "Computer Engineering",
+                "gpa": 3.92,
+                "gradDate": "December 2021"
+            },
+            {
+                "place": "SC Governor's School for Science and Math",
+                "degree": "High School Diploma",
+                "major": "Computer Science and Math",
+                "gpa": 4.6,
+                "gradDate": "May 2017"
+            }
+        ]
     },
     {
         "id": "d76cd90a-0954-481f-a4c6-d3fd9af084de",
@@ -48,7 +46,6 @@
         "lastName": "Garcia",
         "approved": false,
         "major": "Computer Science",
-        "createdResume": false,
-        "resume": {}
-    }
+        "createdResume": false
+        }
 ]

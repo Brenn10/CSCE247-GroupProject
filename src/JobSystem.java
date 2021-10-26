@@ -18,6 +18,14 @@ public class JobSystem {
                         "data/Professors.json",
                         "data/Reviews.json",
                         "data/JobPostings.json"));
+        Database.getInstance()  
+                .setDataWriter(new JsonDataWriter(
+                        "data/Administrators.json",
+                        "data/Students.json", 
+                        "data/Employers.json",
+                        "data/Professors.json",
+                        "data/Reviews.json",
+                        "data/JobPostings.json"));
     }
 
     public static boolean login (String username, String password) {

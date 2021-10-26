@@ -55,4 +55,8 @@ public abstract class User {
     public String getLastName() {
         return this.lastName;
     }
+
+    public boolean isApproved() {
+        return this.approved;
+    }
 }
