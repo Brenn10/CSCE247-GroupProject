@@ -34,7 +34,7 @@ public class UserInterface {
        // get user verification for current user
        int verification = jobSystem.getVerify();
 
-       // NOTE lookup how to do a switch case to make this better
+       // TODO lookup how to do a switch case to make this better
        if (verification == 1) {
            doProf();
        }else if (verification == 2) {
@@ -74,15 +74,15 @@ public class UserInterface {
             } else if(option == 1) {
                 // show current resume if availiable, ask which part to edit
                 resumeMenu();
-                keepLooping = false;
+                
             } else if (option == 2) {
                 // show all jobs, ask for specific job name 
                 jobMenu();
-                keepLooping = false;
+                
             } else if (option == 3) {
                 // show all reviews attatched to self
                 jobSystem.getSelfReviews();
-                keepLooping = false;
+               
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
             }
@@ -91,6 +91,12 @@ public class UserInterface {
     private void resumeMenu() {
         jobSystem.createResume();
         // ask what the user would like to change (number options)
+        Scanner userInput = new Scanner(System.in);
+        boolean keepLooping = true;
+        while(keepLooping) {
+            System.out.println("Welcome to the Resume Menu. Please indicate what item you would like to change: \n");
+            String input = userInput.nextLine();
+        }
     }
     private void jobMenu() {
         jobSystem.showAllJobs();
@@ -120,10 +126,10 @@ public class UserInterface {
                 keepLooping = false;
             } else if(option == 1) {
                 // show all self jobs, ask which to edit
-                keepLooping = false;
+               
             } else if (option == 2) {
                 reviewMenuStudent();
-                keepLooping = false;
+                
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
             }
@@ -187,7 +193,7 @@ public class UserInterface {
         System.out.println("Welcome Admin " + jobSystem.getCurrentUser().username);
         while (keepLooping) {
             System.out.println("Please select a valid option: \n\n");
-            System.out.println("(1) --ACT AS ANOTHER CLASS--\n"); // how would this be stated? go to user X and edit as if they're that person
+            System.out.println("(1) Access as another user \n"); // how would this be stated? go to user X and edit as if they're that person
             System.out.println("(2) Enter User Approval Mode\n");
             System.out.println("(0) Exit Neurotic Job Search");
             option = input.nextInt();
@@ -199,7 +205,6 @@ public class UserInterface {
             } else if (option == 2) {
                 // show all users, ask for deletion, or approval
                 approvalMenu();
-                keepLooping = false;   
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
             }
@@ -207,16 +212,20 @@ public class UserInterface {
     }
     private void disguise() {
         // ask for what type of user you want to be as
-
+        System.out.println("WARNING: you must re-sign-in to access other Admin roles\n\n"
+                        +"What type of user would you like to sign into?");
         // show all users of that type, ask which one you want to access
+        System.out.println("Which user would you like to disguise yourself as?");
         // set current user to that, run that verification type
     }
     private void approvalMenu() {
         // show all users not approved OR everyone
+        System.out.println("Would you like to view all users or just the unnaproved ones?");
         // select a user, ask for either delete or approve
+        System.out.println("Which user would you like to edit?");
+
+        System.out.println("Are you SURE you want to remove that user(Y)? \n" +
+                            "You can always unnaprove them instead!");
         // confirm deletion
-    }
-    public static void main(String[] args) {
-        UserInterface neurotic = new UserInterface();
     }
 }

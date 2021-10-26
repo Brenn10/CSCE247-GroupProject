@@ -43,10 +43,15 @@ public class JobSystem {
         Scanner passwordChecker = new Scanner(System.in);
 
         System.out.println("Please Confirm the Password");
-
         String password2 = passwordChecker.nextLine();
         if(password2 == password) {
             // what type of profile, email, etc.
+            System.out.println("What type of profile are you signing up for?");
+            String userString = passwordChecker.nextLine();
+            
+            System.out.println("Please Confirm the Password");
+            System.out.println("Please Confirm the Password");
+            System.out.println("Please Confirm the Password");
             getCurrentVerify();
             return true;
         }
@@ -57,7 +62,6 @@ public class JobSystem {
         String userClassList = currentUser.getClass().toString();
         // delete first X indecies to get name of the class (unsure how many)
         userClassList = userClassList.substring(15);
-
 
         if(userClassList.equals("Employer")) {
             userVerify = 3;
@@ -75,22 +79,25 @@ public class JobSystem {
     public User getCurrentUser() {
         return currentUser;
     }
+
+    // String description, ArrayList<String> requirements, 
+    // double hourlyWage, String status
     public void addPosting() {
         // add the posting
+        
     }
     public void editPosting() {
         
     }
     public void deletePosting() {
-        // example of how I think the numbers will work:
-        if (!(userVerify >= 3)) return;
-        // only Admin and Employeers can edit postings
+       
            
     }
     public void viewPosting() {
-        // show posting normally
+        // show posting normally (from database)
         if(userVerify == 3) {
-            // show posting with applicants
+            System.out.println("The current applicants are: \n");
+            // get info from database, print
         }
     }
     public boolean rateStudent(String studentName) {
@@ -103,13 +110,13 @@ public class JobSystem {
         // display all students
     }
     public void showAllJobs() {
-        // display all jobPostings
+        // display all jobPostings for current user
     }
     public void getSelfReviews() {
-
+        // show all reviews attatched to current User
     }
     public void rateEmployer() {
-        
+        // add review to employer
     }
     public void addEmployement() {
         
