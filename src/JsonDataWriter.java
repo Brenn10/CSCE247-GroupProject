@@ -184,6 +184,13 @@ public class JsonDataWriter extends DataWriter {
 
     private JSONObject jsonify(Professor professor) { //TODO: implement
         JSONObject professorJson = new JSONObject();
+        professorJson.put(JsonDataLabels.USER_ID.toString(), professor.getId());
+        professorJson.put(JsonDataLabels.USER_USERNAME.toString(), professor.getUsername());
+        professorJson.put(JsonDataLabels.USER_PASSWORD.toString(), professor.getPassword());
+        professorJson.put(JsonDataLabels.USER_FIRSTNAME.toString(), professor.getFirstName());
+        professorJson.put(JsonDataLabels.USER_LASTNAME.toString(), professor.getLastName());
+        professorJson.put(JsonDataLabels.USER_EMAIL.toString(), professor.getEmail());
+        professorJson.put(JsonDataLabels.USER_APPROVED.toString(), professor.isApproved());
         return professorJson;
     }
 
