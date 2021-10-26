@@ -49,6 +49,10 @@ public class JobPosting {
         return this.hourlyWage;
     }
 
+    public UUID getID() {
+        return this.id;
+    }
+
     public JobPostingStatus getStatus() {
         return this.status;
     }
