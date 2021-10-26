@@ -1,3 +1,4 @@
+package enums;
 public enum Major {
     NA("NA"),
     COMPUTER_SCIENCE("Computer Science"),	

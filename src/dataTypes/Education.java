@@ -1,3 +1,4 @@
+package dataTypes;
 public class Education {
     private String place;
     private double gpa;

@@ -1,3 +1,4 @@
+package dataTypes;
 import java.util.UUID;
 
 public class Review {

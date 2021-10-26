@@ -1,4 +1,7 @@
+package database;
 import java.util.ArrayList;
+
+import dataTypes.JobPosting;
 
 public class JobPostingDatabase {
     private static JobPostingDatabase jobPostingDatabase;

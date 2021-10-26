@@ -1,5 +1,9 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import database.ReviewDatabase;
+import enums.Major;
 
 public class Student extends User {
     private Major major;

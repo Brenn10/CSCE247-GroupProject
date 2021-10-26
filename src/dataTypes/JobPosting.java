@@ -1,5 +1,8 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import enums.JobPostingStatus;
 
 public class JobPosting {
     private UUID id;

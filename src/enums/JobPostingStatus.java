@@ -1,3 +1,4 @@
+package enums;
 public enum JobPostingStatus {
     OPEN("Open"),
     PENDING("Pending"),

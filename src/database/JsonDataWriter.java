@@ -1,12 +1,21 @@
-import java.io.FileReader;
+package database;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+
+import dataTypes.Admin;
+import dataTypes.Education;
+import dataTypes.Employer;
+import dataTypes.Employment;
+import dataTypes.JobPosting;
+import dataTypes.Professor;
+import dataTypes.Review;
+import dataTypes.Student;
+import dataTypes.User;
+import enums.JsonDataLabels;
 
 public class JsonDataWriter extends DataWriter {
     private String adminFilePath;
@@ -95,8 +104,8 @@ public class JsonDataWriter extends DataWriter {
                 employerArray.add(jsonify((Employer) user));
             } else if (user instanceof Professor) {
                 professorArray.add(jsonify((Professor) user));
-            } else if (user instanceof Administrator) {
-                adminArray.add(jsonify((Administrator) user));
+            } else if (user instanceof Admin) {
+                adminArray.add(jsonify((Admin) user));
             } else {
                 throw new IllegalArgumentException("User type not supported");
             }
@@ -229,7 +238,7 @@ public class JsonDataWriter extends DataWriter {
         return professorJson;
     }
 
-    private JSONObject jsonify(Administrator admin) {
+    private JSONObject jsonify(Admin admin) {
         JSONObject adminJson = new JSONObject();
         adminJson.put(JsonDataLabels.USER_ID, admin.getId().toString());
         adminJson.put(JsonDataLabels.USER_USERNAME, admin.getUsername());

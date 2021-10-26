@@ -1,3 +1,4 @@
+package database;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -5,6 +6,20 @@ import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import dataTypes.Admin;
+import dataTypes.DataBlob;
+import dataTypes.Education;
+import dataTypes.Employer;
+import dataTypes.Employment;
+import dataTypes.JobPosting;
+import dataTypes.Professor;
+import dataTypes.Review;
+import dataTypes.Student;
+import dataTypes.User;
+import enums.JobPostingStatus;
+import enums.JsonDataLabels;
+import enums.Major;
 
 public class JsonDataReader extends DataReader {
     private DataBlob dataBlob;
@@ -35,8 +50,8 @@ public class JsonDataReader extends DataReader {
     public DataBlob read() {
         dataBlob = new DataBlob();
 
-        ArrayList<Administrator> adminList = readAdministrators();
-        for (Administrator admin : adminList) {
+        ArrayList<Admin> adminList = readAdministrators();
+        for (Admin admin : adminList) {
             dataBlob.addUser(admin);
         }
         
@@ -68,14 +83,14 @@ public class JsonDataReader extends DataReader {
         return dataBlob;
     }
 
-    private ArrayList<Administrator> readAdministrators() {
-        ArrayList<Administrator> adminList = new ArrayList<Administrator>();
+    private ArrayList<Admin> readAdministrators() {
+        ArrayList<Admin> adminList = new ArrayList<Admin>();
         try {
             FileReader reader = new FileReader(adminFilePath);
             JSONArray jsonList = (JSONArray) parser.parse(reader);
             for (Object adminObj : jsonList) {
                 JSONObject adminJson = (JSONObject) adminObj;
-                Administrator admin = new Administrator.Builder()
+                Admin admin = new Admin.Builder()
                     .id(UUID.fromString((String) adminJson.get(JsonDataLabels.USER_ID)))
                     .username((String) adminJson.get(JsonDataLabels.USER_USERNAME))
                     .password((String) adminJson.get(JsonDataLabels.USER_PASSWORD))

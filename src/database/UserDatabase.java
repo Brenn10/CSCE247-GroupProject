@@ -1,4 +1,8 @@
+package database;
 import java.util.ArrayList;
+
+import dataTypes.Student;
+import dataTypes.User;
 public class UserDatabase {
   
     private static UserDatabase userDatabase;
@@ -20,6 +24,19 @@ public class UserDatabase {
         return this.users;
     }
 
+    public ArrayList<Student> getStudents() {
+        ArrayList<Student> students = new ArrayList<Student>();
+        for(User user : users) {
+            if(user instanceof Student) {
+                Student student = (Student) user;
+                if(!student.isRemoved())
+                    students.add(student);
+            }
+        }
+        return students;
+    }
+
+
     public ArrayList<User> getRemovedUsers() {
         return this.removedUsers;
     }
@@ -29,5 +46,12 @@ public class UserDatabase {
         // add user to databse
     }
 
+    public User findByUsername(String username) {
+        for(User user : users) {
+            if(user.getUsername().equals(username))
+                return user;
+        }
+        return null;
+    }
 }
 

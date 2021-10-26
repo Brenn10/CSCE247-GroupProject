@@ -1,5 +1,8 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import database.ReviewDatabase;
 
 public class Professor extends User {
     private boolean removed;

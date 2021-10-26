@@ -1,3 +1,4 @@
+package dataTypes;
 import java.util.ArrayList;
 
 public class DataBlob {

@@ -1,15 +1,13 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import dataTypes.User;
+import database.Database;
+import database.JsonDataReader;
+import database.JsonDataWriter;
+import database.UserDatabase;
 
 public class JobSystem {
-    //100% have unneeded methods in here
-    private static User currentUser; // admin, employeer, student
-    private ArrayList<User> users; // for getting current user (login)
+    private static JobSystem instance;
 
-    // 0 unapproved users, 1 prof, 2 student, 3 employer, 4 admin
-    private static int userVerify; 
-    
-    public JobSystem () {
+    private JobSystem () {
         Database.getInstance()
                 .setDataReader(new JsonDataReader(
                         "data/Administrators.json",
@@ -28,56 +26,31 @@ public class JobSystem {
                         "data/JobPostings.json"));
     }
 
-    public static boolean login (String username, String password) {
-        //if (UserDatabase.haveUser(username)) {
-            //if(Users.matchPassword(username, password)) {
-                //currentUser = users.getUser(username);
-                // getCurrentVerify();
-                //return true;
-           // }
-        //}
-    return false;
+    public static JobSystem getInstance() {
+        if (instance == null) {
+            instance = new JobSystem();
+        }
+        return instance;    
     }
-    public static boolean signup (String username, String password) {
-        // scanner in here to make sure password == confirm password
-        Scanner passwordChecker = new Scanner(System.in);
 
-        System.out.println("Please Confirm the Password");
-        String password2 = passwordChecker.nextLine();
-        if(password2 == password) {
-            // what type of profile, email, etc.
-            System.out.println("What type of profile are you signing up for?");
-            String userString = passwordChecker.nextLine();
-            
-            System.out.println("Please Confirm the Password");
-            System.out.println("Please Confirm the Password");
-            System.out.println("Please Confirm the Password");
-            getCurrentVerify();
+
+    public User login (String username, String password) {
+        User user = UserDatabase.getInstance().findByUsername(username);
+        if (user == null) {
+            return null;
+        }
+        if (user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
+
+    public boolean signup(User user) {
+        if (UserDatabase.getInstance().findByUsername(user.getUsername()) == null) {
+            UserDatabase.getInstance().addUser(user);
             return true;
         }
         return false;
-    }
-    private static void getCurrentVerify(){
-        // only call this once the CurrentUser is set
-        String userClassList = currentUser.getClass().toString();
-        // delete first X indecies to get name of the class (unsure how many)
-        userClassList = userClassList.substring(15);
-
-        if(userClassList.equals("Employer")) {
-            userVerify = 3;
-        }
-        if(userClassList.equals("Student")) {
-            userVerify = 2;
-        }
-        if(userClassList.equals("Professor")) {
-            userVerify = 1;
-        }
-        if(userClassList.equals("Admin")) {
-            userVerify = 4;
-        }
-    }
-    public User getCurrentUser() {
-        return currentUser;
     }
 
     // String description, ArrayList<String> requirements, 
@@ -90,16 +63,9 @@ public class JobSystem {
         
     }
     public void deletePosting() {
-       
            
     }
-    public void viewPosting() {
-        // show posting normally (from database)
-        if(userVerify == 3) {
-            System.out.println("The current applicants are: \n");
-            // get info from database, print
-        }
-    }
+
     public boolean rateStudent(String studentName) {
         // return false if couldn't find student
         boolean studentFound  = false;
@@ -156,8 +122,5 @@ public class JobSystem {
     }
     public void removeAccount() {
         
-    }
-    public int getVerify() {
-        return userVerify;
     }
 }

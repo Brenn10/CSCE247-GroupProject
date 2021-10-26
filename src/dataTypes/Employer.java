@@ -1,5 +1,10 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import database.JobPostingDatabase;
+import database.ReviewDatabase;
+import enums.JobPostingStatus;
 
 public class Employer extends User {
     private String company;
@@ -71,7 +76,6 @@ public class Employer extends User {
                                             .comment(comment)
                                             .build();
         ReviewDatabase.getInstance().addReview(rating);
-        //TODO something with the database 
     }
 
     // get and set methods 

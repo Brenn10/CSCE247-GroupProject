@@ -1,3 +1,4 @@
+package enums;
 public class JsonDataLabels {
     public static final String REMOVED = "removed";
 
