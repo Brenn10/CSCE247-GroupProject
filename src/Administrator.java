@@ -19,19 +19,24 @@ public class Administrator extends User {
         employer.makePosting(job);
     }
     public void removeUser(User user) {
+        UserDatabase.getInstance().getUsers().remove(user);
+        UserDatabase.getInstance().getRemovedUsers().add(user);
         // TO-DO something with database
     }
     public void removeReviews(Review review) {
+        ReviewDatabase.getInstance().removeReveiw(review);
         // TO-DO something with database
     }
     public void removeResume(Student student) {
         // TO-DO something with database
     }
     public void removeJobPosting(Employer employer, JobPosting jobposting) {
+        JobPostingDatabase.getInstance().getPostings().remove(jobposting);
+        JobPostingDatabase.getInstance().getRemovedPostings().add(jobposting);
         // TO-DO something with database
     }
     public void addUser(User user) {
-        
+        UserDatabase.getInstance().getUsers().add(user);
     }
     /*public void addEmployer(Employer employer) {
         Employer toADD = employer;
