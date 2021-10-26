@@ -4,16 +4,18 @@ import java.util.UUID;
 public class JobPosting {
     private UUID id;
     private Employer employer;
+    public String jobTitle;
     private String description;
     private ArrayList<String> requirements;
     private double hourlyWage;
     private JobPostingStatus status;
     private ArrayList<Student> applicants;
 
-    public JobPosting(UUID id, Employer employer, String description, ArrayList<String> requirements, 
+    public JobPosting(UUID id, Employer employer, String jobTitle, String description, ArrayList<String> requirements, 
     double hourlyWage, JobPostingStatus status, ArrayList<Student> applicants) {
         this.id = id;
         this.employer = employer;
+        this.jobTitle = jobTitle;
         this.description = description;
         this.requirements = requirements;
         this.hourlyWage = hourlyWage;
@@ -37,6 +39,10 @@ public class JobPosting {
         return this.employer;
     }
 
+    public String getJobTitle() {
+        return this.jobTitle;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -49,7 +55,7 @@ public class JobPosting {
         return this.hourlyWage;
     }
 
-    public UUID getID() {
+    public UUID getId() {
         return this.id;
     }
 
@@ -89,6 +95,7 @@ public class JobPosting {
     public static class Builder {
         private UUID id;
         private Employer employer;
+        private String jobTitle;
         private String description;
         private ArrayList<String> requirements;
         private double hourlyWage;
@@ -108,6 +115,11 @@ public class JobPosting {
 
         public Builder employer(Employer employer) {
             this.employer = employer;
+            return this;
+        }
+
+        public Builder jobTitle(String jobTitle) {
+            this.jobTitle = jobTitle;
             return this;
         }
 
@@ -137,7 +149,7 @@ public class JobPosting {
         }
 
         public JobPosting build() {
-            return new JobPosting(id, employer, description, requirements, hourlyWage, status, applicants);
+            return new JobPosting(id, employer, jobTitle, description, requirements, hourlyWage, status, applicants);
         }
     }
 }

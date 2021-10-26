@@ -32,14 +32,14 @@ public class JsonDataWriter extends DataWriter {
 
     public void write(ArrayList<User> users, ArrayList<Review> reviews, ArrayList<JobPosting> postings) {
         writeUsers(users);
-        writeReviews(users, reviews);
-        writeJobPostings(users, postings);
+        writeReviews(reviews);
+        writeJobPostings(postings);
     }
     
-    private void writeReviews(ArrayList<User> users, ArrayList<Review> reviews) {
+    private void writeReviews(ArrayList<Review> reviews) {
         JSONArray jsonReviews = new JSONArray();
         for (Review review : reviews) {
-            jsonReviews.add(jsonify(users, review));
+            jsonReviews.add(jsonify(review));
         }
         FileWriter reviewWriter = null;
         try {
@@ -59,10 +59,10 @@ public class JsonDataWriter extends DataWriter {
         }
     }
 
-    private void writeJobPostings(ArrayList<User> users, ArrayList<JobPosting> postings) {
+    private void writeJobPostings(ArrayList<JobPosting> postings) {
         JSONArray jsonPostings = new JSONArray();
         for (JobPosting posting : postings) {
-            jsonPostings.add(jsonify(users, posting));
+            jsonPostings.add(jsonify(posting));
         }
         FileWriter postingWriter = null;
         try {
@@ -206,13 +206,41 @@ public class JsonDataWriter extends DataWriter {
         return adminJson;
     }
 
-    private JSONObject jsonify(ArrayList<User> users, Review review) { //TODO: implement
+    private JSONObject jsonify(Review review) { //TODO: implement
         JSONObject reviewJson = new JSONObject();
+
+        reviewJson.put(JsonDataLabels.REVIEW_ID.toString(), review.getId().toString());
+        reviewJson.put(JsonDataLabels.REVIEW_REVIEWEE, review.getReviewee().getId());
+        reviewJson.put(JsonDataLabels.REVIEW_REVIEWER, review.getReviewer().getId());
+        reviewJson.put(JsonDataLabels.REVIEW_RATING.toString(), review.getRating());
+        reviewJson.put(JsonDataLabels.REVIEW_COMMENT.toString(), review.getComment());
+
         return reviewJson;
     }
 
-    private JSONObject jsonify(ArrayList<User> users, JobPosting posting) { //TODO: implement
+    private JSONObject jsonify(JobPosting posting) { //TODO: implement
         JSONObject postingJson = new JSONObject();
+
+        postingJson.put(JsonDataLabels.JOBPOSTING_ID.toString(), posting.getId().toString());
+        postingJson.put(JsonDataLabels.JOBPOSTING_EMPLOYER.toString(), posting.getEmployer().getId().toString());
+        postingJson.put(JsonDataLabels.JOBPOSTING_TITLE.toString(), posting.getJobTitle());
+        postingJson.put(JsonDataLabels.JOBPOSTING_DESCRIPTION.toString(), posting.getDescription());
+
+        JSONArray jsonRequirements = new JSONArray();
+        for (String skill : posting.getRequirements()) {
+            jsonRequirements.add(skill);
+        }
+        postingJson.put(JsonDataLabels.JOBPOSTING_REQUIREMENTS.toString(), jsonRequirements);
+
+        postingJson.put(JsonDataLabels.JOBPOSTING_HOURLYWAGE.toString(), posting.getWage());
+        postingJson.put(JsonDataLabels.JOBPOSTING_STATUS.toString(), posting.getStatus().toString());
+
+        JSONArray jsonApplicants = new JSONArray();
+        for (Student student : posting.getApplicants()) {
+            jsonApplicants.add(student.getId().toString());
+        }
+        postingJson.put(JsonDataLabels.JOBPOSTING_APPLICANTS.toString(), jsonApplicants);
+
         return postingJson;
     }
 }

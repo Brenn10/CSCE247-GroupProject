@@ -1,6 +1,7 @@
 [
     {
-        "employerId": "ee51f05b-c153-4536-8900-5d475768164c",
+        "id": "6a38dd1c-407d-452a-b50b-049dd78744fb",
+        "employer": "ee51f05b-c153-4536-8900-5d475768164c",
         "jobTitle": "Software Developement Intern",
         "description": "Develop new tools for the UI/UX team",
         "requirements": [
@@ -16,7 +17,8 @@
         ]
     },
     {
-        "employerId": "69599de1-4423-4573-b40d-145d290282e1",
+        "id": "6760cb5e-503c-4c3f-a361-6ea4ea1739ae",
+        "employer": "69599de1-4423-4573-b40d-145d290282e1",
         "jobTitle": "Computer Vision Interm",
         "description": "Develop novel CV algorithms",
         "requirements": [

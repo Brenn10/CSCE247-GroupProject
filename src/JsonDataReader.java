@@ -256,7 +256,7 @@ public class JsonDataReader extends DataReader {
                 }
 
                 Review review = new Review.Builder()
-                    .id(UUID.fromString((String) reviewJson.get(JsonDataLabels.USER_ID)))
+                    .id(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_ID)))
                     .reviewer(reviewer)
                     .reviewee(reviewee)
                     .rating((int) reviewJson.get(JsonDataLabels.REVIEW_RATING))
