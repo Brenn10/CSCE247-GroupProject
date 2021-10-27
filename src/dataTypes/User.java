@@ -63,6 +63,10 @@ public abstract class User {
     public boolean isApproved() {
         return this.approved;
     }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
     public boolean isReomved() {
         return this.removed;
     }
@@ -70,4 +74,5 @@ public abstract class User {
     public void setRemoved(boolean removed) {
         this.removed = removed;
     }
+
 }

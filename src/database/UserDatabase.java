@@ -75,6 +75,15 @@ public class UserDatabase {
         return admins;
     }
 
+    public ArrayList<User> getUnapprovedUsers() {
+        ArrayList<User> unapprovedUsers = new ArrayList<User>();
+        for(User user: users) {
+            if(!user.isApproved())
+                unapprovedUsers.add(user);
+        }
+        return unapprovedUsers;
+    }
+
     public void removeUser(User user) {
         removedUsers.add(user);
         user.setRemoved(true);

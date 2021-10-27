@@ -27,9 +27,10 @@ public class AdminUI {
         boolean doMenu = true;
         while (doMenu) {
             System.out.println("(1) Access User accounts"); 
-            System.out.println("(2) Access Job Postings");
-            System.out.println("(3) Access reviews");
-            System.out.println("(4) Exit the program");
+            System.out.println("(2) Look through Unapproved users"); // Decide on useres?
+            System.out.println("(3) Access Job Postings");
+            System.out.println("(4) Access reviews");
+            System.out.println("(5) Exit the program");
             System.out.print("What would you like to do: ");
             int option = input.nextInt();
             switch(option) {
@@ -37,12 +38,15 @@ public class AdminUI {
                     accessUsers(admin);
                     break;
                 case 2:
-                    accessPostings(admin);
+                    approvalMenu(admin); 
                     break;
                 case 3:
-                    accessReviews(admin);
+                    accessPostings(admin);
                     break;
                 case 4:
+                    accessReviews(admin);
+                    break;
+                case 5:
                     doMenu = false;
                     break;
                 default:
@@ -307,6 +311,36 @@ public class AdminUI {
         input.close();
     }
 
+    private void approvalMenu(Admin admin) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Lets go through all of the pending approval requests");
+        ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
+        for(User user: unapprovedUsers) {
+            System.out.println("The following user is waiting for approval");
+            System.out.println(user); //TODO again, implement toString method
+            System.out.println("Would you like to approve them? Enter (Y) for yes and (N) for no");
+            String answer = input.nextLine();
+            answer = answer.toUpperCase();
+            if(answer.equals("Y")) {
+                System.out.println("User approved!");
+                user.setApproved(true);
+                // TODO add to database
+            } else {
+                System.out.println("User not approved!");
+                System.out.println("Would you like to remove unapproved user? Enter (Y) for yes and (N) for no");
+                answer = input.nextLine();
+                answer = answer.toUpperCase();
+                if(answer.equals("Y")) {
+                    System.out.println("Removing user");
+                    admin.removeUser(user);
+                } else {
+                    System.out.println("Leaving user as an unapproved user");
+                }
+
+            }
+        }
+    }
+
 
     private void accessPostings(Admin admin) {
 
@@ -315,25 +349,5 @@ public class AdminUI {
     private void accessReviews(Admin admin) {
 
     }
-    /*private void disguise(Admin admin) { // TODO (from brenn10): which requirement is this for?
-        // ask for what type of user you want to be as
-        System.out.println("WARNING: you must re-sign-in to access other Admin roles\n\n"
-                        +"What type of user would you like to sign into?");
-        // show all users of that type, ask which one you want to access
-        System.out.println("Which user would you like to disguise yourself as?");
-        // set current user to that, run that verification type
-    }
-
-    private void approvalMenu(Admin admin) {
-        // show all users not approved OR everyone
-        System.out.println("Would you like to view all users or just the unnaproved ones?");
-        // select a user, ask for either delete or approve
-        System.out.println("Which user would you like to edit?");
-
-        System.out.println("Are you SURE you want to remove that user(Y)? \n" +
-                            "You can always unnaprove them instead!");
-        // confirm deletion
-    }*/
-
-    
+  
 }
