@@ -34,6 +34,14 @@ public class ReviewDatabase {
 
     }
 
+    public ArrayList<Review> getReviews() {
+        return this.reviews;
+    }
+
+    public ArrayList<Review> getRemovedReviews() {
+        return this.removedReviews;
+    }
+
     public Review getReviewByReviewer(User user) {
         for(Review review: reviews) {
             if(review.getReviewer().getUsername().equals(user.getUsername()))
