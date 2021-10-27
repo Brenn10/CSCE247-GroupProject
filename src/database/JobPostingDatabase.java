@@ -21,7 +21,13 @@ public class JobPostingDatabase {
 
     public void addPosting(JobPosting posting) {
         postings.add(posting);
-        // add posting to database 
+        //TODO add posting to database 
+    }
+
+    public void removePosting(JobPosting posting) {
+        removedPostings.add(posting);
+        postings.remove(posting);
+        //TODO data writer 
     }
 
     public ArrayList<JobPosting> getPostings() {

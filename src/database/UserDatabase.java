@@ -2,6 +2,9 @@ package database;
 import java.util.ArrayList;
 
 import dataTypes.Student;
+import dataTypes.Employer;
+import dataTypes.Professor;
+import dataTypes.Admin;
 import dataTypes.User;
 public class UserDatabase {
   
@@ -34,6 +37,42 @@ public class UserDatabase {
             }
         }
         return students;
+    }
+
+    public ArrayList<Employer> getEmployers() {
+        ArrayList<Employer> employers= new ArrayList<Employer>();
+        for(User user : users) {
+            if(user instanceof Employer) {
+                Employer employer = (Employer) user;
+                if(!employer.isRemoved())
+                    employers.add(employer);
+            }
+        }
+        return employers;
+    }
+
+    public ArrayList<Professor> getProfessor() {
+        ArrayList<Professor> professors= new ArrayList<Professor>();
+        for(User user : users) {
+            if(user instanceof Professor) {
+                Professor professor = (Professor) user;
+                if(!professor.isRemoved())
+                    professors.add(professor);
+            }
+        }
+        return professors;
+    }
+
+    public ArrayList<Admin> getAdmin() {
+        ArrayList<Admin> admins= new ArrayList<Admin>();
+        for(User user : users) {
+            if(user instanceof Admin) {
+                Admin admin = (Admin) user;
+                // if(!admin.isRemoved()) TODO i dont know if we need this, but admin does not have an isRemoved method yet
+                    admins.add(admin);
+            }
+        }
+        return admins;
     }
 
 

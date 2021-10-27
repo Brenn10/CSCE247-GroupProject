@@ -1,5 +1,4 @@
 package dataTypes;
-//import java.util.ArrayList;
 import java.util.UUID;
 
 import database.JobPostingDatabase;
@@ -23,30 +22,21 @@ public class Admin extends User {
     public void removeUser(User user) {
         UserDatabase.getInstance().getRemovedUsers().add(user);
         UserDatabase.getInstance().getUsers().remove(user);  
-        // TO-DO something with database
+        // TODO something with database
     }
     public void removeReviews(Review review) {
         ReviewDatabase.getInstance().removeReveiw(review);
-        // TO-DO something with database
+        // TODO something with database
     }
     public void removeResume(Student student) {
-        // TO-DO something with database
+        // TODO something with database
     }
     public void removeJobPosting(Employer employer, JobPosting jobposting) {
-        JobPostingDatabase.getInstance().getPostings().remove(jobposting);
-        JobPostingDatabase.getInstance().getRemovedPostings().add(jobposting);
-        // TO-DO something with database
+        JobPostingDatabase.getInstance().removePosting(jobposting);
     }
     public void addUser(User user) {
         UserDatabase.getInstance().getUsers().add(user);
     }
-    /*
-    public void addResume(Resume resume) {
-        //add resume to resume database
-    }
-    public void addReview(Review review) {
-        
-    }*/
 
     public static class Builder {
         private UUID id;

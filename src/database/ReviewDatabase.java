@@ -26,8 +26,8 @@ public class ReviewDatabase {
     }
 
     public void removeReveiw(Review review) {
-        // reviews.remove(review); // do we need this?
         removedReviews.add(review);
+        reviews.remove(review);
         //TODO database
 
     }
