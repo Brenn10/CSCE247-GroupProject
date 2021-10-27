@@ -45,7 +45,7 @@ public class JsonDataWriter extends DataWriter {
         writeJobPostings(postings);
     }
     
-    private void writeReviews(ArrayList<Review> reviews) {
+    public void writeReviews(ArrayList<Review> reviews) {
         JSONArray jsonReviews = new JSONArray();
         for (Review review : reviews) {
             jsonReviews.add(jsonify(review));
@@ -68,7 +68,7 @@ public class JsonDataWriter extends DataWriter {
         }
     }
 
-    private void writeJobPostings(ArrayList<JobPosting> postings) {
+    public void writeJobPostings(ArrayList<JobPosting> postings) {
         JSONArray jsonPostings = new JSONArray();
         for (JobPosting posting : postings) {
             jsonPostings.add(jsonify(posting));
@@ -91,7 +91,7 @@ public class JsonDataWriter extends DataWriter {
         }
     }
 
-    private void writeUsers(ArrayList<User> users) {
+    public void writeUsers(ArrayList<User> users) {
         JSONArray studentArray = new JSONArray();
         JSONArray employerArray = new JSONArray();
         JSONArray professorArray = new JSONArray();
@@ -287,4 +287,6 @@ public class JsonDataWriter extends DataWriter {
         postingJson.put(JsonDataLabels.REMOVED, posting.isRemoved());
         return postingJson;
     }
+
+
 }
