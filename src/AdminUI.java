@@ -24,28 +24,18 @@ public class AdminUI {
         System.out.println("Welcome " + admin.getFirstName() + " " + admin.getLastName());
         boolean doMenu = true;
         while (doMenu) {
-<<<<<<< HEAD
             System.out.println("(1) Access user accounts"); 
             System.out.println("(2) Access Job Postings");
             System.out.println("(3) Access reviews");
             System.out.println("(4) Exit the program ");
-=======
-            //System.out.println("(1) Access as another user"); // how would this be stated? go to user X and edit as if they're that person
-            System.out.println("(1) Enter User Approval Mode");
-            System.out.println("(0) Exit Neurotic Job Search");
->>>>>>> e7d3b79b86afb0fbea1d73e5c6ba48f2c0dcbfed
             System.out.print("What would you like to do: ");
             int option = input.nextInt();
             switch(option) {
                 case 1:
-<<<<<<< HEAD
                     accessUsers(admin);
                     break;
                 case 2:
                     accessPostings(admin);
-=======
-                    approvalMenu(admin);
->>>>>>> e7d3b79b86afb0fbea1d73e5c6ba48f2c0dcbfed
                     break;
                 case 3:
                     accessReviews(admin);
@@ -62,7 +52,6 @@ public class AdminUI {
         System.out.println("Logging you out, have a great day!");
         input.close();
     }
-<<<<<<< HEAD
 
     private void accessUsers(Admin admin) {
         Scanner input = new Scanner (System.in);
@@ -186,8 +175,6 @@ public class AdminUI {
         System.out.println("Which user would you like to disguise yourself as?");
         // set current user to that, run that verification type
     }
-=======
->>>>>>> e7d3b79b86afb0fbea1d73e5c6ba48f2c0dcbfed
 
     private void approvalMenu(Admin admin) {
         // show all users not approved OR everyone

@@ -29,8 +29,8 @@ public class JobPostingDatabase {
 
     public void removePosting(JobPosting posting) {
         removedPostings.add(posting);
-        postings.remove(posting);
-        //TODO data writer 
+        posting.setRemoved(true);
+        Database.getInstance().writeToFilePostings(postings);
     }
 
     public ArrayList<JobPosting> getPostings() {

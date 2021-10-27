@@ -29,8 +29,8 @@ public class ReviewDatabase {
 
     public void removeReveiw(Review review) {
         removedReviews.add(review);
-        reviews.remove(review);
-        //TODO database
+        review.setRemoved(true);
+        Database.getInstance().writeToFileReviews(reviews);
 
     }
 

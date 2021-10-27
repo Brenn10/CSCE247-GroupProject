@@ -77,7 +77,6 @@ public class UserDatabase {
 
     public void removeUser(User user) {
         removedUsers.add(user);
-        users.remove(user);
         user.setRemoved(true);
         Database.getInstance().writeToFileUsers(users);
     }
