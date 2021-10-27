@@ -35,10 +35,18 @@ public class ReviewDatabase {
     }
 
     public Review getReviewByReviewer(User user) {
+        for(Review review: reviews) {
+            if(review.getReviewer().getUsername().equals(user.getUsername()))
+                return review;
+        }
         return null;
     }
 
     public Review getReviewByReviewee(User user) {
+        for(Review review: reviews) {
+            if(review.getReviewee().getUsername().equals(user.getUsername()))
+                return review;
+        }
         return null;
     }
 }
