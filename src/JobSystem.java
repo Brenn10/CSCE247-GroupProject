@@ -47,6 +47,7 @@ public class JobSystem {
 
     public boolean signup(User user) {
         if (UserDatabase.getInstance().findByUsername(user.getUsername()) == null) {
+            // TODO ask user for other inputs. ex. what type of user, email, etc.
             UserDatabase.getInstance().addUser(user);
             return true;
         }
