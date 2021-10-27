@@ -214,5 +214,7 @@ public class Student extends User {
         public Student build() {
             return new Student(id, username, password, email, firstName, lastName, approved, major, createdResume, employments, educations, technicalSkills, averageRating, removed);
         }
+
+
     }
 }
