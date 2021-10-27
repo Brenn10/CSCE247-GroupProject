@@ -75,6 +75,13 @@ public class UserDatabase {
         return admins;
     }
 
+    public void removeUser(User user) {
+        removedUsers.add(user);
+        users.remove(user);
+        user.setRemoved(true);
+        Database.getInstance().writeToFileUsers(users);
+    }
+
 
     public ArrayList<User> getRemovedUsers() {
         return this.removedUsers;
@@ -82,7 +89,7 @@ public class UserDatabase {
 
     public void addUser(User user) {
         users.add(user);
-        //Database.getInstance().writeToFileUsers(user);
+        Database.getInstance().writeToFileUsers(users);
         //this should work if you change the database file writeToFile to take postings as its only argument.
         //check Database.java
         // add user to databse

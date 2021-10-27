@@ -13,16 +13,14 @@ public class Admin extends User {
                          String firstName,
                          String lastName,
                          boolean approved) {
-         super(id, username, password, email, firstName, lastName, approved);
+         super(id, username, password, email, firstName, lastName, approved, false);
     }
 
     public void setJobPosting(Employer employer, JobPosting job) {
         employer.makePosting(job);
     }
     public void removeUser(User user) {
-        UserDatabase.getInstance().getRemovedUsers().add(user);
-        UserDatabase.getInstance().getUsers().remove(user);  
-        // TODO something with database
+        UserDatabase.getInstance().removeUser(user);
     }
     public void removeReviews(Review review) {
         ReviewDatabase.getInstance().removeReveiw(review);
@@ -35,7 +33,7 @@ public class Admin extends User {
         JobPostingDatabase.getInstance().removePosting(jobposting);
     }
     public void addUser(User user) {
-        UserDatabase.getInstance().getUsers().add(user);
+        UserDatabase.getInstance().addUser(user);
     }
 
     public static class Builder {

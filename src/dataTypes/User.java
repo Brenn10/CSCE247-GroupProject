@@ -9,6 +9,7 @@ public abstract class User {
     protected String firstName;
     protected String lastName;
     protected boolean approved;
+    protected boolean removed;
 
     public User(UUID id,
                 String username, 
@@ -16,7 +17,8 @@ public abstract class User {
                 String email,
                 String firstName,
                 String lastName,
-                boolean approved) {
+                boolean approved,
+                boolean removed) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -24,6 +26,7 @@ public abstract class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.approved = approved;
+        this.removed = removed;
     }
 
     public static boolean isEmailValid(String email) {
@@ -59,5 +62,12 @@ public abstract class User {
 
     public boolean isApproved() {
         return this.approved;
+    }
+    public boolean isReomved() {
+        return this.removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
     }
 }

@@ -15,8 +15,7 @@ public class Professor extends User {
             String lastName,
             boolean approved,
             boolean removed) {
-        super(id, username, password, email, firstName, lastName, approved);
-        this.removed = removed;
+        super(id, username, password, email, firstName, lastName, approved, removed);
     }
    
     public void rateStudent(Student student, int rating, String comment) {

@@ -28,14 +28,13 @@ public class Student extends User {
                    ArrayList<String> technicalSkills,
                    double averageRating,
                    boolean removed) {
-        super(id, username, password, email, firstName, lastName, approved);
+        super(id, username, password, email, firstName, lastName, approved, removed);
         this.major = major;
         this.createdResume = createdResume;
         this.employments = employments;
         this.educations = educations;
         this.technicalSkills = technicalSkills;
         this.averageRating = averageRating;
-        this.removed = removed;
     }
 
     public void reviewEmployer(Employer employer, int score, String comment) {

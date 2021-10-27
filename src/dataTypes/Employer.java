@@ -23,10 +23,9 @@ public class Employer extends User {
             String company,
             double averageRating,
             boolean removed) {
-        super(id, username, password, email, firstName, lastName, approved);
+        super(id, username, password, email, firstName, lastName, approved, removed);
         this.company = company;
         this.averageRating = averageRating;
-        this.removed = removed;
     }
     public void makePosting(JobPosting job) {
         postings.add(job);

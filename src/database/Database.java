@@ -44,13 +44,13 @@ public class Database {
         writer.write(users, reviews, postings);
     }
     
-    public void writeToFilePostings() {
+    public void writeToFilePostings(ArrayList<JobPosting> postings) {
         writer.writeJobPostings(postings);
     }
-    public void writeToFileReviews() {
+    public void writeToFileReviews(ArrayList<Review> reviews) {
         writer.writeReviews(reviews);
     }
-    public void writeToFileUsers() {
+    public void writeToFileUsers(ArrayList<User> users) {
         writer.writeUsers(users);
     }
     
