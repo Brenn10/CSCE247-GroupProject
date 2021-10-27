@@ -1,4 +1,8 @@
+package database;
 import java.util.ArrayList;
+
+import dataTypes.Review;
+import dataTypes.User;
 
 public class ReviewDatabase {
     private static ReviewDatabase reviewDatabase;

@@ -1,10 +1,12 @@
+
 import java.util.Scanner;
+import dataTypes.Professor;
+import dataTypes.Review;
+import database.ReviewDatabase;
+import database.UserDatabase;
 
-public class ProfInterface {
-    private JobSystem jobSystem;
-
-    public ProfInterface (JobSystem jobSystem) {
-        this.jobSystem = jobSystem;
+public class ProfessorUI {
+    public ProfessorUI () {
     }
     /**
      * Prof
@@ -13,11 +15,11 @@ public class ProfInterface {
      * Edit Review
      * View Reviews (of self to all stu)
      */
-    public void doProf() {
+    public void doMainMenu(Professor professor) {
         boolean keepLooping = true;
         Scanner input = new Scanner (System.in);
         int option = 0;
-        System.out.println("Welcome Professor " + jobSystem.getCurrentUser().username);
+        System.out.println("Welcome Professor " + professor.getFirstName() + " " + professor.getLastName());
         while (keepLooping) {
             System.out.println("Please select a valid option: \n\n");
             System.out.println("(1) Enter Student Review Mode\n");
@@ -36,14 +38,10 @@ public class ProfInterface {
 }
 private void reviewMenuStudent() {
     // same for professors AND Employers
-    jobSystem.showAllStudent();
+    UserDatabase.getInstance().getStudents();
     //ask for specific student
     System.out.println("Please select a student's first name"); // or something similar
-    boolean studentNotFound = false;
-    
-    Scanner studentSelect = new Scanner(System.in);
-    String chosenStudent = studentSelect.nextLine();
-    jobSystem.rateStudent(chosenStudent); // chosen student
+    ReviewDatabase.getInstance().addReview(new Review.Builder().build()); // chosen student
     // loop until 0 chosen or student selected and rated successfully
 }
 }

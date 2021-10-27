@@ -1,3 +1,4 @@
+package dataTypes;
 import java.util.ArrayList;
 
 public class DataBlob {
@@ -44,6 +45,6 @@ public class DataBlob {
     }
 
     public void setJobPostings(ArrayList<JobPosting> jobPostings) {
-        jobPostings = jobPostings;
+        this.jobPostings = jobPostings;
     }  
 }

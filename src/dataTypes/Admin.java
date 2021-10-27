@@ -1,8 +1,13 @@
+package dataTypes;
 //import java.util.ArrayList;
 import java.util.UUID;
 
-public class Administrator extends User {
-    public Administrator(UUID id,
+import database.JobPostingDatabase;
+import database.ReviewDatabase;
+import database.UserDatabase;
+
+public class Admin extends User {
+    public Admin(UUID id,
                          String username, 
                          String password, 
                          String email,
@@ -97,8 +102,8 @@ public class Administrator extends User {
             return this;
         }
 
-        public Administrator build() {
-            return new Administrator(id, username, password, email, firstName, lastName, approved);
+        public Admin build() {
+            return new Admin(id, username, password, email, firstName, lastName, approved);
         }
     }
 }

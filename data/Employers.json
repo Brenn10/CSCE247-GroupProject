@@ -8,7 +8,8 @@
         "lastName": "Rep",
         "approved": true,
         "company": "Amazon",
-        "averageRating": 4.9
+        "averageRating": 4.9,
+        "removed": false
     },
     {
         "id": "69599de1-4423-4573-b40d-145d290282e1",
@@ -19,6 +20,7 @@
         "lastName": "Representative",
         "approved": false,
         "company": "Google",
-        "averageRating": 4.2
+        "averageRating": 4.2,
+        "removed": false
     }
 ]

@@ -1,3 +1,4 @@
+package dataTypes;
 import java.util.UUID;
 
 public class Review {
@@ -6,13 +7,15 @@ public class Review {
     private User reviewee;
     private int rating;
     private String comment;
+    private boolean removed;
 
-    public Review (UUID id, User reveiwer, User reviewee, int rating, String comment) {
+    public Review (UUID id, User reveiwer, User reviewee, int rating, String comment, boolean removed) {
         this.id = id;
         this.reviewer = reveiwer;
         this.reviewee = reviewee;
         this.rating = rating;
         this.comment = comment;
+        this.removed = removed;
     }
 
     public User getReviewer() {
@@ -43,6 +46,15 @@ public class Review {
         this.comment = comment;
     }
 
+    
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
 
     public static class Builder {
         private UUID id;
@@ -50,6 +62,7 @@ public class Review {
         private User reviewee;
         private int rating;
         private String comment;
+        private boolean removed;
 
         public Builder() {
             this.id = UUID.randomUUID();
@@ -80,8 +93,13 @@ public class Review {
             return this;
         }
 
+        public Builder removed(boolean removed) {
+            this.removed = removed;
+            return this;
+        }
+
         public Review build() {
-            return new Review(id, reviewer, reviewee, rating, comment);
+            return new Review(id, reviewer, reviewee, rating, comment, removed);
         }
     }
 }

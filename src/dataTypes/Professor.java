@@ -1,7 +1,11 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import database.ReviewDatabase;
+
 public class Professor extends User {
+    private boolean removed;
 
     public Professor(UUID id, 
             String username, 
@@ -9,8 +13,10 @@ public class Professor extends User {
             String email, 
             String firstName,
             String lastName,
-            boolean approved) {
+            boolean approved,
+            boolean removed) {
         super(id, username, password, email, firstName, lastName, approved);
+        this.removed = removed;
     }
    
     public void rateStudent(Student student, int rating, String comment) {
@@ -53,6 +59,14 @@ public class Professor extends User {
     }
 
 
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
     public static class Builder {
         private UUID id;
         private String username;
@@ -61,6 +75,7 @@ public class Professor extends User {
         private String firstName;
         private String lastName;
         private boolean approved;
+        private boolean removed;
 
         public Builder() {
             this.id = UUID.randomUUID();
@@ -101,8 +116,13 @@ public class Professor extends User {
             return this;
         }
 
+        public Builder removed(boolean removed) {
+            this.removed = removed;
+            return this;
+        }
+
         public Professor build() {
-            return new Professor(id, username, password, email, firstName, lastName, approved);
+            return new Professor(id, username, password, email, firstName, lastName, approved, removed);
         }
     }
 }

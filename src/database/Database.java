@@ -1,4 +1,10 @@
+package database;
 import java.util.ArrayList;
+
+import dataTypes.DataBlob;
+import dataTypes.JobPosting;
+import dataTypes.Review;
+import dataTypes.User;
 
 public class Database {
     private static Database instance = null;

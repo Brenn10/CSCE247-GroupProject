@@ -1,5 +1,8 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import enums.JobPostingStatus;
 
 public class JobPosting {
     private UUID id;
@@ -10,9 +13,10 @@ public class JobPosting {
     private double hourlyWage;
     private JobPostingStatus status;
     private ArrayList<Student> applicants;
+    private boolean removed;
 
     public JobPosting(UUID id, Employer employer, String jobTitle, String description, ArrayList<String> requirements, 
-    double hourlyWage, JobPostingStatus status, ArrayList<Student> applicants) {
+    double hourlyWage, JobPostingStatus status, ArrayList<Student> applicants, boolean removed) {
         this.id = id;
         this.employer = employer;
         this.jobTitle = jobTitle;
@@ -21,6 +25,7 @@ public class JobPosting {
         this.hourlyWage = hourlyWage;
         this.status = status;
         this.applicants = applicants;
+        this.removed = removed;
     }
 
     public void addRequirement(String requirement) {
@@ -92,6 +97,16 @@ public class JobPosting {
        this.applicants = applicants;
     }
 
+    
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
     public static class Builder {
         private UUID id;
         private Employer employer;
@@ -101,6 +116,7 @@ public class JobPosting {
         private double hourlyWage;
         private JobPostingStatus status;
         private ArrayList<Student> applicants;
+        private boolean removed;
 
         public Builder() {
             id = UUID.randomUUID();
@@ -148,8 +164,13 @@ public class JobPosting {
             return this;
         }
 
+        public Builder removed(boolean removed) {
+            this.removed = removed;
+            return this;
+        }
+
         public JobPosting build() {
-            return new JobPosting(id, employer, jobTitle, description, requirements, hourlyWage, status, applicants);
+            return new JobPosting(id, employer, jobTitle, description, requirements, hourlyWage, status, applicants, removed);
         }
     }
 }

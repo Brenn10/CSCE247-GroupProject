@@ -1,5 +1,9 @@
+package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import database.ReviewDatabase;
+import enums.Major;
 
 public class Student extends User {
     private Major major;
@@ -8,6 +12,7 @@ public class Student extends User {
     private ArrayList<Education> educations;
     private ArrayList<String> technicalSkills;
     private double averageRating;
+    private boolean removed;
 
     public Student(UUID id,
                    String username, 
@@ -21,7 +26,8 @@ public class Student extends User {
                    ArrayList<Employment> employments,
                    ArrayList<Education> educations,
                    ArrayList<String> technicalSkills,
-                   double averageRating) {
+                   double averageRating,
+                   boolean removed) {
         super(id, username, password, email, firstName, lastName, approved);
         this.major = major;
         this.createdResume = createdResume;
@@ -29,6 +35,7 @@ public class Student extends User {
         this.educations = educations;
         this.technicalSkills = technicalSkills;
         this.averageRating = averageRating;
+        this.removed = removed;
     }
 
     public void reviewEmployer(Employer employer, int score, String comment) {
@@ -106,6 +113,14 @@ public class Student extends User {
 
     }
 
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
     public static class Builder {
         private UUID id;
         private String username;
@@ -120,15 +135,10 @@ public class Student extends User {
         private ArrayList<Education> educations;
         private ArrayList<String> technicalSkills;
         private double averageRating;
+        private boolean removed;
 
         public Builder() {
             id = UUID.randomUUID();
-            username = "";
-            password = "";
-            email = "";
-            firstName = "";
-            lastName = "";
-            approved = false;
             major = Major.NA;
         }
 
@@ -197,8 +207,13 @@ public class Student extends User {
             return this;
         }
 
+        public Builder removed(boolean removed) {
+            this.removed = removed;
+            return this;
+        }
+
         public Student build() {
-            return new Student(id, username, password, email, firstName, lastName, approved, major, createdResume, employments, educations, technicalSkills, averageRating);
+            return new Student(id, username, password, email, firstName, lastName, approved, major, createdResume, employments, educations, technicalSkills, averageRating, removed);
         }
     }
 }
