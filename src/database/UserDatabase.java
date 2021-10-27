@@ -95,6 +95,10 @@ public class UserDatabase {
         return this.removedUsers;
     }
 
+    public void updateDatabase() {
+        Database.getInstance().writeToFileUsers(users);
+    }
+    
     public void addUser(User user) {
         users.add(user);
         Database.getInstance().writeToFileUsers(users);

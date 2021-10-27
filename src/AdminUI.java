@@ -61,7 +61,7 @@ public class AdminUI {
 
     private void accessUsers(Admin admin) {
         Scanner input = new Scanner (System.in);
-        UserDatabase userDatabase = UserDatabase.getInstance();
+        //UserDatabase userDatabase = UserDatabase.getInstance();
         boolean access = true;
         int option;
         while(access) {
@@ -73,13 +73,13 @@ public class AdminUI {
             option = input.nextInt();
             switch(option) {
                 case 1:
-                    runStudents(admin, userDatabase);
+                    runStudents(admin);
                     break;
                 case 2:
-                    runEmployers(admin, userDatabase);
+                    runEmployers(admin);
                     break;
                 case 3:
-                    runProfessors(admin, userDatabase);
+                    runProfessors(admin);
                     break;
                 case 4:
                     access = false;
@@ -94,7 +94,7 @@ public class AdminUI {
         input.close();
     }
 
-    private void runStudents(Admin admin, UserDatabase userDatabase) {
+    private void runStudents(Admin admin) {
         Scanner input = new Scanner (System.in);
         boolean go = true;
         int option;
@@ -110,14 +110,14 @@ public class AdminUI {
             option = input.nextInt();
             switch(option) {
                 case 1:
-                    ArrayList<Student> students = userDatabase.getStudents();
+                    ArrayList<Student> students = UserDatabase.getInstance().getStudents();
                     for(Student student: students)
                         System.out.println(student); // TODO implement toString method in students
                     break;
                 case 2:
                     System.out.println("Please enter the students username:");
                     username = input.nextLine();
-                    search = userDatabase.findByUsername(username);
+                    search = UserDatabase.getInstance().findByUsername(username);
                     if(search!= null)
                     {
                         System.out.println("That student exists, here is their information:");
@@ -128,7 +128,7 @@ public class AdminUI {
                 case 3:
                     System.out.println("Please enter the students username that you would like to delete!");
                     username = input.nextLine();
-                    search = userDatabase.findByUsername(username);
+                    search = UserDatabase.getInstance().findByUsername(username);
                 if(search!= null)
                 {
                     System.out.println("Here is that student's information:");
@@ -167,7 +167,7 @@ public class AdminUI {
         input.close();
     }
 
-    private void runEmployers(Admin admin, UserDatabase userDatabase) {
+    private void runEmployers(Admin admin) {
         Scanner input = new Scanner (System.in);
         boolean go = true;
         int option;
@@ -183,14 +183,14 @@ public class AdminUI {
             option = input.nextInt();
             switch(option) {
                 case 1:
-                    ArrayList<Employer> employers = userDatabase.getEmployers();
+                    ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
                     for(Employer employer: employers)
                         System.out.println(employer); // TODO implement toString method in students
                     break;
                 case 2:
                     System.out.println("Please enter the employer's username:");
                     username = input.nextLine();
-                    search = userDatabase.findByUsername(username);
+                    search = UserDatabase.getInstance().findByUsername(username);
                     if(search!= null)
                     {
                         System.out.println("That employer exists, here is their information:");
@@ -201,7 +201,7 @@ public class AdminUI {
                 case 3:
                     System.out.println("Please enter the employers username that you would like to delete!");
                     username = input.nextLine();
-                    search = userDatabase.findByUsername(username);
+                    search = UserDatabase.getInstance().findByUsername(username);
                 if(search!= null)
                 {
                     System.out.println("Here is that employers's information:");
@@ -240,7 +240,7 @@ public class AdminUI {
         input.close();
     }
 
-    private void runProfessors(Admin admin, UserDatabase userDatabase) {
+    private void runProfessors(Admin admin) {
         Scanner input = new Scanner (System.in);
         boolean go = true;
         int option;
@@ -256,14 +256,14 @@ public class AdminUI {
             option = input.nextInt();
             switch(option) {
                 case 1:
-                    ArrayList<Professor> professors = userDatabase.getProfessor();
+                    ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
                     for(Professor prof: professors)
                         System.out.println(prof); // TODO implement toString method in students
                     break;
                 case 2:
                     System.out.println("Please enter the professors username:");
                     username = input.nextLine();
-                    search = userDatabase.findByUsername(username);
+                    search = UserDatabase.getInstance().findByUsername(username);
                     if(search!= null)
                     {
                         System.out.println("That professor exists, here is their information:");
@@ -274,7 +274,7 @@ public class AdminUI {
                 case 3:
                     System.out.println("Please enter the professor's username that you would like to delete!");
                     username = input.nextLine();
-                    search = userDatabase.findByUsername(username);
+                    search = UserDatabase.getInstance().findByUsername(username);
                 if(search!= null)
                 {
                     System.out.println("Here is that professor's information:");
@@ -324,7 +324,7 @@ public class AdminUI {
             if(answer.equals("Y")) {
                 System.out.println("User approved!");
                 user.setApproved(true);
-                // TODO add to database
+                UserDatabase.getInstance().updateDatabase();
             } else {
                 System.out.println("User not approved!");
                 System.out.println("Would you like to remove unapproved user? Enter (Y) for yes and (N) for no");
