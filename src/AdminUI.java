@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import dataTypes.Admin;
 import dataTypes.Employer;
+import dataTypes.JobPosting;
 import dataTypes.Professor;
 import dataTypes.Student;
 import dataTypes.User;
+import database.JobPostingDatabase;
 import database.UserDatabase;
 
 public class AdminUI {
@@ -343,11 +345,47 @@ public class AdminUI {
 
 
     private void accessPostings(Admin admin) {
-
+        Scanner input = new Scanner(System.in);
+        boolean go = true;
+        int option;
+        while(go) {
+            System.out.println("What would you like to do with the job postings?");
+            System.out.println("(1)Look through all postings");
+            System.out.println("(2) Search for a job posting");
+            System.out.println("(3) Remove a job posting");
+            System.out.println("(4) View removed job postings");
+            System.out.println("(5) Return to the main menu");
+            option = input.nextInt();
+            switch(option) {
+                case 1:
+                    ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
+                    for(JobPosting posting: postings)
+                        System.out.println(posting);
+                    break;
+                case 2:
+                    //TODO implement
+                    break;
+                case 3:
+                    //TODO implement
+                    break;
+                case 4:
+                ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();
+                for(JobPosting posting: removedPostings)
+                    System.out.println(posting);
+                    break;
+                case 5:
+                    go = false;
+            }
+        }
     }
 
     private void accessReviews(Admin admin) {
-
+        Scanner input = new Scanner(System.in);
+        boolean go = true;
+        int option;
+        while(go) {
+            System.out.println("What would you like to do with the reviews?");
+        }
     }
   
 }

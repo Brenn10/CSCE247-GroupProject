@@ -22,9 +22,6 @@ public class JobPostingDatabase {
     public void addPosting(JobPosting posting) {
         postings.add(posting);
         Database.getInstance().writeToFilePostings(postings);
-        //this should work if you change the database file writeToFile to take postings as its only argument.
-        //check Database.java
-        //TODO add posting to database 
     }
 
     public void removePosting(JobPosting posting) {
