@@ -60,6 +60,7 @@ public class Employer extends User {
     }
     public void editPostingStatus(JobPosting job, JobPostingStatus status) {
         job.setStatus(status);
+        
     }
     public void removePosting(JobPosting job) {
         JobPostingDatabase.getInstance().getPostings().remove(job);
