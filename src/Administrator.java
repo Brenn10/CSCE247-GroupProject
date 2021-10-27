@@ -12,15 +12,12 @@ public class Administrator extends User {
          super(id, username, password, email, firstName, lastName, approved);
     }
 
-    /*public void editUser(UserDatabase user, String toChange) {
-        // TO-DO 
-    }*/
     public void setJobPosting(Employer employer, JobPosting job) {
         employer.makePosting(job);
     }
     public void removeUser(User user) {
-        UserDatabase.getInstance().getUsers().remove(user);
         UserDatabase.getInstance().getRemovedUsers().add(user);
+        UserDatabase.getInstance().getUsers().remove(user);  
         // TO-DO something with database
     }
     public void removeReviews(Review review) {
@@ -38,10 +35,7 @@ public class Administrator extends User {
     public void addUser(User user) {
         UserDatabase.getInstance().getUsers().add(user);
     }
-    /*public void addEmployer(Employer employer) {
-        Employer toADD = employer;
-        // add to database 
-    }
+    /*
     public void addResume(Resume resume) {
         //add resume to resume database
     }

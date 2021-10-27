@@ -57,6 +57,7 @@ public class Employer extends User {
         JobPostingDatabase.getInstance().getPostings().remove(job);
         JobPostingDatabase.getInstance().getRemovedPostings().add(job);
     }
+    
     public ArrayList<Student> viewApplicants(JobPosting job) {
          return job.getApplicants();
     }

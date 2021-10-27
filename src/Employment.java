@@ -6,11 +6,11 @@ public class Employment {
     private String dates;
     private ArrayList<String> details;
     
-    public Employment(String company, String title, String dates, ArrayList<String> description) {
+    public Employment(String company, String title, String dates, ArrayList<String> details) {
         this.company = company;
         this.title = title;
         this.dates = dates;
-        this.details = description;
+        this.details = details;
     }
 
     public String getCompany() {
@@ -30,7 +30,7 @@ public class Employment {
     }
 
     public String toString(){
-        String toReturn = "Employed at " + company + " as a " + title + " during " + dates + "\n Additional Details";
+        String toReturn = "Employed at " + company + " as a " + title + " during " + dates + "\n Additional Details:";
 
         for(String detail: details) 
             toReturn = toReturn + "\n-" + detail;
