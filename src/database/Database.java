@@ -43,7 +43,21 @@ public class Database {
     public void writeToFile() {
         writer.write(users, reviews, postings);
     }
-
+    /** 
+     * 
+     * This should fix the problem as far as I can tell for adding jobpostings, reviews, and users to the database
+     * check code in the following: JobPostingDatabase, ReviewDatabase, and UserDatabase
+     * 
+    public void writeToFilePostings() {
+        writer.write( postings);
+    }
+    public void writeToFileReviews() {
+        writer.write(reviews);
+    }
+    public void writeToFileUsers() {
+        writer.write(users);
+    }
+    */
     public ArrayList<JobPosting> getJobPostings() {
         return postings;
     }

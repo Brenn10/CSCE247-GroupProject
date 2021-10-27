@@ -82,6 +82,9 @@ public class UserDatabase {
 
     public void addUser(User user) {
         users.add(user);
+        //Database.getInstance().writeToFileUsers(user);
+        //this should work if you change the database file writeToFile to take postings as its only argument.
+        //check Database.java
         // add user to databse
     }
 
