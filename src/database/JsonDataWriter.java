@@ -99,7 +99,7 @@ public class JsonDataWriter extends DataWriter {
     }
 
     private void writePrettyJson(JSONArray json, String fileName) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         JsonElement je = JsonParser.parseString(json.toJSONString());
         String prettyJsonString = gson.toJson(je);
 
