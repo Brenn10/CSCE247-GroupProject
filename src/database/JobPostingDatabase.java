@@ -67,5 +67,19 @@ public class JobPostingDatabase {
         return openPostings;
     }
 
+    public ArrayList<JobPosting> getOpenPostingByRequirement(String requirement) {
+        ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
+        for(JobPosting posting : postings) {
+            if(!posting.isRemoved()) {
+                for (String postDetail : posting.getRequirements()) {
+                    if(postDetail.toLowerCase().contains(requirement.toLowerCase())) {
+                        openPostings.add(posting);
+                        break;
+                    }
+                }
+            }
+        }
+        return openPostings;
+    }
   
 }
