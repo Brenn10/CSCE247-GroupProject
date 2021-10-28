@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import dataTypes.Admin;
+import dataTypes.DataBlob;
 import dataTypes.Education;
 import dataTypes.Employer;
 import dataTypes.Employment;
@@ -37,6 +38,10 @@ public class JsonDataWriter extends DataWriter {
         this.professorFilePath = professorFilePath;
         this.reviewFilePath = reviewFilePath;               
         this.jobPostingFilePath = jobPostingFilePath;
+    }
+
+    public void write(DataBlob data) {
+        write(data.getUsers(), data.getReviews(), data.getJobPostings());
     }
 
     public void write(ArrayList<User> users, ArrayList<Review> reviews, ArrayList<JobPosting> postings) {
