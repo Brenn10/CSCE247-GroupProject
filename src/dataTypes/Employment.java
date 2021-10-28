@@ -31,11 +31,13 @@ public class Employment {
     }
 
     public String toString(){
-        String toReturn = "Employed at " + company + " as a " + title + " during " + dates + "\n Additional Details:";
-
-        for(String detail: details) 
-            toReturn = toReturn + "\n-" + detail;
-        return toReturn;
+        StringBuilder sb = new StringBuilder();
+        sb.append(title + " at " + company + "\n");
+        sb.append(dates + "\n");
+        for(String detail : details){
+            sb.append(detail + "\n");
+        }
+        return sb.toString();
     }
 
     public static class Builder {

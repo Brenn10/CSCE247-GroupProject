@@ -107,6 +107,20 @@ public class JobPosting {
         this.removed = removed;
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.jobTitle + " at " + this.employer.getCompany() + "\n");
+        sb.append("Description: " + this.description + "\n");
+        sb.append("Requirements: \n");
+        for (String requirement : this.requirements) {
+            sb.append("\t" + requirement + "\n");
+        }
+        sb.append("Hourly Wage: " + this.hourlyWage + "\n");
+        sb.append("Status: " + this.status);
+
+        return sb.toString();
+    }
+
     public static class Builder {
         private UUID id;
         private Employer employer;

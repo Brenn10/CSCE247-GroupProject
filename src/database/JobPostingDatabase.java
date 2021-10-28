@@ -2,6 +2,7 @@ package database;
 import java.util.ArrayList;
 
 import dataTypes.JobPosting;
+import dataTypes.Student;
 
 public class JobPostingDatabase {
     private static JobPostingDatabase jobPostingDatabase;
@@ -36,6 +37,24 @@ public class JobPostingDatabase {
 
     public ArrayList<JobPosting> getRemovedPostings() {
         return this.removedPostings;
+    }
+
+    public ArrayList<JobPosting> getPostingsByStudent(Student student) {
+        ArrayList<JobPosting> applications = new ArrayList<JobPosting>();
+        for(JobPosting posting : postings) {
+            if(posting.getApplicants().contains(student) && !posting.isRemoved())
+                applications.add(posting);
+        }
+        return applications;
+    }
+
+    public ArrayList<JobPosting> getOpenPostings() {
+        ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
+        for(JobPosting posting : postings) {
+            if(!posting.isRemoved())
+                openPostings.add(posting);
+        }
+        return openPostings;
     }
 
   

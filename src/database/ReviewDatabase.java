@@ -2,6 +2,7 @@ package database;
 import java.util.ArrayList;
 
 import dataTypes.Review;
+import dataTypes.Student;
 import dataTypes.User;
 
 public class ReviewDatabase {
@@ -56,5 +57,23 @@ public class ReviewDatabase {
                 return review;
         }
         return null;
+    }
+
+    public ArrayList<Review> getReviewsByReviewee(User user) {
+        ArrayList<Review> reviewsByReviewee = new ArrayList<Review>();
+        for (Review review: reviews) {
+            if(review.getReviewee().equals(user) && !review.isRemoved())
+                reviewsByReviewee.add(review);
+        }
+        return reviewsByReviewee;
+    }
+
+    public ArrayList<Review> getReviewsByReviewer(User user) {
+        ArrayList<Review> reviewsByReviewer = new ArrayList<Review>();
+        for (Review review: reviews) {
+            if(review.getReviewer().equals(user) && !review.isRemoved())
+                reviewsByReviewer.add(review);
+        }
+        return reviewsByReviewer;
     }
 }

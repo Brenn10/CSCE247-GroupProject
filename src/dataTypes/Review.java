@@ -56,6 +56,15 @@ public class Review {
         this.removed = removed;
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Review of " + reviewee.getFullName() + 
+        " of " + this.reviewer.getFullName() + ": ");
+        sb.append("\n\tRating: " + this.rating);
+        sb.append("\n\tComment: " + this.comment);
+        return sb.toString();
+    }
+
     public static class Builder {
         private UUID id;
         private User reviewer;

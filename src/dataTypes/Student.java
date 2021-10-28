@@ -120,6 +120,30 @@ public class Student extends User {
         this.removed = removed;
     }
 
+    public ArrayList<String> getTechnicalSkills() {
+        return technicalSkills;
+    }
+
+    public String getPrintableResume() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getFullName() + "\n");
+        sb.append(this.getEmail() + "\n");
+        sb.append(this.getMajor() + " major\n");
+        sb.append("Employments:\n");
+        for (Employment e : this.getEmployments()) {
+            sb.append("\t" + e.toString() + "\n");
+        }
+        sb.append("Educations:\n");
+        for (Education e : this.getEducations()) {
+            sb.append("\t" + e.toString() + "\n");
+        }
+        sb.append("Technical Skills:\n");
+        for (String s : this.getTechnicalSkills()) {
+            sb.append("\t" + s + "\n");
+        }
+        return sb.toString();
+    }
+
     public static class Builder {
         private UUID id;
         private String username;

@@ -35,7 +35,7 @@ public class Education {
     }
 
     public String toString() {
-        return "Educated at " + place + " until graduation on " + gradDate + ". GPA at graduation: " + gpa;
+        return place + "\n"+ gradDate + "\nGPA: " + gpa;
     }
 
     public static class Builder {
