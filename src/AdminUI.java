@@ -1,6 +1,9 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner6;
+
 import dataTypes.Admin;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -420,10 +423,40 @@ public class AdminUI {
                         System.out.println(posting);
                     break;
                 case 2:
-                    //TODO implement
+                    System.out.println("Please enter the employer's username who posted the job");
+                    String employerUser = input.nextLine();
+                    User employer = UserDatabase.getInstance().findByUsername(employerUser);
+                    if(employer != null) {
+                        ArrayList<JobPosting> postingByUser = JobPostingDatabase.getInstance().getPostingsByEmployer((Employer) employer);
+                        if(postingByUser != null) {
+                            System.out.println("Here are the postings by @" + employerUser);
+                            for(JobPosting posting: postingByUser)
+                                System.out.println(posting);
+                        } else {
+                            System.out.println("That user has not posted any jobs");
+                        }
+                    } else {
+                        System.out.println("No user exists with that name");
+                    }
                     break;
                 case 3:
-                    //TODO implement
+                    System.out.println("To remove a job posting, we need the Employer's username and the title of the postion");
+                    System.out.println("What is the Employer's username?");
+                    String user = input.nextLine();
+                    System.out.println("What is the job's title?");
+                    String title = input.nextLine();
+                    User userOf = UserDatabase.getInstance().findByUsername(user);
+                    if(userOf != null) {
+                        JobPosting toRemove = JobPostingDatabase.getInstance().getPostingByEmployerAndTitle(user, title);
+                        if(toRemove != null) {
+                            System.out.println("Removing...");
+                            admin.removeJobPosting(toRemove);
+                        } else {
+                            System.out.println("A job posting made by @" + user + " with the title '" + title + "' does not exist!");
+                        }
+                    } else {
+                        System.out.println("User @" + user + " does not exist!");
+                    }
                     break;
                 case 4:
                 ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();

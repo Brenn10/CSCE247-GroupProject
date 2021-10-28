@@ -29,7 +29,7 @@ public class Admin extends User {
     public void removeResume(Student student) {
         // TODO something with database
     }
-    public void removeJobPosting(Employer employer, JobPosting jobposting) {
+    public void removeJobPosting(JobPosting jobposting) {
         JobPostingDatabase.getInstance().removePosting(jobposting);
     }
     public void addUser(User user) {
