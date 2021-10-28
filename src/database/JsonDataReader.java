@@ -21,6 +21,7 @@ import dataTypes.User;
 import enums.JobPostingStatus;
 import enums.JsonDataLabels;
 import enums.Major;
+import utilities.Logger;
 
 public class JsonDataReader extends DataReader {
     private DataBlob dataBlob;
@@ -45,6 +46,7 @@ public class JsonDataReader extends DataReader {
     }
 
     public DataBlob read() {
+        Logger.getInstance().log("Reading from files");
         dataBlob = new DataBlob();
 
         ArrayList<Admin> adminList = readAdministrators();
