@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import dataTypes.Admin;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -39,6 +40,7 @@ public class AdminUI {
             System.out.println("(5) Exit the program");
             System.out.print("What would you like to do: ");
             int option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     accessUsers(admin);
@@ -78,6 +80,7 @@ public class AdminUI {
             System.out.println("(3) Professors");
             System.out.println("(4) Exit to main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     runStudents(admin);
@@ -117,6 +120,7 @@ public class AdminUI {
             System.out.println("(4) Create a new student account");
             System.out.println("(5) Exit student menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Student> students = UserDatabase.getInstance().getStudents();
@@ -142,7 +146,7 @@ public class AdminUI {
                 {
                     System.out.println("Here is that student's information:");
                     System.out.println(search); 
-                    //TODO will eventually add a "Are you sure you want to delete" type thinge
+                    //TODO will eventually add a "Are you sure you want to delete" type thing
                     System.out.println("Deleting student...");
                     admin.removeUser(search);
 
@@ -167,6 +171,7 @@ public class AdminUI {
                     System.out.println("(3) for Computer Information Systems");
                     System.out.println("Enter anything else for undecided");
                     int majorSelect = input.nextInt();
+                    input.nextLine();
                     Major major;
                         switch(majorSelect) {
                             case 1:
@@ -216,6 +221,7 @@ public class AdminUI {
             System.out.println("(4) Create a new employer account");
             System.out.println("(5) Exit employer menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
@@ -296,6 +302,7 @@ public class AdminUI {
             System.out.println("(4) Create a new professor account");
             System.out.println("(5) Exit professor menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
@@ -406,6 +413,7 @@ public class AdminUI {
             System.out.println("(4) View removed job postings");
             System.out.println("(5) Return to the main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
@@ -413,10 +421,40 @@ public class AdminUI {
                         System.out.println(posting);
                     break;
                 case 2:
-                    //TODO implement
+                    System.out.println("Please enter the employer's username who posted the job");
+                    String employerUser = input.nextLine();
+                    User employer = UserDatabase.getInstance().findByUsername(employerUser);
+                    if(employer != null) {
+                        ArrayList<JobPosting> postingByUser = JobPostingDatabase.getInstance().getPostingsByEmployer((Employer) employer);
+                        if(postingByUser != null) {
+                            System.out.println("Here are the postings by @" + employerUser);
+                            for(JobPosting posting: postingByUser)
+                                System.out.println(posting);
+                        } else {
+                            System.out.println("That user has not posted any jobs");
+                        }
+                    } else {
+                        System.out.println("No user exists with that name");
+                    }
                     break;
                 case 3:
-                    //TODO implement
+                    System.out.println("To remove a job posting, we need the Employer's username and the title of the postion");
+                    System.out.println("What is the Employer's username?");
+                    String user = input.nextLine();
+                    System.out.println("What is the job's title?");
+                    String title = input.nextLine();
+                    User userOf = UserDatabase.getInstance().findByUsername(user);
+                    if(userOf != null) {
+                        JobPosting toRemove = JobPostingDatabase.getInstance().getPostingByEmployerAndTitle(user, title);
+                        if(toRemove != null) {
+                            System.out.println("Removing...");
+                            admin.removeJobPosting(toRemove);
+                        } else {
+                            System.out.println("A job posting made by @" + user + " with the title '" + title + "' does not exist!");
+                        }
+                    } else {
+                        System.out.println("User @" + user + " does not exist!");
+                    }
                     break;
                 case 4:
                 ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();
@@ -450,6 +488,7 @@ public class AdminUI {
             System.out.println("(4) View removed reviews");
             System.out.println("(5) Return to main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     System.out.println("Here are all of the reviews");
@@ -465,6 +504,7 @@ public class AdminUI {
                     System.out.println("(1) By reviewer");
                     System.out.println("(2) By reviewee");
                     option2 = input.nextInt();
+                    input.nextLine();
                         switch(option2) {
                             case 1:
                             System.out.println("Please enter the username for the reviewer");
@@ -481,7 +521,7 @@ public class AdminUI {
                                 }
                             } else {
                                 System.out.println("There is no user with that username");
-                            } //TODO make it so they have the option to search again
+                            } 
                                 break;
                             case 2:
                                 System.out.println("Please enter the username for the reviewee");
@@ -498,7 +538,7 @@ public class AdminUI {
                                     }
                                 } else {
                                     System.out.println("There is no user with that username");
-                                } //TODO make it so they have the option to search again
+                                } 
                                 
                                 break;
                             default:

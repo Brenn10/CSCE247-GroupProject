@@ -2,7 +2,6 @@ package database;
 import java.util.ArrayList;
 
 import dataTypes.Review;
-import dataTypes.Student;
 import dataTypes.User;
 
 public class ReviewDatabase {
@@ -24,8 +23,6 @@ public class ReviewDatabase {
     public void addReview(Review review) {
         reviews.add(review);
         Database.getInstance().writeToFileReviews(reviews);
-        //this should work if you change the database file writeToFile to take postings as its only argument.
-        //check Database.java
     }
 
     public void removeReveiw(Review review) {

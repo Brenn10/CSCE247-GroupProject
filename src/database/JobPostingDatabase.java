@@ -40,6 +40,16 @@ public class JobPostingDatabase {
         return this.removedPostings;
     }
 
+    public JobPosting getPostingByEmployerAndTitle(String employerUser, String title) {
+
+        for(JobPosting posting : postings) {
+            if(posting.getEmployer().getUsername().equals(employerUser) &&
+            posting.getJobTitle().equals(title))
+                return posting;
+        }
+        return null;
+    }
+
     public ArrayList<JobPosting> getPostingsByStudent(Student student) {
         ArrayList<JobPosting> applications = new ArrayList<JobPosting>();
         for(JobPosting posting : postings) {

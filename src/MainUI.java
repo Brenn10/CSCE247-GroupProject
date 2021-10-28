@@ -82,6 +82,7 @@ public class MainUI {
                 System.out.println("Invalid selection. Please try again.");
                 break;
         }
+        scanner.close();
     }
 
 }
