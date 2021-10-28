@@ -326,4 +326,7 @@ private void editReview(Student foundStudent) {
         System.out.print("\033[H\033[2J");  
         System.out.flush(); 
     }
+    public static void doSignup() {
+        // do this
+    }
 }
