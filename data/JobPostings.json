@@ -7,7 +7,7 @@
     ],
     "jobPostingStatus": "Open",
     "removed": false,
-    "hourlyWage": 10.00,
+    "hourlyWage": 10.0,
     "jobTitle": "Software Developement Intern",
     "applicants": [
       "110c60ef-e00f-436a-98af-9067e89fbf83"
@@ -24,7 +24,7 @@
     ],
     "jobPostingStatus": "Pending",
     "removed": false,
-    "hourlyWage": 20.00,
+    "hourlyWage": 20.0,
     "jobTitle": "Computer Vision Interm",
     "applicants": [
       "110c60ef-e00f-436a-98af-9067e89fbf83",
