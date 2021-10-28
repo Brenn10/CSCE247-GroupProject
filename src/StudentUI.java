@@ -7,13 +7,16 @@ import dataTypes.Employment;
 import dataTypes.JobPosting;
 import dataTypes.Review;
 import dataTypes.Student;
+import dataTypes.User;
 import database.JobPostingDatabase;
 import database.ReviewDatabase;
+import database.UserDatabase;
 import enums.Major;
 
 public class StudentUI {
-    public StudentUI() {
-
+    private Student student;
+    public StudentUI(Student student) {
+        this.student = student;
     }
 
     /**
@@ -22,7 +25,7 @@ public class StudentUI {
      * View Job Listings -1 View Job Applications -2 Edit/Create Resume -3 Check
      * Review -4
      */
-    public void doMainMenu(Student student) {
+    public void doMainMenu() {
         boolean keepLooping = true;
         Scanner input = new Scanner(System.in);
         int option = 0;
@@ -38,19 +41,19 @@ public class StudentUI {
             option = input.nextInt();
             switch (option) {
                 case 1:
-                    doViewJobListings(student);
+                    doViewJobListings();
                     break;
                 case 2:
-                    doViewJobApplications(student);
+                    doViewJobApplications();
                     break;
                 case 3:
-                    doViewResume(student);
+                    doViewResume();
                     break;
                 case 4:
-                    doEditResume(student);
+                    doEditResume();
                     break;
                 case 5:
-                    doViewReviews(student);
+                    doViewReviews();
                     break;
                 case 0:
                     keepLooping = false;
@@ -64,25 +67,25 @@ public class StudentUI {
         input.close();
     }
 
-    private void doViewReviews(Student student) {
+    private void doViewReviews() {
         ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviewsByReviewee(student);
         for (Review review : reviews) {
             System.out.println(review.toString());
         }
     }
 
-    private void doViewResume(Student student) {
+    private void doViewResume() {
         System.out.println(student.getPrintableResume());
     }
 
-    private void doViewJobApplications(Student student) {
+    private void doViewJobApplications() {
         ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostingsByStudent(student);
         for (JobPosting posting : postings) {
             System.out.println(posting);
         }
     }
 
-    private void doEditResume(Student student) {
+    private void doEditResume() {
         Scanner input = new Scanner(System.in);
         boolean keepEditing = true;
         while(keepEditing) {
@@ -95,16 +98,16 @@ public class StudentUI {
             int option = input.nextInt();
             switch (option) {
                 case 1:
-                    doEditMajor(student);
+                    doEditMajor();
                     break;
                 case 2:
-                    doEditEducations(student);
+                    doEditEducations();
                     break;
                 case 3:
-                    doEditSkills(student);
+                    doEditSkills();
                     break;
                 case 4:
-                    doEditEmployment(student);
+                    doEditEmployment();
                     break;
                 case 0:
                     keepEditing = false;
@@ -115,10 +118,11 @@ public class StudentUI {
             }
         }
         input.close();
+        student.setCreated(true);
     }
 
 
-    private void doEditEmployment(Student student) {
+    private void doEditEmployment() {
         ArrayList<Employment> employments = student.getEmployments();
         for (int i = 0; i < employments.size(); i++) {
             System.out.println(i+"\n"+employments.get(i));
@@ -134,10 +138,10 @@ public class StudentUI {
             int option = input.nextInt();
             switch (option) {
                 case 1:
-                    doAddEmployment(student);
+                    doAddEmployment();
                     break;
                 case 2:
-                    doRemoveEmployment(student);
+                    doRemoveEmployment();
                     break;
                 case 0:
                     keepEditing = false;
@@ -150,7 +154,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doRemoveEmployment(Student student) {
+    private void doRemoveEmployment() {
         ArrayList<Employment> employments = student.getEmployments();
         for (int i = 0; i < employments.size(); i++) {
             System.out.println(i+"\n"+employments.get(i));
@@ -166,7 +170,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doAddEmployment(Student student) {
+    private void doAddEmployment() {
         Scanner input = new Scanner(System.in);
         System.out.print("Please enter the company name: ");
         String companyName = input.nextLine();
@@ -186,7 +190,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doEditSkills(Student student) {
+    private void doEditSkills() {
         ArrayList<String> skills = student.getTechnicalSkills();
         for (int i = 0; i < skills.size(); i++) {
             System.out.println(i+": "+skills.get(i));
@@ -200,10 +204,10 @@ public class StudentUI {
             System.out.println("0) Stop Editing\n");
             switch (input.nextInt()) {
                 case 1:
-                    doAddSkill(student);
+                    doAddSkill();
                     break;
                 case 2:
-                    doRemoveSkill(student);
+                    doRemoveSkill();
                     break;
                 case 0:
                     keepEditing = false;
@@ -216,7 +220,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doRemoveSkill(Student student) {
+    private void doRemoveSkill() {
         ArrayList<String> skills = student.getTechnicalSkills();
         for (int i = 0; i < skills.size(); i++) {
             System.out.println(i+"\n"+skills.get(i));
@@ -232,7 +236,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doAddSkill(Student student) {
+    private void doAddSkill() {
         Scanner input = new Scanner(System.in);
         System.out.print("Please enter the skill: ");
         String skill = input.nextLine();
@@ -240,7 +244,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doEditEducations(Student student) {
+    private void doEditEducations() {
         ArrayList<Education> educations = student.getEducations();
         for (int i = 0; i < educations.size(); i++) {
             System.out.println(i+"\n"+educations.get(i));
@@ -256,10 +260,10 @@ public class StudentUI {
             int option = input.nextInt();
             switch (option) {
                 case 1:
-                    doAddEducation(student);
+                    doAddEducation();
                     break;
                 case 2:
-                    doRemoveEducation(student);
+                    doRemoveEducation();
                     break;
                 case 0:
                     keepEditing = false;
@@ -272,7 +276,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doRemoveEducation(Student student) {
+    private void doRemoveEducation() {
         ArrayList<Education> educations = student.getEducations();
         for (int i = 0; i < educations.size(); i++) {
             System.out.println(i+"\n"+educations.get(i));
@@ -288,7 +292,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doAddEducation(Student student) {
+    private void doAddEducation() {
         Scanner input = new Scanner(System.in);
         System.out.print("Please enter the name of the school: ");
         String schoolName = input.nextLine();
@@ -300,7 +304,7 @@ public class StudentUI {
         input.close();
     }
 
-    private void doEditMajor(Student student) {
+    private void doEditMajor() {
         boolean majorChanged = false;
         Scanner input = new Scanner(System.in);
         String major = input.nextLine();
@@ -325,10 +329,48 @@ public class StudentUI {
         input.close();
     }
 
-    private void doViewJobListings(Student student) {
+    private void doViewJobListings() {
         ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getOpenPostings();
         for (JobPosting posting : postings) {
             System.out.println(posting);
         }
+    }
+
+    public static void doSignup() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Username:");
+        String username = input.nextLine();
+        System.out.print("Password:");
+        String password = input.nextLine();
+        System.out.print("First Name:");
+        String firstName = input.nextLine();
+        System.out.print("Last Name:");
+        String lastName = input.nextLine();
+        System.out.print("Email:");
+        String email = input.nextLine();
+        while (User.isEmailValid(email) == false) {
+            System.out.print("Invalid email. Please enter a valid email: ");
+            email = input.nextLine();
+        }
+
+        System.out.print("Would you like to create a resume now [yes/no]:");
+        String doResume = input.nextLine();
+        while (!doResume.equalsIgnoreCase("yes") && !doResume.equalsIgnoreCase("no")) {
+            System.out.print("Invalid input. Would you like to create a resume now [yes/no]:");
+            doResume = input.nextLine();
+        }
+
+        Student newStudent = new Student.Builder().username(username)
+                                                   .password(password)
+                                                   .firstName(firstName)
+                                                   .lastName(lastName)
+                                                   .email(email)
+                                                   .createdResume(false)
+                                                   .build();
+        if (doResume.equalsIgnoreCase("yes")) {
+            new StudentUI(newStudent).doEditResume();
+        }
+        UserDatabase.getInstance().addUser(newStudent);
+        input.close();
     }
 }

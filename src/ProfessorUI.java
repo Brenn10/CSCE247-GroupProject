@@ -93,4 +93,6 @@ public void ReviewStudent(Professor professor) {
 public void editReviewStudent(Professor professor) { 
 
 }
+public static void doSignup() {
+}
 }
