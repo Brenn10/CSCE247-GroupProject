@@ -58,4 +58,7 @@ public class JobSystem {
         Database.getInstance().loadFromFile();
     }
 
+    public void saveData() {
+        Database.getInstance().writeToFile();
+    }
 }

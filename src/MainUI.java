@@ -11,10 +11,11 @@ public class MainUI {
     private Scanner scanner;
     public MainUI() {
         scanner = new Scanner(System.in);
-        JobSystem.getInstance().loadData();
     }
 
     public void doMainMenu() {
+        JobSystem.getInstance().loadData();
+
         System.out.println("Welcome to the Neurotic Job Search!");
 
         boolean doLoop = true;
@@ -36,6 +37,8 @@ public class MainUI {
                     break;
             }
         }
+
+        JobSystem.getInstance().saveData();
     }
 
     public void doLogin() {
