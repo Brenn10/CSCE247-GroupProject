@@ -121,7 +121,7 @@ public class AdminUI {
                 case 1:
                     ArrayList<Student> students = UserDatabase.getInstance().getStudents();
                     for(Student student: students)
-                        System.out.println(student); // TODO implement toString method in students
+                        System.out.println(student);
                     break;
                 case 2:
                     System.out.println("Please enter the students username:");
@@ -130,7 +130,7 @@ public class AdminUI {
                     if(search!= null)
                     {
                         System.out.println("That student exists, here is their information:");
-                        System.out.println(search); // TODO implement toString method in users
+                        System.out.println(search); 
                     } else
                         System.out.println("A student with that username does not exist!");
                     break;
@@ -141,7 +141,7 @@ public class AdminUI {
                 if(search!= null)
                 {
                     System.out.println("Here is that student's information:");
-                    System.out.println(search); // TODO implement toString method in users
+                    System.out.println(search); 
                     //TODO will eventually add a "Are you sure you want to delete" type thinge
                     System.out.println("Deleting student...");
                     admin.removeUser(search);
@@ -196,7 +196,7 @@ public class AdminUI {
                 case 1:
                     ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
                     for(Employer employer: employers)
-                        System.out.println(employer); // TODO implement toString method in students
+                        System.out.println(employer);
                     break;
                 case 2:
                     System.out.println("Please enter the employer's username:");
@@ -205,7 +205,7 @@ public class AdminUI {
                     if(search!= null)
                     {
                         System.out.println("That employer exists, here is their information:");
-                        System.out.println(search); // TODO implement toString method in users
+                        System.out.println(search); 
                     } else
                         System.out.println("An employer with that username does not exist!");
                     break;
@@ -216,7 +216,7 @@ public class AdminUI {
                 if(search!= null)
                 {
                     System.out.println("Here is that employers's information:");
-                    System.out.println(search); // TODO implement toString method in users
+                    System.out.println(search); 
                     //TODO will eventually add a "Are you sure you want to delete" type thinge
                     System.out.println("Deleting employer...");
                     admin.removeUser(search);
@@ -271,7 +271,7 @@ public class AdminUI {
                 case 1:
                     ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
                     for(Professor prof: professors)
-                        System.out.println(prof); // TODO implement toString method in students
+                        System.out.println(prof); 
                     break;
                 case 2:
                     System.out.println("Please enter the professors username:");
@@ -280,7 +280,7 @@ public class AdminUI {
                     if(search!= null)
                     {
                         System.out.println("That professor exists, here is their information:");
-                        System.out.println(search); // TODO implement toString method in users
+                        System.out.println(search); 
                     } else
                         System.out.println("A professor with that username does not exist!");
                     break;
@@ -291,7 +291,7 @@ public class AdminUI {
                 if(search!= null)
                 {
                     System.out.println("Here is that professor's information:");
-                    System.out.println(search); // TODO implement toString method in users
+                    System.out.println(search); 
                     //TODO will eventually add a "Are you sure you want to delete" type thinge
                     System.out.println("Deleting professor...");
                     admin.removeUser(search);
@@ -332,7 +332,7 @@ public class AdminUI {
         ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
         for(User user: unapprovedUsers) {
             System.out.println("The following user is waiting for approval");
-            System.out.println(user); //TODO again, implement toString method
+            System.out.println(user); 
             System.out.println("Would you like to approve them? Enter (Y) for yes and (N) for no");
             String answer = input.nextLine();
             answer = answer.toUpperCase();
@@ -420,12 +420,12 @@ public class AdminUI {
                     System.out.println("Here are all of the reviews");
                     ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviews();
                     for(Review review: reviews)
-                        System.out.println(review); //TODO review toString
+                        System.out.println(review); 
                     break;
                 case 2:
                     String username;
                     User user;
-                    Review reviewFound;
+                    ArrayList <Review> reviewFound;
                     System.out.println("How would you like to search?");
                     System.out.println("(1) By reviewer");
                     System.out.println("(2) By reviewee");
@@ -436,32 +436,34 @@ public class AdminUI {
                             username = input.nextLine();
                             user = UserDatabase.getInstance().findByUsername(username);
                             if(username != null) {
-                            reviewFound = ReviewDatabase.getInstance().getReviewByReviewer(user);
+                            reviewFound = ReviewDatabase.getInstance().getReviewsByReviewer(user);
                                 if(reviewFound != null) {
-                                    System.out.println("Here is that review made by @" + username);
-                                    System.out.println(reviewFound);
+                                    System.out.println("Here are all reviews made by @" + username);
+                                    for(Review review: reviewFound)
+                                            System.out.println(review);
                                 } else {
                                 System.out.println("@" + username + " has not made any reviews");
                                 }
                             } else {
                                 System.out.println("There is no user with that username");
-                            } //TODO make it so they have the option to research
+                            } //TODO make it so they have the option to search again
                                 break;
                             case 2:
                                 System.out.println("Please enter the username for the reviewee");
                                 username = input.nextLine();
                                 user = UserDatabase.getInstance().findByUsername(username);
                                 if(username != null) {
-                                reviewFound = ReviewDatabase.getInstance().getReviewByReviewee(user);
+                                reviewFound = ReviewDatabase.getInstance().getReviewsByReviewee(user);
                                     if(reviewFound != null) {
-                                        System.out.println("Here is that review:");
-                                        System.out.println(reviewFound);
+                                        System.out.println("Here are all reviews made about @" + username);
+                                        for(Review review: reviewFound)
+                                            System.out.println(review);
                                     } else {
                                     System.out.println("@" + username + " has not had any reviews made about them");
                                     }
                                 } else {
                                     System.out.println("There is no user with that username");
-                                } //TODO make it so they have the option to research
+                                } //TODO make it so they have the option to search again
                                 
                                 break;
                             default:
@@ -469,13 +471,27 @@ public class AdminUI {
                         }
                     break;
                 case 3:
-                    //TODO implement 
+                    String reviewerUser;
+                    String revieweeUser;
+                    System.out.println("To remove a review, we need both the reviewer and reviewees usernames");
+                    System.out.println("Reviwewer username:");
+                    reviewerUser = input.nextLine();
+                    System.out.println("Reviewee username: ");
+                    revieweeUser = input.nextLine();
+                    System.out.println("Searching for review to remove...");
+                    Review toRemove = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(reviewerUser, revieweeUser);
+                    if(toRemove!=null) {
+                        System.out.println("Removing...");
+                        admin.removeReviews(toRemove);
+                    } else {
+                        System.out.println("@" + reviewerUser + " has not made a review about @" + revieweeUser);
+                    }
                     break;
                 case 4:
                         System.out.println("Here are all of the removed reviews");
                     ArrayList<Review> removedReviews = ReviewDatabase.getInstance().getRemovedReviews();
                     for(Review review: removedReviews)
-                        System.out.println(review); //TODO review toString 
+                        System.out.println(review);
                     break;
                 case 5:
                     go = false;
