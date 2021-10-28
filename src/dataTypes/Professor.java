@@ -1,11 +1,13 @@
 package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
+import database.ReviewDatabase;
 
 import database.ReviewDatabase;
 
 public class Professor extends User {
     private boolean removed;
+    private ArrayList<Student> students;
 
     public Professor(UUID id, 
             String username, 
@@ -28,11 +30,14 @@ public class Professor extends User {
         ReviewDatabase.getInstance().addReview(reviewToAdd); 
     }
 
-    public ArrayList<Student> getStudentReviewed() {
+    public ArrayList<Student> getStudentReviewed(User user) {
+        ReviewDatabase.getInstance().getReviewByReviewer(user);
         //TODO access all of the students reviewed by this professor
         return null;
     }
-
+    public ArrayList<Student> getStudents() {
+        return this.students;
+    }
     public String getUsername() {
         return this.username;
     }
