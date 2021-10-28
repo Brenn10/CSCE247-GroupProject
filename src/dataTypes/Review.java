@@ -46,8 +46,6 @@ public class Review {
         this.comment = comment;
     }
 
-    
-
     public boolean isRemoved() {
         return removed;
     }

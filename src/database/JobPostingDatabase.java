@@ -1,6 +1,7 @@
 package database;
 import java.util.ArrayList;
 
+import dataTypes.Employer;
 import dataTypes.JobPosting;
 import dataTypes.Student;
 
@@ -46,6 +47,15 @@ public class JobPostingDatabase {
                 applications.add(posting);
         }
         return applications;
+    }
+
+    public ArrayList<JobPosting> getPostingsByEmployer(Employer employer) {
+        ArrayList<JobPosting> returnPostings = new ArrayList<JobPosting>();
+        for(JobPosting posting: postings) {
+            if(posting.getEmployer().equals(employer)); //TODO implement equals
+                returnPostings.add(posting);
+        }
+        return returnPostings;
     }
 
     public ArrayList<JobPosting> getOpenPostings() {

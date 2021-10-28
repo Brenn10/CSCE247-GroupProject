@@ -144,6 +144,16 @@ public class Student extends User {
         return sb.toString();
     }
 
+    public String toString() {
+        String toReturn =  "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
+        + " email: " + this.email + "/n" + "Major: " + this.major;
+
+        if(hasCreatedResume())
+            toReturn += "Resume: " + getPrintableResume();
+
+        return toReturn;
+    }
+
     public static class Builder {
         private UUID id;
         private String username;

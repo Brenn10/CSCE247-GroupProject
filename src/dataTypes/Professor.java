@@ -71,6 +71,11 @@ public class Professor extends User {
     public void setRemoved(boolean removed) {
         this.removed = removed;
     }
+
+    public String toString() {
+        return "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
+        + " email: " + this.email;
+    }
     public static class Builder {
         private UUID id;
         private String username;

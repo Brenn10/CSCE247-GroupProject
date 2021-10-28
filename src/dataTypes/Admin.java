@@ -36,6 +36,11 @@ public class Admin extends User {
         UserDatabase.getInstance().addUser(user);
     }
 
+    public String toString() {
+        return "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
+        + " email: " + this.email;
+    }
+
     public static class Builder {
         private UUID id;
         private String username;

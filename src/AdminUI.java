@@ -67,7 +67,6 @@ public class AdminUI {
 
     private void accessUsers(Admin admin) {
         Scanner input = new Scanner (System.in);
-        //UserDatabase userDatabase = UserDatabase.getInstance();
         boolean access = true;
         int option;
         while(access) {
