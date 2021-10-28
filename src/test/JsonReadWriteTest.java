@@ -1,13 +1,6 @@
 package test;
 
-import dataTypes.Admin;
 import dataTypes.DataBlob;
-import dataTypes.Employer;
-import dataTypes.JobPosting;
-import dataTypes.Professor;
-import dataTypes.Review;
-import dataTypes.Student;
-import dataTypes.User;
 import database.JsonDataReader;
 import database.JsonDataWriter;
 

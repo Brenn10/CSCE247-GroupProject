@@ -18,6 +18,12 @@ import dataTypes.Student;
 import dataTypes.User;
 import enums.JsonDataLabels;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.Gson;
+
+
 public class JsonDataWriter extends DataWriter {
     private String adminFilePath;
     private String studentFilePath;
@@ -55,22 +61,7 @@ public class JsonDataWriter extends DataWriter {
         for (Review review : reviews) {
             jsonReviews.add(jsonify(review));
         }
-        FileWriter reviewWriter = null;
-        try {
-            reviewWriter = new FileWriter(reviewFilePath);
-            reviewWriter.write(jsonReviews.toJSONString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (reviewWriter != null) {
-                try {
-                    reviewWriter.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }
+        writePrettyJson(jsonReviews, reviewFilePath);
     }
 
     public void writeJobPostings(ArrayList<JobPosting> postings) {
@@ -78,22 +69,7 @@ public class JsonDataWriter extends DataWriter {
         for (JobPosting posting : postings) {
             jsonPostings.add(jsonify(posting));
         }
-        FileWriter postingWriter = null;
-        try {
-            postingWriter = new FileWriter(jobPostingFilePath);
-            postingWriter.write(jsonPostings.toJSONString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if(postingWriter != null) {
-                try {
-                    postingWriter.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        }
+        writePrettyJson(jsonPostings, jobPostingFilePath);
     }
 
     public void writeUsers(ArrayList<User> users) {
@@ -116,50 +92,28 @@ public class JsonDataWriter extends DataWriter {
             }
         }
 
-        FileWriter adminWriter = null, studentWriter = null, employerWriter = null, professorWriter = null;
+        writePrettyJson(studentArray, studentFilePath);
+        writePrettyJson(employerArray, employerFilePath);
+        writePrettyJson(professorArray, professorFilePath);
+        writePrettyJson(adminArray, adminFilePath);
+    }
+
+    private void writePrettyJson(JSONArray json, String fileName) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement je = JsonParser.parseString(json.toJSONString());
+        String prettyJsonString = gson.toJson(je);
+
+        FileWriter writer= null;
         try {
-            adminWriter = new FileWriter(adminFilePath);
-            adminWriter.write(adminArray.toJSONString());
 
-            studentWriter = new FileWriter(studentFilePath);
-            studentWriter.write(studentArray.toJSONString());
-
-            employerWriter = new FileWriter(employerFilePath);
-            employerWriter.write(employerArray.toJSONString());
-
-            professorWriter = new FileWriter(professorFilePath);
-            professorWriter.write(professorArray.toJSONString());
+            writer = new FileWriter(fileName);
+            writer.write(prettyJsonString);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (adminWriter != null) {
+            if (writer != null) {
                 try {
-                    adminWriter.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            if (studentWriter != null) {
-                try {
-                    studentWriter.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-            if (employerWriter != null) {
-                try {
-                    employerWriter.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            if (adminWriter != null) {
-                try {
-                    adminWriter.close();
+                    writer.close();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -178,10 +132,16 @@ public class JsonDataWriter extends DataWriter {
         studentJson.put(JsonDataLabels.USER_EMAIL, student.getEmail());
         studentJson.put(JsonDataLabels.USER_APPROVED, student.isApproved());
         studentJson.put(JsonDataLabels.STUDENT_MAJOR, student.getMajor().toString());
-        
         studentJson.put(JsonDataLabels.STUDENT_CREATEDRESUME, student.hasCreatedResume());
         studentJson.put(JsonDataLabels.REMOVED, student.isRemoved());
+        studentJson.put(JsonDataLabels.STUDENT_AVERAGERATING, student.getAverageReview());
         if(student.hasCreatedResume()) {
+            JSONArray jsonSkills = new JSONArray();
+            for (String skill : student.getTechnicalSkills()) {
+                jsonSkills.add(skill);
+            }
+            studentJson.put(JsonDataLabels.STUDENT_SKILLS, jsonSkills);
+
             JSONArray jsonEmployments = new JSONArray();
             for (Employment employment : student.getEmployments()) {
                 JSONObject jsonEmployment = new JSONObject();
@@ -292,6 +252,7 @@ public class JsonDataWriter extends DataWriter {
         postingJson.put(JsonDataLabels.REMOVED, posting.isRemoved());
         return postingJson;
     }
+
 
 
 }
