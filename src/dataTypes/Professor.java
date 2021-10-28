@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 import database.ReviewDatabase;
 
-import database.ReviewDatabase;
-
 public class Professor extends User {
     private boolean removed;
     private ArrayList<Student> students;

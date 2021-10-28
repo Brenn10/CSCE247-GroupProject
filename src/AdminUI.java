@@ -2,8 +2,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner6;
-
 import dataTypes.Admin;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -148,7 +146,7 @@ public class AdminUI {
                 {
                     System.out.println("Here is that student's information:");
                     System.out.println(search); 
-                    //TODO will eventually add a "Are you sure you want to delete" type thinge
+                    //TODO will eventually add a "Are you sure you want to delete" type thing
                     System.out.println("Deleting student...");
                     admin.removeUser(search);
 
@@ -523,7 +521,7 @@ public class AdminUI {
                                 }
                             } else {
                                 System.out.println("There is no user with that username");
-                            } //TODO make it so they have the option to search again
+                            } 
                                 break;
                             case 2:
                                 System.out.println("Please enter the username for the reviewee");
@@ -540,7 +538,7 @@ public class AdminUI {
                                     }
                                 } else {
                                     System.out.println("There is no user with that username");
-                                } //TODO make it so they have the option to search again
+                                } 
                                 
                                 break;
                             default:
