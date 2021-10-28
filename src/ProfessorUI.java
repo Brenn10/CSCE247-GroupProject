@@ -47,6 +47,7 @@ private void reviewMenuStudent(Professor professor) {
     while(looking) {
         System.out.println("To review a student enter: 1");
         System.out.println("To edit review enter: 2");
+        System.out.println("To delete review enter: 3");
         System.out.println("To quit enter: 0");
         choice = input.nextInt();
         switch (choice) {
@@ -56,6 +57,8 @@ private void reviewMenuStudent(Professor professor) {
             case 2:
                 editReviewStudent(professor);
                 break;
+            case 3:
+                removeReview(professor);
             case 0:
                 looking = false;
                 break;
@@ -72,25 +75,54 @@ private void reviewMenuStudent(Professor professor) {
     // loop until 0 chosen or student selected and rated successfully
 }
 public void ReviewStudent(Professor professor) {
-    String studentname = "";
-    User stu;
-    Scanner input = new Scanner (System.in);
-    for (Student i : professor.getStudents()) {
+    User student;
+    Review review = null;
+    displayStudents(professor);
+    student = selectStudent();
+    review  = addingreview(student, professor);
+    ReviewDatabase.getInstance().addReview(review);
+}
+public void editReviewStudent(Professor professor) { 
+    displayStudents(professor);
+   
+}
+public void removeReveiw(Professor professor) {
+    User student;
+    Review review = null;
+    displayStudents(professor);
+    student = selectStudent();
+    review = addingreview(student, professor);
+
+}
+public void displayStudents(Professor professor) {
+    for (Review i: professor.getStudentReviewed(professor)) {
         System.out.println("Student Name: ");
-        System.out.println(i.getFirstName() + " " + i.getLastName());
+        System.out.println(i.getReviewee().getFullName());
     }
+}
+public User selectStudent() { 
+    String studentname = "";
+    User student;
+    Scanner input = new Scanner (System.in);
     System.out.println("Please select a student's first name"); // or something similar
     studentname = input.next();
     studentname += " ";
     System.out.println("Please select a student's last name");
     studentname += input.next();
-    stu = UserDatabase.getInstance().findByName(studentname);
-    //check input to exisitng user. create review ask user input. then add it to review database
-    //stu;
-    //Review review  = new Review(id, reveiwer, reviewee, rating, comment, removed)
-    //ReviewDatabase.getInstance().addReview();
+    student = UserDatabase.getInstance().findByName(studentname);
+    return student;
 }
-public void editReviewStudent(Professor professor) { 
+public Review addingreview(User student, Professor professor) {
+    String comment = "";
+    int rating = 0;
+    Review review = null;
+    Scanner input = new Scanner (System.in);
+    System.out.println("What rating do you give to " + student.getFullName());
+    comment = input.next();
+    System.out.println("What comment do you have for " + student.getFullName());
+    rating = input.nextInt();
+    review = new Review.Builder().reviewer(professor).reviewee(student).rating(rating).comment(comment).build();
+    return review;
 
 }
 }

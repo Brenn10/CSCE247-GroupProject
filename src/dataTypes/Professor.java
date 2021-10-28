@@ -30,10 +30,11 @@ public class Professor extends User {
         ReviewDatabase.getInstance().addReview(reviewToAdd); 
     }
 
-    public ArrayList<Student> getStudentReviewed(User user) {
-        ReviewDatabase.getInstance().getReviewByReviewer(user);
+    public ArrayList<Review> getStudentReviewed(User user) {
+        ArrayList<Review> reviews = new ArrayList<Review>();
+        reviews = ReviewDatabase.getInstance().getReviewsByReviewer(user);
         //TODO access all of the students reviewed by this professor
-        return null;
+        return reviews;
     }
     public ArrayList<Student> getStudents() {
         return this.students;
