@@ -32,10 +32,10 @@ public class Employment {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(title + " at " + company + "\n");
-        sb.append(dates + "\n");
+        sb.append("\t"+title + " at " + company + "\n");
+        sb.append("\t"+dates);
         for(String detail : details){
-            sb.append(detail + "\n");
+            sb.append("\n\t"+detail);
         }
         return sb.toString();
     }

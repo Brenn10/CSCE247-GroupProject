@@ -12,7 +12,7 @@
         "employments": [
             {
                 "company": "Teraki GmbH",
-                "position": "R&D Intern",
+                "title": "R&D Intern",
                 "dates": "January 2020 - August 2020",
                 "details": [
                     "Created VIO algorithms",
@@ -35,6 +35,11 @@
                 "gpa": 4.6,
                 "gradDate": "May 2017"
             }
+        ],
+        "skills": [
+            "C++",
+            "Java",
+            "JavaScript"
         ],
         "removed": false,
         "averageRating": 4.5

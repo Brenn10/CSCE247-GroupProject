@@ -131,11 +131,11 @@ public class Student extends User {
         sb.append(this.getMajor() + " major\n");
         sb.append("Employments:\n");
         for (Employment e : this.getEmployments()) {
-            sb.append("\t" + e.toString() + "\n");
+            sb.append(e.toString() + "\n");
         }
         sb.append("Educations:\n");
         for (Education e : this.getEducations()) {
-            sb.append("\t" + e.toString() + "\n");
+            sb.append(e.toString() + "\n");
         }
         sb.append("Technical Skills:\n");
         for (String s : this.getTechnicalSkills()) {
@@ -145,13 +145,7 @@ public class Student extends User {
     }
 
     public String toString() {
-        String toReturn =  "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
-        + " email: " + this.email + "/n" + "Major: " + this.major;
-
-        if(hasCreatedResume())
-            toReturn += "Resume: " + getPrintableResume();
-
-        return toReturn;
+        return getPrintableResume();
     }
 
     public static class Builder {

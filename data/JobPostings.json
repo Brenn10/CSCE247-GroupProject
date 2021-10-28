@@ -10,7 +10,7 @@
             "C++"
         ],
 
-        "hourlyWage": "10.00",
+        "hourlyWage": 10.00,
         "jobPostingStatus": "Open",
         "applicantIds": [
             "110c60ef-e00f-436a-98af-9067e89fbf83"
@@ -28,7 +28,7 @@
             "C++"
         ],
 
-        "hourlyWage": "20.00",
+        "hourlyWage": 20.00,
         "jobPostingStatus": "Pending",
         "applicantIds": [
             "110c60ef-e00f-436a-98af-9067e89fbf83",

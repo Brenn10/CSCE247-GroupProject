@@ -323,8 +323,18 @@ public class JsonDataReader extends DataReader {
                         }
                     }
 
-                    JobPostingStatus status = JobPostingStatus
-                            .valueOf((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_STATUS));
+                    JobPostingStatus status = JobPostingStatus.NA;
+                    switch(((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_STATUS)).toLowerCase()) {
+                        case "open":
+                            status = JobPostingStatus.OPEN;
+                            break;
+                        case "closed":
+                            status = JobPostingStatus.CLOSED;
+                            break;
+                        case "pending":
+                            status = JobPostingStatus.PENDING;
+                            break;
+                    }
 
                     // Get students by getting UUIDS and then searching for each UUID
                     ArrayList<UUID> applicantIds = new ArrayList<UUID>();
@@ -355,6 +365,7 @@ public class JsonDataReader extends DataReader {
                     JobPosting jobPosting = new JobPosting.Builder()
                             .id(UUID.fromString((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_ID)))
                             .employer(employer)
+                            .jobTitle((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_TITLE))
                             .description((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_DESCRIPTION))
                             .requirements(requirements)
                             .hourlyWage((double) jobPostingJson.get(JsonDataLabels.JOBPOSTING_HOURLYWAGE)).status(status)
