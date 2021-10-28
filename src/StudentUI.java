@@ -15,8 +15,15 @@ import enums.Major;
 
 public class StudentUI {
     private Student student;
-    public StudentUI(Student student) {
+    private Scanner scanner;
+    public StudentUI(Scanner scanner, Student student) {
         this.student = student;
+        this.scanner = scanner;
+    }
+
+    public StudentUI(Scanner scanner) {
+        this.scanner = scanner;
+        this.student = null;
     }
 
     /**
@@ -27,18 +34,18 @@ public class StudentUI {
      */
     public void doMainMenu() {
         boolean keepLooping = true;
-        Scanner input = new Scanner(System.in);
         int option = 0;
         System.out.println("Welcome Student " + student.getFirstName() + " " + student.getLastName());
         while (keepLooping) {
-            System.out.println("Please select a valid option: \n\n");
-            System.out.println("1) View Job Listings\n");
-            System.out.println("2) View Job Applications\n");
-            System.out.println("3) View Resume\n");
-            System.out.println("4) Edit Resume\n");
-            System.out.println("5) View Reviews\n");
+            System.out.println("Please select a valid option: ");
+            System.out.println("1) View Job Listings");
+            System.out.println("2) View Job Applications");
+            System.out.println("3) View Resume");
+            System.out.println("4) Edit Resume");
+            System.out.println("5) View Reviews");
             System.out.println("0) Exit Neurotic Job Search");
-            option = input.nextInt();
+            System.out.print("Enter your option: ");
+            option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
                     doViewJobListings();
@@ -64,7 +71,6 @@ public class StudentUI {
             }
 
         }
-        input.close();
     }
 
     private void doViewReviews() {
@@ -86,16 +92,16 @@ public class StudentUI {
     }
 
     private void doEditResume() {
-        Scanner input = new Scanner(System.in);
         boolean keepEditing = true;
         while(keepEditing) {
-            System.out.println("Please select a valid option: \n\n");
-            System.out.println("1) Edit Major\n");
-            System.out.println("2) Edit Educations\n");
-            System.out.println("3) Edit Skills\n");
-            System.out.println("4) Edit Employment\n");
-            System.out.println("0) Stop Editing\n");
-            int option = input.nextInt();
+            System.out.println("Please select an valid option:");
+            System.out.println("1) Edit Major");
+            System.out.println("2) Edit Educations");
+            System.out.println("3) Edit Skills");
+            System.out.println("4) Edit Employment");
+            System.out.println("0) Stop Editing");
+            System.out.print("Choice: ");
+            int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
                     doEditMajor();
@@ -117,7 +123,7 @@ public class StudentUI {
                     break;
             }
         }
-        input.close();
+        
         student.setCreated(true);
     }
 
@@ -127,15 +133,14 @@ public class StudentUI {
         for (int i = 0; i < employments.size(); i++) {
             System.out.println(i+"\n"+employments.get(i));
         }
-        Scanner input = new Scanner(System.in);
         boolean keepEditing = true;
         while(keepEditing) {
-            System.out.println("Please select a valid option: \n\n");
-            System.out.println("1) Add Employment\n");
-            System.out.println("2) Remove Employment\n");
+            System.out.println("Please select an option: ");
+            System.out.println("1) Add Employment");
+            System.out.println("2) Remove Employment");
             //TODO: Add an edit. In the meantime removed and add works
             System.out.println("0) Stop Editing\n");
-            int option = input.nextInt();
+            int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
                     doAddEmployment();
@@ -151,7 +156,7 @@ public class StudentUI {
                     break;
             }
         }
-        input.close();
+        
     }
 
     private void doRemoveEmployment() {
@@ -160,34 +165,32 @@ public class StudentUI {
             System.out.println(i+"\n"+employments.get(i));
         }
         System.out.print("Please enter the index of the employment you would like to remove: ");
-        Scanner input = new Scanner(System.in);
-        int option = input.nextInt();
+        int option = Integer.parseInt(scanner.nextLine());
         try {
             employments.remove(option);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid employment");
         }
-        input.close();
+        
     }
 
     private void doAddEmployment() {
-        Scanner input = new Scanner(System.in);
         System.out.print("Please enter the company name: ");
-        String companyName = input.nextLine();
+        String companyName = scanner.nextLine();
         System.out.print("Please enter the job title: ");
-        String jobTitle = input.nextLine();
+        String jobTitle = scanner.nextLine();
         System.out.print("Please enter the dates: ");
-        String dates = input.nextLine();
+        String dates = scanner.nextLine();
 
         ArrayList<String> details = new ArrayList<String>();
         System.out.print("Please enter the descriptions (empty line to end): ");
-        String detail = input.nextLine();
+        String detail = scanner.nextLine();
         while (!detail.isEmpty()) {
             details.add(detail);
-            detail = input.nextLine();
+            detail = scanner.nextLine();
         }
         student.addEmployment(new Employment.Builder().company(companyName).title(jobTitle).dates(dates).details(details).build());
-        input.close();
+        
     }
 
     private void doEditSkills() {
@@ -195,14 +198,13 @@ public class StudentUI {
         for (int i = 0; i < skills.size(); i++) {
             System.out.println(i+": "+skills.get(i));
         }
-        Scanner input = new Scanner(System.in);
         boolean keepEditing = true;
         while(keepEditing) {
-            System.out.println("Please select a valid option: \n\n");
-            System.out.println("1) Add Skill\n");
-            System.out.println("2) Remove Skill\n");
-            System.out.println("0) Stop Editing\n");
-            switch (input.nextInt()) {
+            System.out.println("Please select an option:");
+            System.out.println("1) Add Skill");
+            System.out.println("2) Remove Skill");
+            System.out.println("0) Stop Editing");
+            switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
                     doAddSkill();
                     break;
@@ -217,31 +219,29 @@ public class StudentUI {
                     break;
             }
         }
-        input.close();
+        
     }
 
     private void doRemoveSkill() {
         ArrayList<String> skills = student.getTechnicalSkills();
         for (int i = 0; i < skills.size(); i++) {
-            System.out.println(i+"\n"+skills.get(i));
+            System.out.println(i+": "+skills.get(i));
         }
         System.out.print("Please enter the index of the skill you would like to remove: ");
-        Scanner input = new Scanner(System.in);
-        int option = input.nextInt();
+        int option = Integer.parseInt(scanner.nextLine());
         try {
             skills.remove(option);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid skill");
         }
-        input.close();
+        
     }
 
     private void doAddSkill() {
-        Scanner input = new Scanner(System.in);
         System.out.print("Please enter the skill: ");
-        String skill = input.nextLine();
+        String skill = scanner.nextLine();
         student.addTechincalSkill(skill);
-        input.close();
+        
     }
 
     private void doEditEducations() {
@@ -249,15 +249,14 @@ public class StudentUI {
         for (int i = 0; i < educations.size(); i++) {
             System.out.println(i+"\n"+educations.get(i));
         }
-        Scanner input = new Scanner(System.in);
         boolean keepEditing = true;
         while(keepEditing) {
-            System.out.println("Please select a valid option: \n\n");
-            System.out.println("1) Add Education\n");
-            System.out.println("2) Remove Education\n");
+            System.out.println("Please select an option: ");
+            System.out.println("1) Add Education");
+            System.out.println("2) Remove Education");
             //TODO: Add an edit. In the meantime removed and add works
-            System.out.println("0) Stop Editing\n");
-            int option = input.nextInt();
+            System.out.println("0) Stop Editing");
+            int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
                     doAddEducation();
@@ -273,7 +272,7 @@ public class StudentUI {
                     break;
             }
         }
-        input.close();
+        
     }
 
     private void doRemoveEducation() {
@@ -282,34 +281,31 @@ public class StudentUI {
             System.out.println(i+"\n"+educations.get(i));
         }
         System.out.print("Please enter the index of the education you would like to remove: ");
-        Scanner input = new Scanner(System.in);
-        int option = input.nextInt();
+        int option = Integer.parseInt(scanner.nextLine());
         try {
             educations.remove(option);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid education");
         }
-        input.close();
+        
     }
 
     private void doAddEducation() {
-        Scanner input = new Scanner(System.in);
         System.out.print("Please enter the name of the school: ");
-        String schoolName = input.nextLine();
+        String schoolName = scanner.nextLine();
         System.out.print("Please enter your gpa: ");
-        double gpa = input.nextDouble();
+        double gpa = scanner.nextDouble();
         System.out.print("Please enter the graduation date: ");
-        String gradDate = input.nextLine();
+        String gradDate = scanner.nextLine();
         student.addEducation(new Education.Builder().place(schoolName).gpa(gpa).gradDate(gradDate).build());
-        input.close();
+        
     }
 
     private void doEditMajor() {
         boolean majorChanged = false;
-        Scanner input = new Scanner(System.in);
-        String major = input.nextLine();
+        String major = scanner.nextLine();
         while (!majorChanged) {
-            System.out.print("Input your new major: ");
+            System.out.print("scanner your new major: ");
             if(major.equalsIgnoreCase(Major.COMPUTER_ENGINEERING.toString())) {
                 student.setMajor(Major.COMPUTER_ENGINEERING);
                 majorChanged = true;
@@ -326,41 +322,53 @@ public class StudentUI {
                 System.out.println("Invalid major");
             }
         }
-        input.close();
+        
     }
 
     private void doViewJobListings() {
-        ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getOpenPostings();
-        for (JobPosting posting : postings) {
+        for (JobPosting posting : JobPostingDatabase.getInstance().getOpenPostings()) {
             System.out.println(posting);
         }
     }
 
-    public static void doSignup() {
-        Scanner input = new Scanner(System.in);
-        System.out.print("Username:");
-        String username = input.nextLine();
-        System.out.print("Password:");
-        String password = input.nextLine();
-        System.out.print("First Name:");
-        String firstName = input.nextLine();
-        System.out.print("Last Name:");
-        String lastName = input.nextLine();
+    public void doSignup() {
         System.out.print("Email:");
-        String email = input.nextLine();
+        String email = scanner.nextLine();
+        if(!User.isEmailValid(email)) {
+            System.out.println("Invalid email");
+            return;
+        }
+        if (UserDatabase.getInstance().getUserByEmail(email) != null) {
+            System.out.println("Email already in use");
+            return;
+        }
+
+        System.out.print("Username:");
+        String username = scanner.nextLine();
+        if (UserDatabase.getInstance().findByUsername(username) != null) {
+            System.out.println("Username already exists");
+            return;
+        }
+
+        System.out.print("Password:");
+        String password = scanner.nextLine();
+        System.out.print("First Name:");
+        String firstName = scanner.nextLine();
+        System.out.print("Last Name:");
+        String lastName = scanner.nextLine();
         while (User.isEmailValid(email) == false) {
             System.out.print("Invalid email. Please enter a valid email: ");
-            email = input.nextLine();
+            email = scanner.nextLine();
         }
 
         System.out.print("Would you like to create a resume now [yes/no]:");
-        String doResume = input.nextLine();
+        String doResume = scanner.nextLine();
         while (!doResume.equalsIgnoreCase("yes") && !doResume.equalsIgnoreCase("no")) {
-            System.out.print("Invalid input. Would you like to create a resume now [yes/no]:");
-            doResume = input.nextLine();
+            System.out.print("Invalid scanner. Would you like to create a resume now [yes/no]:");
+            doResume = scanner.nextLine();
         }
 
-        Student newStudent = new Student.Builder().username(username)
+        student = new Student.Builder().username(username)
                                                    .password(password)
                                                    .firstName(firstName)
                                                    .lastName(lastName)
@@ -368,9 +376,9 @@ public class StudentUI {
                                                    .createdResume(false)
                                                    .build();
         if (doResume.equalsIgnoreCase("yes")) {
-            new StudentUI(newStudent).doEditResume();
+            doEditResume();
         }
-        UserDatabase.getInstance().addUser(newStudent);
-        input.close();
+        UserDatabase.getInstance().addUser(student);
+        
     }
 }

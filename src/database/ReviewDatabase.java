@@ -6,12 +6,8 @@ import dataTypes.User;
 
 public class ReviewDatabase {
     private static ReviewDatabase reviewDatabase;
-    private ArrayList<Review> reviews;
-    private ArrayList<Review> removedReviews;
 
     private ReviewDatabase() {
-        reviews = new ArrayList<Review>();
-        removedReviews = new ArrayList<Review>();
     }
 
     public static ReviewDatabase getInstance() {
@@ -21,27 +17,30 @@ public class ReviewDatabase {
     }
 
     public void addReview(Review review) {
-        reviews.add(review);
-        Database.getInstance().writeToFileReviews(reviews);
+        Database.getInstance().getReviews().add(review);
+        Database.getInstance().writeToFileReviews();
     }
 
     public void removeReveiw(Review review) {
-        removedReviews.add(review);
         review.setRemoved(true);
-        Database.getInstance().writeToFileReviews(reviews);
-
+        Database.getInstance().writeToFileReviews();
     }
 
     public ArrayList<Review> getReviews() {
-        return this.reviews;
+        return Database.getInstance().getReviews();
     }
 
     public ArrayList<Review> getRemovedReviews() {
-        return this.removedReviews;
+        ArrayList<Review> removedReviews = new ArrayList<>();
+        for(Review review : Database.getInstance().getReviews()) {
+            if(review.isRemoved())
+                removedReviews.add(review);
+        }
+        return removedReviews;
     }
 
     public Review getReviewByReviewer(User user) {
-        for(Review review: reviews) {
+        for(Review review: Database.getInstance().getReviews()) {
             if(review.getReviewer().getUsername().equals(user.getUsername()))
                 return review;
         }
@@ -49,7 +48,7 @@ public class ReviewDatabase {
     }
 
     public Review getReviewByReviewee(User user) {
-        for(Review review: reviews) {
+        for(Review review: Database.getInstance().getReviews()) {
             if(review.getReviewee().getUsername().equals(user.getUsername()))
                 return review;
         }
@@ -57,7 +56,7 @@ public class ReviewDatabase {
     }
 
     public Review getReviewByRevieweeAndReviewer(String reviewerUser, String revieweeUser) {
-        for(Review review: reviews) {
+        for(Review review: Database.getInstance().getReviews()) {
             if(review.getReviewer().getUsername().equals(reviewerUser) && 
             review.getReviewee().getUsername().equals(revieweeUser))
                 return review;
@@ -67,7 +66,7 @@ public class ReviewDatabase {
 
     public ArrayList<Review> getReviewsByReviewee(User user) {
         ArrayList<Review> reviewsByReviewee = new ArrayList<Review>();
-        for (Review review: reviews) {
+        for (Review review: Database.getInstance().getReviews()) {
             if(review.getReviewee().equals(user) && !review.isRemoved())
                 reviewsByReviewee.add(review);
         }
@@ -76,7 +75,7 @@ public class ReviewDatabase {
 
     public ArrayList<Review> getReviewsByReviewer(User user) {
         ArrayList<Review> reviewsByReviewer = new ArrayList<Review>();
-        for (Review review: reviews) {
+        for (Review review: Database.getInstance().getReviews()) {
             if(review.getReviewer().equals(user) && !review.isRemoved())
                 reviewsByReviewer.add(review);
         }

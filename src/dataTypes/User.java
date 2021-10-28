@@ -71,7 +71,7 @@ public abstract class User {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-    public boolean isReomved() {
+    public boolean isRemoved() {
         return this.removed;
     }
 
