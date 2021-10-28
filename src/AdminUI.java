@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import dataTypes.Admin;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -12,6 +11,7 @@ import dataTypes.User;
 import database.JobPostingDatabase;
 import database.ReviewDatabase;
 import database.UserDatabase;
+import enums.Major;
 
 public class AdminUI {
     
@@ -161,8 +161,32 @@ public class AdminUI {
                     System.out.println("Please enter their last name:");
                     String lastName = input.nextLine();
                     System.out.println("Please enter their major");
-                    String major = input.nextLine();
-                    // TODO use builder to make student!!
+                    System.out.println("(0) for Computer Science");
+                    System.out.println("(1) for Computer Engineering");
+                    System.out.println("(2) for Integrated Information Technology");
+                    System.out.println("(3) for Computer Information Systems");
+                    System.out.println("Enter anything else for undecided");
+                    int majorSelect = input.nextInt();
+                    Major major;
+                        switch(majorSelect) {
+                            case 1:
+                                major = Major.COMPUTER_SCIENCE;
+                            case 2:
+                                major = Major.COMPUTER_ENGINEERING;
+                            case 3:
+                                major = Major.INTEGRATED_INFORMATION_TECHNOLOGY;
+                            case 4:
+                                major = Major.COMPUTER_INFORMATION_SYSTEMS;
+                            default:
+                            major = Major.NA; 
+                        }
+                    Student student = new Student.Builder()
+                    .username(userName).password(password).email(email)
+                    .firstName(firstName).lastName(lastName).approved(true)
+                    .major(major).createdResume(false).employments(null)
+                    .educations(null).technicalSkills(null).averageRating(0)
+                    .removed(false).build();
+                    admin.addUser(student);
                     break;
                 case 5:
                     go = false;
@@ -237,7 +261,12 @@ public class AdminUI {
                     String lastName = input.nextLine();
                     System.out.println("Please enter their company's name");
                     String company = input.nextLine();
-                    // TODO use builder to make employer!!
+
+                    Employer employer = new Employer.Builder()
+                    .username(userName).password(password).email(email)
+                    .firstName(firstName).lastName(lastName).approved(true)
+                    .company(company).averageRating(0).removed(false).build();
+                    admin.addUser(employer);
                     break;
                 case 5:
                     go = false;
@@ -300,9 +329,9 @@ public class AdminUI {
                     System.out.println("A professor with that username does not exist!");
                     break;
                 case 4:
-                    System.out.println("Please enter a username for the student:");
+                    System.out.println("Please enter a username for the professor:");
                     String userName = input.nextLine(); // will eventually add something to check for duplicates 
-                    System.out.println("Please enter a password for the student:");
+                    System.out.println("Please enter a password for the professor:");
                     String password = input.nextLine();
                     System.out.println("Please enter their email:");
                     String email = input.nextLine();
@@ -310,7 +339,12 @@ public class AdminUI {
                     String firstName = input.nextLine();
                     System.out.println("Please enter their last name:");
                     String lastName = input.nextLine();
-                    // TODO use builder to make professor!!
+                    
+                    Professor professor = new Professor.Builder()
+                    .username(userName).password(password).email(email)
+                    .firstName(firstName).lastName(lastName).approved(true)
+                    .removed(false).build();
+                    admin.addUser(professor);
                     break;
                 case 5:
                     go = false;
@@ -354,6 +388,7 @@ public class AdminUI {
 
             }
         }
+        input.close();
     }
 
 
