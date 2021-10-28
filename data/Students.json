@@ -36,7 +36,8 @@
                 "gradDate": "May 2017"
             }
         ],
-        "removed": false
+        "removed": false,
+        "averageRating": 4.5
     },
     {
         "id": "d76cd90a-0954-481f-a4c6-d3fd9af084de",
@@ -48,6 +49,7 @@
         "approved": false,
         "major": "Computer Science",
         "createdResume": false,
-        "removed": false
+        "removed": false,
+        "averageRating": 4.6
     }
 ]
