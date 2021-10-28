@@ -24,16 +24,20 @@ public class Admin extends User {
     }
     public void removeReviews(Review review) {
         ReviewDatabase.getInstance().removeReveiw(review);
-        // TODO something with database
     }
     public void removeResume(Student student) {
-        // TODO something with database
+        student.setCreated(false);
     }
-    public void removeJobPosting(Employer employer, JobPosting jobposting) {
+    public void removeJobPosting(JobPosting jobposting) {
         JobPostingDatabase.getInstance().removePosting(jobposting);
     }
     public void addUser(User user) {
         UserDatabase.getInstance().addUser(user);
+    }
+
+    public String toString() {
+        return "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
+        + " email: " + this.email;
     }
 
     public static class Builder {

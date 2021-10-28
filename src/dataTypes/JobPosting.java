@@ -97,8 +97,6 @@ public class JobPosting {
        this.applicants = applicants;
     }
 
-    
-
     public boolean isRemoved() {
         return removed;
     }

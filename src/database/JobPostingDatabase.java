@@ -1,6 +1,7 @@
 package database;
 import java.util.ArrayList;
 
+import dataTypes.Employer;
 import dataTypes.JobPosting;
 import dataTypes.Student;
 
@@ -39,6 +40,16 @@ public class JobPostingDatabase {
         return this.removedPostings;
     }
 
+    public JobPosting getPostingByEmployerAndTitle(String employerUser, String title) {
+
+        for(JobPosting posting : postings) {
+            if(posting.getEmployer().getUsername().equals(employerUser) &&
+            posting.getJobTitle().equals(title))
+                return posting;
+        }
+        return null;
+    }
+
     public ArrayList<JobPosting> getPostingsByStudent(Student student) {
         ArrayList<JobPosting> applications = new ArrayList<JobPosting>();
         for(JobPosting posting : postings) {
@@ -46,6 +57,15 @@ public class JobPostingDatabase {
                 applications.add(posting);
         }
         return applications;
+    }
+
+    public ArrayList<JobPosting> getPostingsByEmployer(Employer employer) {
+        ArrayList<JobPosting> returnPostings = new ArrayList<JobPosting>();
+        for(JobPosting posting: postings) {
+            if(posting.getEmployer().equals(employer)); //TODO implement equals
+                returnPostings.add(posting);
+        }
+        return returnPostings;
     }
 
     public ArrayList<JobPosting> getOpenPostings() {
@@ -57,5 +77,19 @@ public class JobPostingDatabase {
         return openPostings;
     }
 
+    public ArrayList<JobPosting> getOpenPostingByRequirement(String requirement) {
+        ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
+        for(JobPosting posting : postings) {
+            if(!posting.isRemoved()) {
+                for (String postDetail : posting.getRequirements()) {
+                    if(postDetail.toLowerCase().contains(requirement.toLowerCase())) {
+                        openPostings.add(posting);
+                        break;
+                    }
+                }
+            }
+        }
+        return openPostings;
+    }
   
 }

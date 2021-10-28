@@ -12,6 +12,7 @@ import dataTypes.User;
 import database.JobPostingDatabase;
 import database.ReviewDatabase;
 import database.UserDatabase;
+import enums.Major;
 
 public class AdminUI {
     
@@ -39,6 +40,7 @@ public class AdminUI {
             System.out.println("(5) Exit the program");
             System.out.print("What would you like to do: ");
             int option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     accessUsers(admin);
@@ -67,7 +69,6 @@ public class AdminUI {
 
     private void accessUsers(Admin admin) {
         Scanner input = new Scanner (System.in);
-        //UserDatabase userDatabase = UserDatabase.getInstance();
         boolean access = true;
         int option;
         while(access) {
@@ -79,6 +80,7 @@ public class AdminUI {
             System.out.println("(3) Professors");
             System.out.println("(4) Exit to main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     runStudents(admin);
@@ -118,11 +120,12 @@ public class AdminUI {
             System.out.println("(4) Create a new student account");
             System.out.println("(5) Exit student menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Student> students = UserDatabase.getInstance().getStudents();
                     for(Student student: students)
-                        System.out.println(student); // TODO implement toString method in students
+                        System.out.println(student);
                     break;
                 case 2:
                     System.out.println("Please enter the students username:");
@@ -131,7 +134,7 @@ public class AdminUI {
                     if(search!= null)
                     {
                         System.out.println("That student exists, here is their information:");
-                        System.out.println(search); // TODO implement toString method in users
+                        System.out.println(search); 
                     } else
                         System.out.println("A student with that username does not exist!");
                     break;
@@ -142,8 +145,8 @@ public class AdminUI {
                 if(search!= null)
                 {
                     System.out.println("Here is that student's information:");
-                    System.out.println(search); // TODO implement toString method in users
-                    //TODO will eventually add a "Are you sure you want to delete" type thinge
+                    System.out.println(search); 
+                    //TODO will eventually add a "Are you sure you want to delete" type thing
                     System.out.println("Deleting student...");
                     admin.removeUser(search);
 
@@ -162,8 +165,33 @@ public class AdminUI {
                     System.out.println("Please enter their last name:");
                     String lastName = input.nextLine();
                     System.out.println("Please enter their major");
-                    String major = input.nextLine();
-                    // TODO use builder to make student!!
+                    System.out.println("(0) for Computer Science");
+                    System.out.println("(1) for Computer Engineering");
+                    System.out.println("(2) for Integrated Information Technology");
+                    System.out.println("(3) for Computer Information Systems");
+                    System.out.println("Enter anything else for undecided");
+                    int majorSelect = input.nextInt();
+                    input.nextLine();
+                    Major major;
+                        switch(majorSelect) {
+                            case 1:
+                                major = Major.COMPUTER_SCIENCE;
+                            case 2:
+                                major = Major.COMPUTER_ENGINEERING;
+                            case 3:
+                                major = Major.INTEGRATED_INFORMATION_TECHNOLOGY;
+                            case 4:
+                                major = Major.COMPUTER_INFORMATION_SYSTEMS;
+                            default:
+                            major = Major.NA; 
+                        }
+                    Student student = new Student.Builder()
+                    .username(userName).password(password).email(email)
+                    .firstName(firstName).lastName(lastName).approved(true)
+                    .major(major).createdResume(false).employments(null)
+                    .educations(null).technicalSkills(null).averageRating(0)
+                    .removed(false).build();
+                    admin.addUser(student);
                     break;
                 case 5:
                     go = false;
@@ -193,11 +221,12 @@ public class AdminUI {
             System.out.println("(4) Create a new employer account");
             System.out.println("(5) Exit employer menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
                     for(Employer employer: employers)
-                        System.out.println(employer); // TODO implement toString method in students
+                        System.out.println(employer);
                     break;
                 case 2:
                     System.out.println("Please enter the employer's username:");
@@ -206,7 +235,7 @@ public class AdminUI {
                     if(search!= null)
                     {
                         System.out.println("That employer exists, here is their information:");
-                        System.out.println(search); // TODO implement toString method in users
+                        System.out.println(search); 
                     } else
                         System.out.println("An employer with that username does not exist!");
                     break;
@@ -217,7 +246,7 @@ public class AdminUI {
                 if(search!= null)
                 {
                     System.out.println("Here is that employers's information:");
-                    System.out.println(search); // TODO implement toString method in users
+                    System.out.println(search); 
                     //TODO will eventually add a "Are you sure you want to delete" type thinge
                     System.out.println("Deleting employer...");
                     admin.removeUser(search);
@@ -238,7 +267,12 @@ public class AdminUI {
                     String lastName = input.nextLine();
                     System.out.println("Please enter their company's name");
                     String company = input.nextLine();
-                    // TODO use builder to make employer!!
+
+                    Employer employer = new Employer.Builder()
+                    .username(userName).password(password).email(email)
+                    .firstName(firstName).lastName(lastName).approved(true)
+                    .company(company).averageRating(0).removed(false).build();
+                    admin.addUser(employer);
                     break;
                 case 5:
                     go = false;
@@ -268,11 +302,12 @@ public class AdminUI {
             System.out.println("(4) Create a new professor account");
             System.out.println("(5) Exit professor menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
                     for(Professor prof: professors)
-                        System.out.println(prof); // TODO implement toString method in students
+                        System.out.println(prof); 
                     break;
                 case 2:
                     System.out.println("Please enter the professors username:");
@@ -281,7 +316,7 @@ public class AdminUI {
                     if(search!= null)
                     {
                         System.out.println("That professor exists, here is their information:");
-                        System.out.println(search); // TODO implement toString method in users
+                        System.out.println(search); 
                     } else
                         System.out.println("A professor with that username does not exist!");
                     break;
@@ -292,7 +327,7 @@ public class AdminUI {
                 if(search!= null)
                 {
                     System.out.println("Here is that professor's information:");
-                    System.out.println(search); // TODO implement toString method in users
+                    System.out.println(search); 
                     //TODO will eventually add a "Are you sure you want to delete" type thinge
                     System.out.println("Deleting professor...");
                     admin.removeUser(search);
@@ -301,9 +336,9 @@ public class AdminUI {
                     System.out.println("A professor with that username does not exist!");
                     break;
                 case 4:
-                    System.out.println("Please enter a username for the student:");
+                    System.out.println("Please enter a username for the professor:");
                     String userName = input.nextLine(); // will eventually add something to check for duplicates 
-                    System.out.println("Please enter a password for the student:");
+                    System.out.println("Please enter a password for the professor:");
                     String password = input.nextLine();
                     System.out.println("Please enter their email:");
                     String email = input.nextLine();
@@ -311,7 +346,12 @@ public class AdminUI {
                     String firstName = input.nextLine();
                     System.out.println("Please enter their last name:");
                     String lastName = input.nextLine();
-                    // TODO use builder to make professor!!
+                    
+                    Professor professor = new Professor.Builder()
+                    .username(userName).password(password).email(email)
+                    .firstName(firstName).lastName(lastName).approved(true)
+                    .removed(false).build();
+                    admin.addUser(professor);
                     break;
                 case 5:
                     go = false;
@@ -333,7 +373,7 @@ public class AdminUI {
         ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
         for(User user: unapprovedUsers) {
             System.out.println("The following user is waiting for approval");
-            System.out.println(user); //TODO again, implement toString method
+            System.out.println(user); 
             System.out.println("Would you like to approve them? Enter (Y) for yes and (N) for no");
             String answer = input.nextLine();
             answer = answer.toUpperCase();
@@ -355,6 +395,7 @@ public class AdminUI {
 
             }
         }
+        input.close();
     }
 
 
@@ -372,6 +413,7 @@ public class AdminUI {
             System.out.println("(4) View removed job postings");
             System.out.println("(5) Return to the main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
@@ -379,10 +421,40 @@ public class AdminUI {
                         System.out.println(posting);
                     break;
                 case 2:
-                    //TODO implement
+                    System.out.println("Please enter the employer's username who posted the job");
+                    String employerUser = input.nextLine();
+                    User employer = UserDatabase.getInstance().findByUsername(employerUser);
+                    if(employer != null) {
+                        ArrayList<JobPosting> postingByUser = JobPostingDatabase.getInstance().getPostingsByEmployer((Employer) employer);
+                        if(postingByUser != null) {
+                            System.out.println("Here are the postings by @" + employerUser);
+                            for(JobPosting posting: postingByUser)
+                                System.out.println(posting);
+                        } else {
+                            System.out.println("That user has not posted any jobs");
+                        }
+                    } else {
+                        System.out.println("No user exists with that name");
+                    }
                     break;
                 case 3:
-                    //TODO implement
+                    System.out.println("To remove a job posting, we need the Employer's username and the title of the postion");
+                    System.out.println("What is the Employer's username?");
+                    String user = input.nextLine();
+                    System.out.println("What is the job's title?");
+                    String title = input.nextLine();
+                    User userOf = UserDatabase.getInstance().findByUsername(user);
+                    if(userOf != null) {
+                        JobPosting toRemove = JobPostingDatabase.getInstance().getPostingByEmployerAndTitle(user, title);
+                        if(toRemove != null) {
+                            System.out.println("Removing...");
+                            admin.removeJobPosting(toRemove);
+                        } else {
+                            System.out.println("A job posting made by @" + user + " with the title '" + title + "' does not exist!");
+                        }
+                    } else {
+                        System.out.println("User @" + user + " does not exist!");
+                    }
                     break;
                 case 4:
                 ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();
@@ -416,53 +488,57 @@ public class AdminUI {
             System.out.println("(4) View removed reviews");
             System.out.println("(5) Return to main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     System.out.println("Here are all of the reviews");
                     ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviews();
                     for(Review review: reviews)
-                        System.out.println(review); //TODO review toString
+                        System.out.println(review); 
                     break;
                 case 2:
                     String username;
                     User user;
-                    Review reviewFound;
+                    ArrayList <Review> reviewFound;
                     System.out.println("How would you like to search?");
                     System.out.println("(1) By reviewer");
                     System.out.println("(2) By reviewee");
                     option2 = input.nextInt();
+                    input.nextLine();
                         switch(option2) {
                             case 1:
                             System.out.println("Please enter the username for the reviewer");
                             username = input.nextLine();
                             user = UserDatabase.getInstance().findByUsername(username);
                             if(username != null) {
-                            reviewFound = ReviewDatabase.getInstance().getReviewByReviewer(user);
+                            reviewFound = ReviewDatabase.getInstance().getReviewsByReviewer(user);
                                 if(reviewFound != null) {
-                                    System.out.println("Here is that review made by @" + username);
-                                    System.out.println(reviewFound);
+                                    System.out.println("Here are all reviews made by @" + username);
+                                    for(Review review: reviewFound)
+                                            System.out.println(review);
                                 } else {
                                 System.out.println("@" + username + " has not made any reviews");
                                 }
                             } else {
                                 System.out.println("There is no user with that username");
-                            } //TODO make it so they have the option to research
+                            } 
                                 break;
                             case 2:
                                 System.out.println("Please enter the username for the reviewee");
                                 username = input.nextLine();
                                 user = UserDatabase.getInstance().findByUsername(username);
                                 if(username != null) {
-                                reviewFound = ReviewDatabase.getInstance().getReviewByReviewee(user);
+                                reviewFound = ReviewDatabase.getInstance().getReviewsByReviewee(user);
                                     if(reviewFound != null) {
-                                        System.out.println("Here is that review:");
-                                        System.out.println(reviewFound);
+                                        System.out.println("Here are all reviews made about @" + username);
+                                        for(Review review: reviewFound)
+                                            System.out.println(review);
                                     } else {
                                     System.out.println("@" + username + " has not had any reviews made about them");
                                     }
                                 } else {
                                     System.out.println("There is no user with that username");
-                                } //TODO make it so they have the option to research
+                                } 
                                 
                                 break;
                             default:
@@ -470,13 +546,27 @@ public class AdminUI {
                         }
                     break;
                 case 3:
-                    //TODO implement 
+                    String reviewerUser;
+                    String revieweeUser;
+                    System.out.println("To remove a review, we need both the reviewer and reviewees usernames");
+                    System.out.println("Reviwewer username:");
+                    reviewerUser = input.nextLine();
+                    System.out.println("Reviewee username: ");
+                    revieweeUser = input.nextLine();
+                    System.out.println("Searching for review to remove...");
+                    Review toRemove = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(reviewerUser, revieweeUser);
+                    if(toRemove!=null) {
+                        System.out.println("Removing...");
+                        admin.removeReviews(toRemove);
+                    } else {
+                        System.out.println("@" + reviewerUser + " has not made a review about @" + revieweeUser);
+                    }
                     break;
                 case 4:
                         System.out.println("Here are all of the removed reviews");
                     ArrayList<Review> removedReviews = ReviewDatabase.getInstance().getRemovedReviews();
                     for(Review review: removedReviews)
-                        System.out.println(review); //TODO review toString 
+                        System.out.println(review);
                     break;
                 case 5:
                     go = false;

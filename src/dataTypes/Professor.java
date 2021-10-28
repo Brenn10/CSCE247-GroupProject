@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 import database.ReviewDatabase;
 
-import database.ReviewDatabase;
-
 public class Professor extends User {
     private boolean removed;
     private ArrayList<Student> students;
@@ -71,6 +69,11 @@ public class Professor extends User {
 
     public void setRemoved(boolean removed) {
         this.removed = removed;
+    }
+
+    public String toString() {
+        return "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
+        + " email: " + this.email;
     }
     public static class Builder {
         private UUID id;

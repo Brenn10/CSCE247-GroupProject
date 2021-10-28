@@ -79,4 +79,6 @@ public abstract class User {
         this.removed = removed;
     }
 
+    public abstract String toString();
+
 }
