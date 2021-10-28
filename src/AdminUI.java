@@ -39,6 +39,7 @@ public class AdminUI {
             System.out.println("(5) Exit the program");
             System.out.print("What would you like to do: ");
             int option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     accessUsers(admin);
@@ -78,6 +79,7 @@ public class AdminUI {
             System.out.println("(3) Professors");
             System.out.println("(4) Exit to main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     runStudents(admin);
@@ -117,6 +119,7 @@ public class AdminUI {
             System.out.println("(4) Create a new student account");
             System.out.println("(5) Exit student menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Student> students = UserDatabase.getInstance().getStudents();
@@ -167,6 +170,7 @@ public class AdminUI {
                     System.out.println("(3) for Computer Information Systems");
                     System.out.println("Enter anything else for undecided");
                     int majorSelect = input.nextInt();
+                    input.nextLine();
                     Major major;
                         switch(majorSelect) {
                             case 1:
@@ -216,6 +220,7 @@ public class AdminUI {
             System.out.println("(4) Create a new employer account");
             System.out.println("(5) Exit employer menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
@@ -296,6 +301,7 @@ public class AdminUI {
             System.out.println("(4) Create a new professor account");
             System.out.println("(5) Exit professor menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
@@ -406,6 +412,7 @@ public class AdminUI {
             System.out.println("(4) View removed job postings");
             System.out.println("(5) Return to the main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
@@ -450,6 +457,7 @@ public class AdminUI {
             System.out.println("(4) View removed reviews");
             System.out.println("(5) Return to main menu");
             option = input.nextInt();
+            input.nextLine();
             switch(option) {
                 case 1:
                     System.out.println("Here are all of the reviews");
@@ -465,6 +473,7 @@ public class AdminUI {
                     System.out.println("(1) By reviewer");
                     System.out.println("(2) By reviewee");
                     option2 = input.nextInt();
+                    input.nextLine();
                         switch(option2) {
                             case 1:
                             System.out.println("Please enter the username for the reviewer");
