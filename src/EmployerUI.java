@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dataTypes.User;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
 import dataTypes.Review;
@@ -327,6 +328,28 @@ private void editReview(Student foundStudent) {
         System.out.flush(); 
     }
     public static void doSignup() {
-        // do this
+        Scanner input = new Scanner(System.in);
+        System.out.print("Username:");
+        String username = input.nextLine();
+        System.out.print("Password:");
+        String password = input.nextLine();
+        System.out.print("First Name:");
+        String firstName = input.nextLine();
+        System.out.print("Last Name:");
+        String lastName = input.nextLine();
+        System.out.print("Email:");
+        String email = input.nextLine();
+        System.out.print("Company Name:");
+        String company = input.nextLine();
+
+        Employer newEmployer = new Employer.Builder().username(username)
+                                                    .password(password)
+                                                    .firstName(firstName)
+                                                    .lastName(lastName)
+                                                    .email(email)
+                                                    .company(company)
+                                                    .build();
+        UserDatabase.getInstance().addUser(newEmployer);
+        input.close();
     }
 }
