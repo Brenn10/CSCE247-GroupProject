@@ -59,6 +59,15 @@ public class ReviewDatabase {
         return null;
     }
 
+    public Review getReviewByRevieweeAndReviewer(String reviewerUser, String revieweeUser) {
+        for(Review review: reviews) {
+            if(review.getReviewer().getUsername().equals(reviewerUser) && 
+            review.getReviewee().getUsername().equals(revieweeUser))
+                return review;
+        }
+        return null;
+    }
+
     public ArrayList<Review> getReviewsByReviewee(User user) {
         ArrayList<Review> reviewsByReviewee = new ArrayList<Review>();
         for (Review review: reviews) {
