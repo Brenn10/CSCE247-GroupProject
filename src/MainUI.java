@@ -8,8 +8,6 @@ import dataTypes.Student;
 import dataTypes.User;
 
 public class MainUI {
-    private JobSystem jobSystem;
-
     public void doMainMenu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Neurotic Job Search!");
@@ -44,7 +42,7 @@ public class MainUI {
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        User user = jobSystem.login(username, password);
+        User user = JobSystem.getInstance().login(username, password);
         if (user == null) {
             System.out.println("Invalid username or password. Please try again.");
         } else if (user instanceof Student) {
