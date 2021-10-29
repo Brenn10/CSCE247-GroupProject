@@ -58,7 +58,7 @@ private void reviewMenuProfessor(Professor professor) {
                 editReviewStudent(professor);
                 break;
             case 3:
-                removeReview(professor);
+                ReviewStudentRemove(professor);
             case 0:
                 looking = false;
                 break;
@@ -81,20 +81,31 @@ public void editReviewStudent(Professor professor) {
     Review review = null;
     displayStudents(professor);
     student = selectStudent();
-    removeReview(professor);
+    review = removeReview(student, professor);
     ReviewDatabase.getInstance().removeReveiw(review);
     review = addingreview(student, professor);
     ReviewDatabase.getInstance().addReview(review);
 }
    
 
-public void removeReview(Professor professor) {
+public Review removeReview(User student, Professor professor) {
+    Review review = null;
+    String prof = "";
+    String stu = "";
+    displayStudents(professor);
+    student = selectStudent();
+    stu = student.getUsername();
+    prof = professor.getUsername();
+    review = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(prof,stu);
+    return review;
+}
+public void ReviewStudentRemove(Professor professor) {
     User student;
     Review review = null;
     displayStudents(professor);
     student = selectStudent();
-
-   
+    review = removeReview(student, professor);
+    ReviewDatabase.getInstance().removeReveiw(review);
 
 }
 public void displayStudents(Professor professor) {
