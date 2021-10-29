@@ -150,7 +150,15 @@ public class AdminUI {
                 break;
             case 4:
                 System.out.println("Please enter a username for the student:");
-                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                User userTest;
+                String userName;
+                do {
+                    userName = input.nextLine();
+                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    if (userTest != null)
+                        System.out.println("That username is taken, please try another!");
+                } while (userTest != null);
+
                 System.out.println("Please enter a password for the student:");
                 String password = input.nextLine();
                 System.out.println("Please enter their email:");
@@ -247,7 +255,14 @@ public class AdminUI {
                 break;
             case 4:
                 System.out.println("Please enter a username for the employer:");
-                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                User userTest;
+                String userName;
+                do {
+                    userName = input.nextLine();
+                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    if (userTest != null)
+                        System.out.println("That username is taken, please try another!");
+                } while (userTest != null);
                 System.out.println("Please enter a password for the employer:");
                 String password = input.nextLine();
                 System.out.println("Please enter their email:");
@@ -324,7 +339,15 @@ public class AdminUI {
                 break;
             case 4:
                 System.out.println("Please enter a username for the professor:");
-                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                User userTest;
+                String userName;
+                do {
+                    userName = input.nextLine();
+                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    if (userTest != null)
+                        System.out.println("That username is taken, please try another!");
+                } while (userTest != null);
+
                 System.out.println("Please enter a password for the professor:");
                 String password = input.nextLine();
                 System.out.println("Please enter their email:");
