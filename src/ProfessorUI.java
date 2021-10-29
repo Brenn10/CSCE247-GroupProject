@@ -13,6 +13,10 @@ public class ProfessorUI {
     public ProfessorUI (Professor professor) {
         this.professor = professor;
     }
+    public ProfessorUI() {
+        
+        this.professor = null;
+    }
     /**
      * Prof
      * 
@@ -141,7 +145,7 @@ public Review addingreview(User student, Professor professor) {
     return review;
 
 }
-public static void doSignup() {
+public void doSignup() {
     Scanner input = new Scanner (System.in);
 
     System.out.println("Enter email: ");
