@@ -9,6 +9,7 @@ import dataTypes.User;
 
 public class MainUI {
     private Scanner scanner;
+
     public MainUI() {
         scanner = new Scanner(System.in);
     }
@@ -22,19 +23,19 @@ public class MainUI {
         while (doLoop) {
             System.out.print("(1) Login\n(2) Sign Up\n(0)Exit\nChoice: ");
             switch (Integer.parseInt(scanner.nextLine())) {
-                case 1:
-                    doLogin();
-                    break;
-                case 2:
-                    doSignup();
-                    break;
-                case 0:
-                    System.out.println("Thank you for using the Neurotic Job Search!");
-                    doLoop = false;
-                    break;
-                default:
-                    System.out.println("Invalid selection. Please try again.");
-                    break;
+            case 1:
+                doLogin();
+                break;
+            case 2:
+                doSignup();
+                break;
+            case 0:
+                System.out.println("Thank you for using the Neurotic Job Search!");
+                doLoop = false;
+                break;
+            default:
+                System.out.println("Invalid selection. Please try again.");
+                break;
             }
         }
 
@@ -70,20 +71,20 @@ public class MainUI {
         System.out.println("3) Professor");
         System.out.print("Your input: ");
         int input = Integer.parseInt(scanner.nextLine());
-    
+
         switch (input) {
-            case 1:
-                new StudentUI(scanner).doSignup();
-                break;
-            case 2:
-                EmployerUI.doSignup();
-                break;
-            case 3:
-                 ProfessorUI.doSignup();
-                break;
-            default:
-                System.out.println("Invalid selection. Please try again.");
-                break;
+        case 1:
+            new StudentUI(scanner).doSignup();
+            break;
+        case 2:
+            EmployerUI.doSignup();
+            break;
+        case 3:
+            ProfessorUI.doSignup();
+            break;
+        default:
+            System.out.println("Invalid selection. Please try again.");
+            break;
         }
     }
 }
