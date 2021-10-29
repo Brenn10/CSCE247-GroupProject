@@ -80,7 +80,7 @@ public class MainUI {
             EmployerUI.doSignup();
             break;
         case 3:
-            ProfessorUI.doSignup();
+            new ProfessorUI().doSignup();
             break;
         default:
             System.out.println("Invalid selection. Please try again.");
