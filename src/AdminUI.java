@@ -22,42 +22,36 @@ public class AdminUI {
      * PLUS Approve User View Unapproved Users Delete User
      */
     Admin admin;
-
-    public AdminUI() {
-
-    }
-
-    public AdminUI(Admin admin) {
-        this.admin = admin;
-    }
+    Scanner input = new Scanner(System.in);
 
     public void doMainMenu(Admin admin) {
-        Scanner input = new Scanner(System.in);
+        this.admin = admin;
         System.out.println("Welcome " + admin.getFirstName() + " " + admin.getLastName());
         boolean doMenu = true;
+        int option;
         while (doMenu) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("(1) Access User accounts");
             System.out.println("(2) Look through Unapproved users"); // Decide on useres?
             System.out.println("(3) Access Job Postings");
             System.out.println("(4) Access reviews");
             System.out.println("(5) Exit the program");
             System.out.print("What would you like to do: ");
-            int option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                accessUsers(admin);
+                accessUsers();
                 break;
             case 2:
-                approvalMenu(admin);
+                approvalMenu();
                 break;
             case 3:
-                accessPostings(admin);
+                accessPostings();
                 break;
             case 4:
-                accessReviews(admin);
+                accessReviews();
                 break;
             case 5:
                 doMenu = false;
@@ -66,35 +60,35 @@ public class AdminUI {
                 System.out.println("Invalid option " + option);
             }
         }
+
         System.out.print("\033[H\033[2J");
         System.out.flush(); // clearing the screen
         System.out.println("Logging you out, have a great day!");
         input.close();
     }
 
-    private void accessUsers(Admin admin) {
-        Scanner input = new Scanner(System.in);
+    private void accessUsers() {
         boolean access = true;
         int option;
         while (access) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("Which users would you like to access?");
             System.out.println("(1) Students");
             System.out.println("(2) Employers");
             System.out.println("(3) Professors");
             System.out.println("(4) Exit to main menu");
-            option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                runStudents(admin);
+                runStudents();
                 break;
             case 2:
-                runEmployers(admin);
+                runEmployers();
                 break;
             case 3:
-                runProfessors(admin);
+                runProfessors();
                 break;
             case 4:
                 access = false;
@@ -103,29 +97,28 @@ public class AdminUI {
                 System.out.println("Invalid option " + option);
             }
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Returning to main menu!");
-        input.close();
     }
 
-    private void runStudents(Admin admin) {
-        Scanner input = new Scanner(System.in);
+    private void runStudents() {
         boolean go = true;
         int option;
         String username;
         User search;
         while (go) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("What would you like to do with the Student users?");
             System.out.println("(1) See all of the students");
             System.out.println("(2) Search for a student");
             System.out.println("(3) Remove a student");
             System.out.println("(4) Create a new student account");
             System.out.println("(5) Exit student menu");
-            option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
                 ArrayList<Student> students = UserDatabase.getInstance().getStudents();
@@ -157,7 +150,15 @@ public class AdminUI {
                 break;
             case 4:
                 System.out.println("Please enter a username for the student:");
-                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                User userTest;
+                String userName;
+                do {
+                    userName = input.nextLine();
+                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    if (userTest != null)
+                        System.out.println("That username is taken, please try another!");
+                } while (userTest != null);
+
                 System.out.println("Please enter a password for the student:");
                 String password = input.nextLine();
                 System.out.println("Please enter their email:");
@@ -172,7 +173,7 @@ public class AdminUI {
                 System.out.println("(2) for Integrated Information Technology");
                 System.out.println("(3) for Computer Information Systems");
                 System.out.println("Enter anything else for undecided");
-                int majorSelect = input.nextInt();
+                int majorSelect = Integer.parseInt(input.nextLine());
                 input.nextLine();
                 Major major;
                 switch (majorSelect) {
@@ -192,36 +193,37 @@ public class AdminUI {
                         .employments(null).educations(null).technicalSkills(null).averageRating(0).removed(false)
                         .build();
                 admin.addUser(student);
+                System.out.println("A new student account @" + userName + " has been created");
                 break;
             case 5:
                 go = false;
+                break;
             default:
                 System.out.println("Invalid option " + option);
             }
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Exiting student menu!");
-        input.close();
     }
 
-    private void runEmployers(Admin admin) {
-        Scanner input = new Scanner(System.in);
+    private void runEmployers() {
         boolean go = true;
         int option;
         String username;
         User search;
         while (go) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("What would you like to do with the Employer users?");
             System.out.println("(1) See all of the employers");
             System.out.println("(2) Search for a employer");
             System.out.println("(3) Remove an employer");
             System.out.println("(4) Create a new employer account");
             System.out.println("(5) Exit employer menu");
-            option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
                 ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
@@ -252,9 +254,16 @@ public class AdminUI {
                     System.out.println("A employer with that username does not exist!");
                 break;
             case 4:
-                System.out.println("Please enter a username for the student:");
-                String userName = input.nextLine(); // will eventually add something to check for duplicates
-                System.out.println("Please enter a password for the student:");
+                System.out.println("Please enter a username for the employer:");
+                User userTest;
+                String userName;
+                do {
+                    userName = input.nextLine();
+                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    if (userTest != null)
+                        System.out.println("That username is taken, please try another!");
+                } while (userTest != null);
+                System.out.println("Please enter a password for the employer:");
                 String password = input.nextLine();
                 System.out.println("Please enter their email:");
                 String email = input.nextLine();
@@ -269,6 +278,7 @@ public class AdminUI {
                         .firstName(firstName).lastName(lastName).approved(true).company(company).averageRating(0)
                         .removed(false).build();
                 admin.addUser(employer);
+                System.out.println("A new employer account @" + userName + " has been created");
                 break;
             case 5:
                 go = false;
@@ -276,29 +286,28 @@ public class AdminUI {
                 System.out.println("Invalid option " + option);
             }
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Exiting employer menu!");
-        input.close();
     }
 
-    private void runProfessors(Admin admin) {
-        Scanner input = new Scanner(System.in);
+    private void runProfessors() {
         boolean go = true;
         int option;
         String username;
         User search;
         while (go) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("What would you like to do with the Professor users?");
             System.out.println("(1) See all of the professors");
             System.out.println("(2) Search for a professor");
             System.out.println("(3) Remove a professor");
             System.out.println("(4) Create a new professor account");
             System.out.println("(5) Exit professor menu");
-            option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
                 ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
@@ -330,7 +339,15 @@ public class AdminUI {
                 break;
             case 4:
                 System.out.println("Please enter a username for the professor:");
-                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                User userTest;
+                String userName;
+                do {
+                    userName = input.nextLine();
+                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    if (userTest != null)
+                        System.out.println("That username is taken, please try another!");
+                } while (userTest != null);
+
                 System.out.println("Please enter a password for the professor:");
                 String password = input.nextLine();
                 System.out.println("Please enter their email:");
@@ -343,6 +360,7 @@ public class AdminUI {
                 Professor professor = new Professor.Builder().username(userName).password(password).email(email)
                         .firstName(firstName).lastName(lastName).approved(true).removed(false).build();
                 admin.addUser(professor);
+                System.out.println("A new professor account @" + userName + " has been created");
                 break;
             case 5:
                 go = false;
@@ -350,16 +368,16 @@ public class AdminUI {
                 System.out.println("Invalid option " + option);
             }
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Exiting professor menu!");
-        input.close();
     }
 
-    private void approvalMenu(Admin admin) {
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
-        Scanner input = new Scanner(System.in);
+    private void approvalMenu() {
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Lets go through all of the pending approval requests");
         ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
         for (User user : unapprovedUsers) {
@@ -386,24 +404,22 @@ public class AdminUI {
 
             }
         }
-        input.close();
     }
 
-    private void accessPostings(Admin admin) {
-        Scanner input = new Scanner(System.in);
+    private void accessPostings() {
         boolean go = true;
         int option;
         while (go) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("What would you like to do with the job postings?");
             System.out.println("(1)Look through all postings");
             System.out.println("(2) Search for a job posting");
             System.out.println("(3) Remove a job posting");
             System.out.println("(4) View removed job postings");
             System.out.println("(5) Return to the main menu");
-            option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
                 ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
@@ -460,28 +476,27 @@ public class AdminUI {
                 System.out.println("Invalid option " + option);
             }
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Returning to main menu!");
-        input.close();
     }
 
-    private void accessReviews(Admin admin) {
-        Scanner input = new Scanner(System.in);
+    private void accessReviews() {
         boolean go = true;
         int option;
         int option2;
         while (go) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen
+            /*
+             * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+             */
             System.out.println("What would you like to do with the reviews?");
             System.out.println("(1) See all reviews");
             System.out.println("(2) Search for a review");
             System.out.println("(3) Remove a review");
             System.out.println("(4) View removed reviews");
             System.out.println("(5) Return to main menu");
-            option = input.nextInt();
-            input.nextLine();
+            option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
                 System.out.println("Here are all of the reviews");
@@ -496,8 +511,7 @@ public class AdminUI {
                 System.out.println("How would you like to search?");
                 System.out.println("(1) By reviewer");
                 System.out.println("(2) By reviewee");
-                option2 = input.nextInt();
-                input.nextLine();
+                option2 = Integer.parseInt(input.nextLine());
                 switch (option2) {
                 case 1:
                     System.out.println("Please enter the username for the reviewer");
@@ -568,10 +582,10 @@ public class AdminUI {
                 System.out.println("Invalid option " + option);
             }
         }
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen
+        /*
+         * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
+         */
         System.out.println("Returning to main menu!");
-        input.close();
     }
 
 }
