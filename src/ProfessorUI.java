@@ -25,13 +25,13 @@ public class ProfessorUI {
         System.out.println("Welcome Professor " + professor.getFirstName() + " " + professor.getLastName());
         while (keepLooping) {
             System.out.println("Please select a valid option: \n\n");
-            System.out.println("(1) Enter Student Review Mode\n");
+            System.out.println("(1) Enter Professor Review Mode\n");
             System.out.println("(0) Exit Neurotic Job Search");
             option = input.nextInt();
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
-                reviewMenuStudent(professor);
+                reviewMenuProfessor(professor);
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
@@ -39,7 +39,7 @@ public class ProfessorUI {
         }
         input.close();
 }
-private void reviewMenuStudent(Professor professor) {
+private void reviewMenuProfessor(Professor professor) {
     boolean looking = true;
     Scanner input = new Scanner (System.in);
     String studentname = "";
@@ -67,12 +67,6 @@ private void reviewMenuStudent(Professor professor) {
                 break;
         }
     }
-    // same for professors AND Employers
-    UserDatabase.getInstance().getStudents();
-    //ask for specific student
-    ArrayList<Review> writtenReviews = professor.getStudentReviewed(professor);
-    ReviewDatabase.getInstance().addReview(new Review.Builder().build()); // chosen student
-    // loop until 0 chosen or student selected and rated successfully
 }
 public void ReviewStudent(Professor professor) {
     User student;
@@ -83,15 +77,24 @@ public void ReviewStudent(Professor professor) {
     ReviewDatabase.getInstance().addReview(review);
 }
 public void editReviewStudent(Professor professor) { 
+    User student;
+    Review review = null;
     displayStudents(professor);
-   
+    student = selectStudent();
+    removeReview(professor);
+    ReviewDatabase.getInstance().removeReveiw(review);
+    review = addingreview(student, professor);
+    ReviewDatabase.getInstance().addReview(review);
 }
+   
+
 public void removeReview(Professor professor) {
     User student;
     Review review = null;
     displayStudents(professor);
     student = selectStudent();
-    review = addingreview(student, professor);
+
+   
 
 }
 public void displayStudents(Professor professor) {
@@ -126,6 +129,38 @@ public Review addingreview(User student, Professor professor) {
 
 }
 public static void doSignup() {
+    Scanner input = new Scanner (System.in);
+
+    System.out.println("Enter email: ");
+    String email = input.nextLine();
+    if(!User.isEmailValid(email)) {
+        System.out.println("This email is invalid");
+        return;
+    }
+    if (UserDatabase.getInstance().getUserByEmail(email) != null) {
+        System.out.println("Email already in use");
+        return;
+    }
+
+    System.out.print("Enter in Username:");
+    String username = input.nextLine();
+    if (UserDatabase.getInstance().findByUsername(username) != null) {
+        System.out.println("Username already exists");
+        return;
+    }
+
+    System.out.print("Enter Password:");
+    String password = input.nextLine();
+    System.out.print("Enter First Name:");
+    String firstName = input.nextLine();
+    System.out.print("Enter Last Name:");
+    String lastName = input.nextLine();
+    while (User.isEmailValid(email) == false) {
+        System.out.print("Invalid email. Please enter a valid email: ");
+        email = input.nextLine();
+    }
+
+
     
 }
 }
