@@ -71,6 +71,9 @@ public class JobPosting {
     public ArrayList<Student> getApplicants() {
         return this.applicants;
     }
+    public void setTitle(String title) {
+        this.jobTitle = title;
+    }
 
     public void setEmployer(Employer employer) {
         this.employer = employer;

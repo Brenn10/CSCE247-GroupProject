@@ -57,7 +57,7 @@ public class Review {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Review of " + reviewee.getFullName() + 
-        " of " + this.reviewer.getFullName() + ": ");
+        " by " + this.reviewer.getFullName() + ": ");
         sb.append("\n\tRating: " + this.rating);
         sb.append("\n\tComment: " + this.comment);
         return sb.toString();

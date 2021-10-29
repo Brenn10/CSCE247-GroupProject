@@ -7,12 +7,8 @@ import dataTypes.Student;
 
 public class JobPostingDatabase {
     private static JobPostingDatabase jobPostingDatabase;
-    private ArrayList<JobPosting> postings;
-    private ArrayList<JobPosting> removedPostings;
 
     private JobPostingDatabase() {
-        postings = new ArrayList<JobPosting>();
-        removedPostings = new ArrayList<JobPosting>();
     }
 
     public static JobPostingDatabase getInstance() {
@@ -22,27 +18,31 @@ public class JobPostingDatabase {
     }
 
     public void addPosting(JobPosting posting) {
-        postings.add(posting);
-        Database.getInstance().writeToFilePostings(postings);
+        Database.getInstance().getJobPostings().add(posting);
+        Database.getInstance().writeToFilePostings();
     }
 
     public void removePosting(JobPosting posting) {
-        removedPostings.add(posting);
         posting.setRemoved(true);
-        Database.getInstance().writeToFilePostings(postings);
+        Database.getInstance().writeToFilePostings();
     }
 
     public ArrayList<JobPosting> getPostings() {
-        return this.postings;
+        return Database.getInstance().getJobPostings();
     }
 
     public ArrayList<JobPosting> getRemovedPostings() {
-        return this.removedPostings;
+        ArrayList<JobPosting> removedPostings = new ArrayList<JobPosting>();
+        for(JobPosting posting : Database.getInstance().getJobPostings()) {
+            if(posting.isRemoved())
+                removedPostings.add(posting);
+        }
+        return removedPostings;
     }
 
     public JobPosting getPostingByEmployerAndTitle(String employerUser, String title) {
 
-        for(JobPosting posting : postings) {
+        for(JobPosting posting : Database.getInstance().getJobPostings()) {
             if(posting.getEmployer().getUsername().equals(employerUser) &&
             posting.getJobTitle().equals(title))
                 return posting;
@@ -52,7 +52,7 @@ public class JobPostingDatabase {
 
     public ArrayList<JobPosting> getPostingsByStudent(Student student) {
         ArrayList<JobPosting> applications = new ArrayList<JobPosting>();
-        for(JobPosting posting : postings) {
+        for(JobPosting posting : Database.getInstance().getJobPostings()) {
             if(posting.getApplicants().contains(student) && !posting.isRemoved())
                 applications.add(posting);
         }
@@ -61,7 +61,7 @@ public class JobPostingDatabase {
 
     public ArrayList<JobPosting> getPostingsByEmployer(Employer employer) {
         ArrayList<JobPosting> returnPostings = new ArrayList<JobPosting>();
-        for(JobPosting posting: postings) {
+        for(JobPosting posting : Database.getInstance().getJobPostings()) {
             if(posting.getEmployer().equals(employer)); //TODO implement equals
                 returnPostings.add(posting);
         }
@@ -70,7 +70,7 @@ public class JobPostingDatabase {
 
     public ArrayList<JobPosting> getOpenPostings() {
         ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
-        for(JobPosting posting : postings) {
+        for(JobPosting posting : Database.getInstance().getJobPostings()) {
             if(!posting.isRemoved())
                 openPostings.add(posting);
         }
@@ -79,7 +79,7 @@ public class JobPostingDatabase {
 
     public ArrayList<JobPosting> getOpenPostingByRequirement(String requirement) {
         ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
-        for(JobPosting posting : postings) {
+        for(JobPosting posting : Database.getInstance().getJobPostings()) {
             if(!posting.isRemoved()) {
                 for (String postDetail : posting.getRequirements()) {
                     if(postDetail.toLowerCase().contains(requirement.toLowerCase())) {

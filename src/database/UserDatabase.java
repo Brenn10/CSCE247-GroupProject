@@ -6,15 +6,11 @@ import dataTypes.Employer;
 import dataTypes.Professor;
 import dataTypes.Admin;
 import dataTypes.User;
+import utilities.Logger;
 public class UserDatabase {
-  
     private static UserDatabase userDatabase;
-    private ArrayList<User> users;
-    private ArrayList<User> removedUsers;
 
     private UserDatabase() {
-        users = new ArrayList<User>();
-        removedUsers = new ArrayList<User>();
     }
 
     public static UserDatabase getInstance() {
@@ -24,12 +20,12 @@ public class UserDatabase {
     }
 
     public ArrayList<User> getUsers() {
-        return this.users;
+        return Database.getInstance().getUsers();
     }
 
     public ArrayList<Student> getStudents() {
         ArrayList<Student> students = new ArrayList<Student>();
-        for(User user : users) {
+        for(User user : Database.getInstance().getUsers()) {
             if(user instanceof Student) {
                 Student student = (Student) user;
                 if(!student.isRemoved())
@@ -41,7 +37,7 @@ public class UserDatabase {
 
     public ArrayList<Employer> getEmployers() {
         ArrayList<Employer> employers= new ArrayList<Employer>();
-        for(User user : users) {
+        for(User user : Database.getInstance().getUsers()) {
             if(user instanceof Employer) {
                 Employer employer = (Employer) user;
                 if(!employer.isRemoved())
@@ -53,7 +49,7 @@ public class UserDatabase {
 
     public ArrayList<Professor> getProfessor() {
         ArrayList<Professor> professors= new ArrayList<Professor>();
-        for(User user : users) {
+        for(User user : Database.getInstance().getUsers()) {
             if(user instanceof Professor) {
                 Professor professor = (Professor) user;
                 if(!professor.isRemoved())
@@ -65,7 +61,7 @@ public class UserDatabase {
 
     public ArrayList<Admin> getAdmin() {
         ArrayList<Admin> admins= new ArrayList<Admin>();
-        for(User user : users) {
+        for(User user : Database.getInstance().getUsers()) {
             if(user instanceof Admin) {
                 Admin admin = (Admin) user;
                 // if(!admin.isRemoved()) TODO i dont know if we need this, but admin does not have an isRemoved method yet
@@ -77,7 +73,7 @@ public class UserDatabase {
 
     public ArrayList<User> getUnapprovedUsers() {
         ArrayList<User> unapprovedUsers = new ArrayList<User>();
-        for(User user: users) {
+        for(User user: Database.getInstance().getUsers()) {
             if(!user.isApproved())
                 unapprovedUsers.add(user);
         }
@@ -85,38 +81,53 @@ public class UserDatabase {
     }
 
     public void removeUser(User user) {
-        removedUsers.add(user);
         user.setRemoved(true);
-        Database.getInstance().writeToFileUsers(users);
+        Database.getInstance().writeToFileUsers();
     }
 
 
     public ArrayList<User> getRemovedUsers() {
-        return this.removedUsers;
+        ArrayList<User> removedUsers = new ArrayList<User>();
+        for(User user: Database.getInstance().getUsers()) {
+            if(user.isRemoved())
+                removedUsers.add(user);
+        }
+        return removedUsers;
     }
 
     public void updateDatabase() {
-        Database.getInstance().writeToFileUsers(users);
+        Database.getInstance().writeToFileUsers();
     }
     
     public void addUser(User user) {
-        users.add(user);
-        Database.getInstance().writeToFileUsers(users);
+        Database.getInstance().getUsers().add(user);
+        Database.getInstance().writeToFileUsers();
         //this should work if you change the database file writeToFile to take postings as its only argument.
         //check Database.java
         // add user to databse
     }
 
     public User findByUsername(String username) {
-        for(User user : users) {
-            if(user.getUsername().equals(username))
+        for(User user : Database.getInstance().getUsers()) {
+            Logger.getInstance().log("UserDatabase.findByUsername: " + user.getUsername());
+            if(user.getUsername().equalsIgnoreCase(username)) {
+                Logger.getInstance().log("UserDatabase.findByUsername: " + user.getUsername() + " found");
                 return user;
+            }
         }
         return null;
     }
     public User findByName(String name) {
-        for(User user : users) {
-            if(user.getFullName().equals(name))
+        for(User user : Database.getInstance().getUsers()) {
+            if(user.getFullName().equalsIgnoreCase(name))
+                return user;
+        }
+        return null;
+    }
+
+    public User getUserByEmail(String email) {
+        for(User user : Database.getInstance().getUsers()) {
+            if(user.getEmail().equalsIgnoreCase(email))
                 return user;
         }
         return null;

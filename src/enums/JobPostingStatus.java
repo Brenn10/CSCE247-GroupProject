@@ -1,5 +1,6 @@
 package enums;
 public enum JobPostingStatus {
+    NA("NA"),
     OPEN("Open"),
     PENDING("Pending"),
     CLOSED("Closed");

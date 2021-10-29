@@ -36,8 +36,11 @@ public class Admin extends User {
     }
 
     public String toString() {
-        return "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
-        + " email: " + this.email;
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getFullName() + "\n");
+        sb.append(this.getEmail() + "\n");
+        sb.append(this.getUsername() + "\n");
+        return sb.toString();
     }
 
     public static class Builder {

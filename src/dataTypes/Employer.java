@@ -145,9 +145,13 @@ public class Employer extends User {
     }
 
     public String toString() {
-        return "@" + this.username + ":/n" + this.firstName + " " + this.lastName + "/n" 
-        + "/n Works at " + this.company 
-        + " email: " + this.email;
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getFullName() + "\n");
+        sb.append(this.getEmail() + "\n");
+        sb.append(this.getUsername() + "\n");
+        sb.append(this.getCompany() + "\n");
+        sb.append(this.getAverageRating() + "\n");
+        return sb.toString();
     }
 
     public static class Builder {

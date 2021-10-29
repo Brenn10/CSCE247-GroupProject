@@ -1,20 +1,20 @@
 [
-    {
-        "id": "d84d8b2f-05ff-4725-9674-46359366a3da",
-        "username": "admin1",
-        "password": "adminPass",
-        "email": "best_admin@email.sc.edu",
-        "firstName": "Cool",
-        "lastName": "Person",
-        "approved": true
-    },
-    {
-        "id": "1cb058a4-f7b7-406f-8733-67d8c4490a39",
-        "username": "admin2",
-        "password": "adminPass2",
-        "email": "other_admin@email.sc.edu",
-        "firstName": "Lame",
-        "lastName": "Person",
-        "approved": false
-    }
+  {
+    "firstName": "Cool",
+    "lastName": "Person",
+    "password": "adminPass",
+    "approved": true,
+    "id": "d84d8b2f-05ff-4725-9674-46359366a3da",
+    "email": "best_admin@email.sc.edu",
+    "username": "admin1"
+  },
+  {
+    "firstName": "Lame",
+    "lastName": "Person",
+    "password": "adminPass2",
+    "approved": false,
+    "id": "1cb058a4-f7b7-406f-8733-67d8c4490a39",
+    "email": "other_admin@email.sc.edu",
+    "username": "admin2"
+  }
 ]

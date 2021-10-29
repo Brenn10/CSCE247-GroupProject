@@ -70,7 +70,7 @@ private void reviewMenuStudent(Professor professor) {
     // same for professors AND Employers
     UserDatabase.getInstance().getStudents();
     //ask for specific student
-    ArrayList<Student> student = professor.getStudentReviewed(professor);
+    ArrayList<Review> writtenReviews = professor.getStudentReviewed(professor);
     ReviewDatabase.getInstance().addReview(new Review.Builder().build()); // chosen student
     // loop until 0 chosen or student selected and rated successfully
 }
@@ -86,7 +86,7 @@ public void editReviewStudent(Professor professor) {
     displayStudents(professor);
    
 }
-public void removeReveiw(Professor professor) {
+public void removeReview(Professor professor) {
     User student;
     Review review = null;
     displayStudents(professor);

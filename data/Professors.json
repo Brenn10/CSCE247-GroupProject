@@ -1,22 +1,22 @@
 [
-    {
-        "id": "81720773-ecd9-4f7e-86a1-f7925702e305",
-        "username": "portiaportia",
-        "password": "W$%V^$*%^B&NB#$&V%",
-        "email": "pplante@cse.sc.edu",
-        "firstName": "Portia",
-        "lastName": "Plante",
-        "approved": true,
-        "removed": false
-    },
-    {
-        "id": "c5deba63-26dd-4a90-b981-70651c443aad",
-        "username": "yiannisr",
-        "password": "WE$%TVE$%^B&SE%VY",
-        "email": "yiannisr@cse.sc.edu",
-        "firstName": "Ioannis",
-        "lastName": "Rekleitis",
-        "approved": true,
-        "removed": false
-    }
+  {
+    "firstName": "Portia",
+    "lastName": "Plante",
+    "password": "W$%V^$*%^B&NB#$&V%",
+    "approved": true,
+    "removed": false,
+    "id": "81720773-ecd9-4f7e-86a1-f7925702e305",
+    "email": "pplante@cse.sc.edu",
+    "username": "portiaportia"
+  },
+  {
+    "firstName": "Ioannis",
+    "lastName": "Rekleitis",
+    "password": "WE$%TVE$%^B&SE%VY",
+    "approved": true,
+    "removed": false,
+    "id": "c5deba63-26dd-4a90-b981-70651c443aad",
+    "email": "yiannisr@cse.sc.edu",
+    "username": "yiannisr"
+  }
 ]

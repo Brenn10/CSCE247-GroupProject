@@ -15,25 +15,30 @@ import database.UserDatabase;
 import enums.Major;
 
 public class AdminUI {
-    
+
     /**
-     * Admin 
-     * Does everything that each other would do
-     * view as prof, stu, empl
+     * Admin Does everything that each other would do view as prof, stu, empl
      * 
-     * PLUS
-     * Approve User
-     * View Unapproved Users
-     * Delete User
+     * PLUS Approve User View Unapproved Users Delete User
      */
+    Admin admin;
+
+    public AdminUI() {
+
+    }
+
+    public AdminUI(Admin admin) {
+        this.admin = admin;
+    }
+
     public void doMainMenu(Admin admin) {
-        Scanner input = new Scanner (System.in);
+        Scanner input = new Scanner(System.in);
         System.out.println("Welcome " + admin.getFirstName() + " " + admin.getLastName());
         boolean doMenu = true;
         while (doMenu) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
-            System.out.println("(1) Access User accounts"); 
+            System.out.flush(); // clearing the screen
+            System.out.println("(1) Access User accounts");
             System.out.println("(2) Look through Unapproved users"); // Decide on useres?
             System.out.println("(3) Access Job Postings");
             System.out.println("(4) Access reviews");
@@ -41,39 +46,39 @@ public class AdminUI {
             System.out.print("What would you like to do: ");
             int option = input.nextInt();
             input.nextLine();
-            switch(option) {
-                case 1:
-                    accessUsers(admin);
-                    break;
-                case 2:
-                    approvalMenu(admin); 
-                    break;
-                case 3:
-                    accessPostings(admin);
-                    break;
-                case 4:
-                    accessReviews(admin);
-                    break;
-                case 5:
-                    doMenu = false;
-                    break;
-                default:
-                    System.out.println("Invalid option " + option);
+            switch (option) {
+            case 1:
+                accessUsers(admin);
+                break;
+            case 2:
+                approvalMenu(admin);
+                break;
+            case 3:
+                accessPostings(admin);
+                break;
+            case 4:
+                accessReviews(admin);
+                break;
+            case 5:
+                doMenu = false;
+                break;
+            default:
+                System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Logging you out, have a great day!");
         input.close();
     }
 
     private void accessUsers(Admin admin) {
-        Scanner input = new Scanner (System.in);
+        Scanner input = new Scanner(System.in);
         boolean access = true;
         int option;
-        while(access) {
+        while (access) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
+            System.out.flush(); // clearing the screen
             System.out.println("Which users would you like to access?");
             System.out.println("(1) Students");
             System.out.println("(2) Employers");
@@ -81,38 +86,38 @@ public class AdminUI {
             System.out.println("(4) Exit to main menu");
             option = input.nextInt();
             input.nextLine();
-            switch(option) {
-                case 1:
-                    runStudents(admin);
-                    break;
-                case 2:
-                    runEmployers(admin);
-                    break;
-                case 3:
-                    runProfessors(admin);
-                    break;
-                case 4:
-                    access = false;
-                    break;
-                default:
-                    System.out.println("Invalid option " + option);
+            switch (option) {
+            case 1:
+                runStudents(admin);
+                break;
+            case 2:
+                runEmployers(admin);
+                break;
+            case 3:
+                runProfessors(admin);
+                break;
+            case 4:
+                access = false;
+                break;
+            default:
+                System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Returning to main menu!");
         input.close();
     }
 
     private void runStudents(Admin admin) {
-        Scanner input = new Scanner (System.in);
+        Scanner input = new Scanner(System.in);
         boolean go = true;
         int option;
         String username;
         User search;
-        while(go) {
+        while (go) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
+            System.out.flush(); // clearing the screen
             System.out.println("What would you like to do with the Student users?");
             System.out.println("(1) See all of the students");
             System.out.println("(2) Search for a student");
@@ -121,99 +126,94 @@ public class AdminUI {
             System.out.println("(5) Exit student menu");
             option = input.nextInt();
             input.nextLine();
-            switch(option) {
-                case 1:
-                    ArrayList<Student> students = UserDatabase.getInstance().getStudents();
-                    for(Student student: students)
-                        System.out.println(student);
-                    break;
-                case 2:
-                    System.out.println("Please enter the students username:");
-                    username = input.nextLine();
-                    search = UserDatabase.getInstance().findByUsername(username);
-                    if(search!= null)
-                    {
-                        System.out.println("That student exists, here is their information:");
-                        System.out.println(search); 
-                    } else
-                        System.out.println("A student with that username does not exist!");
-                    break;
-                case 3:
-                    System.out.println("Please enter the students username that you would like to delete!");
-                    username = input.nextLine();
-                    search = UserDatabase.getInstance().findByUsername(username);
-                if(search!= null)
-                {
+            switch (option) {
+            case 1:
+                ArrayList<Student> students = UserDatabase.getInstance().getStudents();
+                for (Student student : students)
+                    System.out.println(student);
+                break;
+            case 2:
+                System.out.println("Please enter the students username:");
+                username = input.nextLine();
+                search = UserDatabase.getInstance().findByUsername(username);
+                if (search != null) {
+                    System.out.println("That student exists, here is their information:");
+                    System.out.println(search);
+                } else
+                    System.out.println("A student with that username does not exist!");
+                break;
+            case 3:
+                System.out.println("Please enter the students username that you would like to delete!");
+                username = input.nextLine();
+                search = UserDatabase.getInstance().findByUsername(username);
+                if (search != null) {
                     System.out.println("Here is that student's information:");
-                    System.out.println(search); 
-                    //TODO will eventually add a "Are you sure you want to delete" type thing
+                    System.out.println(search);
                     System.out.println("Deleting student...");
                     admin.removeUser(search);
 
                 } else
                     System.out.println("A student with that username does not exist!");
-                    break;
+                break;
+            case 4:
+                System.out.println("Please enter a username for the student:");
+                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                System.out.println("Please enter a password for the student:");
+                String password = input.nextLine();
+                System.out.println("Please enter their email:");
+                String email = input.nextLine();
+                System.out.println("Please enter their first name:");
+                String firstName = input.nextLine();
+                System.out.println("Please enter their last name:");
+                String lastName = input.nextLine();
+                System.out.println("Please enter their major");
+                System.out.println("(0) for Computer Science");
+                System.out.println("(1) for Computer Engineering");
+                System.out.println("(2) for Integrated Information Technology");
+                System.out.println("(3) for Computer Information Systems");
+                System.out.println("Enter anything else for undecided");
+                int majorSelect = input.nextInt();
+                input.nextLine();
+                Major major;
+                switch (majorSelect) {
+                case 1:
+                    major = Major.COMPUTER_SCIENCE;
+                case 2:
+                    major = Major.COMPUTER_ENGINEERING;
+                case 3:
+                    major = Major.INTEGRATED_INFORMATION_TECHNOLOGY;
                 case 4:
-                    System.out.println("Please enter a username for the student:");
-                    String userName = input.nextLine(); // will eventually add something to check for duplicates 
-                    System.out.println("Please enter a password for the student:");
-                    String password = input.nextLine();
-                    System.out.println("Please enter their email:");
-                    String email = input.nextLine();
-                    System.out.println("Please enter their first name:");
-                    String firstName = input.nextLine();
-                    System.out.println("Please enter their last name:");
-                    String lastName = input.nextLine();
-                    System.out.println("Please enter their major");
-                    System.out.println("(0) for Computer Science");
-                    System.out.println("(1) for Computer Engineering");
-                    System.out.println("(2) for Integrated Information Technology");
-                    System.out.println("(3) for Computer Information Systems");
-                    System.out.println("Enter anything else for undecided");
-                    int majorSelect = input.nextInt();
-                    input.nextLine();
-                    Major major;
-                        switch(majorSelect) {
-                            case 1:
-                                major = Major.COMPUTER_SCIENCE;
-                            case 2:
-                                major = Major.COMPUTER_ENGINEERING;
-                            case 3:
-                                major = Major.INTEGRATED_INFORMATION_TECHNOLOGY;
-                            case 4:
-                                major = Major.COMPUTER_INFORMATION_SYSTEMS;
-                            default:
-                            major = Major.NA; 
-                        }
-                    Student student = new Student.Builder()
-                    .username(userName).password(password).email(email)
-                    .firstName(firstName).lastName(lastName).approved(true)
-                    .major(major).createdResume(false).employments(null)
-                    .educations(null).technicalSkills(null).averageRating(0)
-                    .removed(false).build();
-                    admin.addUser(student);
-                    break;
-                case 5:
-                    go = false;
+                    major = Major.COMPUTER_INFORMATION_SYSTEMS;
                 default:
-                    System.out.println("Invalid option " + option);
+                    major = Major.NA;
+                }
+                Student student = new Student.Builder().username(userName).password(password).email(email)
+                        .firstName(firstName).lastName(lastName).approved(true).major(major).createdResume(false)
+                        .employments(null).educations(null).technicalSkills(null).averageRating(0).removed(false)
+                        .build();
+                admin.addUser(student);
+                break;
+            case 5:
+                go = false;
+            default:
+                System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Exiting student menu!");
         input.close();
     }
 
     private void runEmployers(Admin admin) {
-        Scanner input = new Scanner (System.in);
+        Scanner input = new Scanner(System.in);
         boolean go = true;
         int option;
         String username;
         User search;
-        while(go) {
+        while (go) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
+            System.out.flush(); // clearing the screen
             System.out.println("What would you like to do with the Employer users?");
             System.out.println("(1) See all of the employers");
             System.out.println("(2) Search for a employer");
@@ -222,79 +222,75 @@ public class AdminUI {
             System.out.println("(5) Exit employer menu");
             option = input.nextInt();
             input.nextLine();
-            switch(option) {
-                case 1:
-                    ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
-                    for(Employer employer: employers)
-                        System.out.println(employer);
-                    break;
-                case 2:
-                    System.out.println("Please enter the employer's username:");
-                    username = input.nextLine();
-                    search = UserDatabase.getInstance().findByUsername(username);
-                    if(search!= null)
-                    {
-                        System.out.println("That employer exists, here is their information:");
-                        System.out.println(search); 
-                    } else
-                        System.out.println("An employer with that username does not exist!");
-                    break;
-                case 3:
-                    System.out.println("Please enter the employers username that you would like to delete!");
-                    username = input.nextLine();
-                    search = UserDatabase.getInstance().findByUsername(username);
-                if(search!= null)
-                {
+            switch (option) {
+            case 1:
+                ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
+                for (Employer employer : employers)
+                    System.out.println(employer);
+                break;
+            case 2:
+                System.out.println("Please enter the employer's username:");
+                username = input.nextLine();
+                search = UserDatabase.getInstance().findByUsername(username);
+                if (search != null) {
+                    System.out.println("That employer exists, here is their information:");
+                    System.out.println(search);
+                } else
+                    System.out.println("An employer with that username does not exist!");
+                break;
+            case 3:
+                System.out.println("Please enter the employers username that you would like to delete!");
+                username = input.nextLine();
+                search = UserDatabase.getInstance().findByUsername(username);
+                if (search != null) {
                     System.out.println("Here is that employers's information:");
-                    System.out.println(search); 
-                    //TODO will eventually add a "Are you sure you want to delete" type thinge
+                    System.out.println(search);
                     System.out.println("Deleting employer...");
                     admin.removeUser(search);
 
                 } else
                     System.out.println("A employer with that username does not exist!");
-                    break;
-                case 4:
-                    System.out.println("Please enter a username for the student:");
-                    String userName = input.nextLine(); // will eventually add something to check for duplicates 
-                    System.out.println("Please enter a password for the student:");
-                    String password = input.nextLine();
-                    System.out.println("Please enter their email:");
-                    String email = input.nextLine();
-                    System.out.println("Please enter their first name:");
-                    String firstName = input.nextLine();
-                    System.out.println("Please enter their last name:");
-                    String lastName = input.nextLine();
-                    System.out.println("Please enter their company's name");
-                    String company = input.nextLine();
+                break;
+            case 4:
+                System.out.println("Please enter a username for the student:");
+                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                System.out.println("Please enter a password for the student:");
+                String password = input.nextLine();
+                System.out.println("Please enter their email:");
+                String email = input.nextLine();
+                System.out.println("Please enter their first name:");
+                String firstName = input.nextLine();
+                System.out.println("Please enter their last name:");
+                String lastName = input.nextLine();
+                System.out.println("Please enter their company's name");
+                String company = input.nextLine();
 
-                    Employer employer = new Employer.Builder()
-                    .username(userName).password(password).email(email)
-                    .firstName(firstName).lastName(lastName).approved(true)
-                    .company(company).averageRating(0).removed(false).build();
-                    admin.addUser(employer);
-                    break;
-                case 5:
-                    go = false;
-                default:
-                    System.out.println("Invalid option " + option);
+                Employer employer = new Employer.Builder().username(userName).password(password).email(email)
+                        .firstName(firstName).lastName(lastName).approved(true).company(company).averageRating(0)
+                        .removed(false).build();
+                admin.addUser(employer);
+                break;
+            case 5:
+                go = false;
+            default:
+                System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Exiting employer menu!");
         input.close();
     }
 
     private void runProfessors(Admin admin) {
-        Scanner input = new Scanner (System.in);
+        Scanner input = new Scanner(System.in);
         boolean go = true;
         int option;
         String username;
         User search;
-        while(go) {
+        while (go) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
+            System.out.flush(); // clearing the screen
             System.out.println("What would you like to do with the Professor users?");
             System.out.println("(1) See all of the professors");
             System.out.println("(2) Search for a professor");
@@ -303,81 +299,76 @@ public class AdminUI {
             System.out.println("(5) Exit professor menu");
             option = input.nextInt();
             input.nextLine();
-            switch(option) {
-                case 1:
-                    ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
-                    for(Professor prof: professors)
-                        System.out.println(prof); 
-                    break;
-                case 2:
-                    System.out.println("Please enter the professors username:");
-                    username = input.nextLine();
-                    search = UserDatabase.getInstance().findByUsername(username);
-                    if(search!= null)
-                    {
-                        System.out.println("That professor exists, here is their information:");
-                        System.out.println(search); 
-                    } else
-                        System.out.println("A professor with that username does not exist!");
-                    break;
-                case 3:
-                    System.out.println("Please enter the professor's username that you would like to delete!");
-                    username = input.nextLine();
-                    search = UserDatabase.getInstance().findByUsername(username);
-                if(search!= null)
-                {
+            switch (option) {
+            case 1:
+                ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
+                for (Professor prof : professors)
+                    System.out.println(prof);
+                break;
+            case 2:
+                System.out.println("Please enter the professors username:");
+                username = input.nextLine();
+                search = UserDatabase.getInstance().findByUsername(username);
+                if (search != null) {
+                    System.out.println("That professor exists, here is their information:");
+                    System.out.println(search);
+                } else
+                    System.out.println("A professor with that username does not exist!");
+                break;
+            case 3:
+                System.out.println("Please enter the professor's username that you would like to delete!");
+                username = input.nextLine();
+                search = UserDatabase.getInstance().findByUsername(username);
+                if (search != null) {
                     System.out.println("Here is that professor's information:");
-                    System.out.println(search); 
-                    //TODO will eventually add a "Are you sure you want to delete" type thinge
+                    System.out.println(search);
                     System.out.println("Deleting professor...");
                     admin.removeUser(search);
 
                 } else
                     System.out.println("A professor with that username does not exist!");
-                    break;
-                case 4:
-                    System.out.println("Please enter a username for the professor:");
-                    String userName = input.nextLine(); // will eventually add something to check for duplicates 
-                    System.out.println("Please enter a password for the professor:");
-                    String password = input.nextLine();
-                    System.out.println("Please enter their email:");
-                    String email = input.nextLine();
-                    System.out.println("Please enter their first name:");
-                    String firstName = input.nextLine();
-                    System.out.println("Please enter their last name:");
-                    String lastName = input.nextLine();
-                    
-                    Professor professor = new Professor.Builder()
-                    .username(userName).password(password).email(email)
-                    .firstName(firstName).lastName(lastName).approved(true)
-                    .removed(false).build();
-                    admin.addUser(professor);
-                    break;
-                case 5:
-                    go = false;
-                default:
-                    System.out.println("Invalid option " + option);
+                break;
+            case 4:
+                System.out.println("Please enter a username for the professor:");
+                String userName = input.nextLine(); // will eventually add something to check for duplicates
+                System.out.println("Please enter a password for the professor:");
+                String password = input.nextLine();
+                System.out.println("Please enter their email:");
+                String email = input.nextLine();
+                System.out.println("Please enter their first name:");
+                String firstName = input.nextLine();
+                System.out.println("Please enter their last name:");
+                String lastName = input.nextLine();
+
+                Professor professor = new Professor.Builder().username(userName).password(password).email(email)
+                        .firstName(firstName).lastName(lastName).approved(true).removed(false).build();
+                admin.addUser(professor);
+                break;
+            case 5:
+                go = false;
+            default:
+                System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Exiting professor menu!");
         input.close();
     }
 
     private void approvalMenu(Admin admin) {
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         Scanner input = new Scanner(System.in);
         System.out.println("Lets go through all of the pending approval requests");
         ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
-        for(User user: unapprovedUsers) {
+        for (User user : unapprovedUsers) {
             System.out.println("The following user is waiting for approval");
-            System.out.println(user); 
+            System.out.println(user);
             System.out.println("Would you like to approve them? Enter (Y) for yes and (N) for no");
             String answer = input.nextLine();
             answer = answer.toUpperCase();
-            if(answer.equals("Y")) {
+            if (answer.equals("Y")) {
                 System.out.println("User approved!");
                 user.setApproved(true);
                 UserDatabase.getInstance().updateDatabase();
@@ -386,7 +377,7 @@ public class AdminUI {
                 System.out.println("Would you like to remove unapproved user? Enter (Y) for yes and (N) for no");
                 answer = input.nextLine();
                 answer = answer.toUpperCase();
-                if(answer.equals("Y")) {
+                if (answer.equals("Y")) {
                     System.out.println("Removing user");
                     admin.removeUser(user);
                 } else {
@@ -398,14 +389,13 @@ public class AdminUI {
         input.close();
     }
 
-
     private void accessPostings(Admin admin) {
         Scanner input = new Scanner(System.in);
         boolean go = true;
         int option;
-        while(go) {
+        while (go) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
+            System.out.flush(); // clearing the screen
             System.out.println("What would you like to do with the job postings?");
             System.out.println("(1)Look through all postings");
             System.out.println("(2) Search for a job posting");
@@ -414,61 +404,64 @@ public class AdminUI {
             System.out.println("(5) Return to the main menu");
             option = input.nextInt();
             input.nextLine();
-            switch(option) {
-                case 1:
-                    ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
-                    for(JobPosting posting: postings)
-                        System.out.println(posting);
-                    break;
-                case 2:
-                    System.out.println("Please enter the employer's username who posted the job");
-                    String employerUser = input.nextLine();
-                    User employer = UserDatabase.getInstance().findByUsername(employerUser);
-                    if(employer != null) {
-                        ArrayList<JobPosting> postingByUser = JobPostingDatabase.getInstance().getPostingsByEmployer((Employer) employer);
-                        if(postingByUser != null) {
-                            System.out.println("Here are the postings by @" + employerUser);
-                            for(JobPosting posting: postingByUser)
-                                System.out.println(posting);
-                        } else {
-                            System.out.println("That user has not posted any jobs");
-                        }
-                    } else {
-                        System.out.println("No user exists with that name");
-                    }
-                    break;
-                case 3:
-                    System.out.println("To remove a job posting, we need the Employer's username and the title of the postion");
-                    System.out.println("What is the Employer's username?");
-                    String user = input.nextLine();
-                    System.out.println("What is the job's title?");
-                    String title = input.nextLine();
-                    User userOf = UserDatabase.getInstance().findByUsername(user);
-                    if(userOf != null) {
-                        JobPosting toRemove = JobPostingDatabase.getInstance().getPostingByEmployerAndTitle(user, title);
-                        if(toRemove != null) {
-                            System.out.println("Removing...");
-                            admin.removeJobPosting(toRemove);
-                        } else {
-                            System.out.println("A job posting made by @" + user + " with the title '" + title + "' does not exist!");
-                        }
-                    } else {
-                        System.out.println("User @" + user + " does not exist!");
-                    }
-                    break;
-                case 4:
-                ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();
-                for(JobPosting posting: removedPostings)
+            switch (option) {
+            case 1:
+                ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
+                for (JobPosting posting : postings)
                     System.out.println(posting);
-                    break;
-                case 5:
-                    go = false;
-                default:
+                break;
+            case 2:
+                System.out.println("Please enter the employer's username who posted the job");
+                String employerUser = input.nextLine();
+                User employer = UserDatabase.getInstance().findByUsername(employerUser);
+                if (employer != null) {
+                    ArrayList<JobPosting> postingByUser = JobPostingDatabase.getInstance()
+                            .getPostingsByEmployer((Employer) employer);
+                    if (postingByUser != null) {
+                        System.out.println("Here are the postings by @" + employerUser);
+                        for (JobPosting posting : postingByUser)
+                            System.out.println(posting);
+                    } else {
+                        System.out.println("That user has not posted any jobs");
+                    }
+                } else {
+                    System.out.println("No user exists with that name");
+                }
+                break;
+            case 3:
+                System.out.println(
+                        "To remove a job posting, we need the Employer's username and the title of the postion");
+                System.out.println("What is the Employer's username?");
+                String user = input.nextLine();
+                System.out.println("What is the job's title?");
+                String title = input.nextLine();
+                User userOf = UserDatabase.getInstance().findByUsername(user);
+                if (userOf != null) {
+                    JobPosting toRemove = JobPostingDatabase.getInstance().getPostingByEmployerAndTitle(user, title);
+                    if (toRemove != null) {
+                        System.out.println("Removing...");
+                        admin.removeJobPosting(toRemove);
+                    } else {
+                        System.out.println(
+                                "A job posting made by @" + user + " with the title '" + title + "' does not exist!");
+                    }
+                } else {
+                    System.out.println("User @" + user + " does not exist!");
+                }
+                break;
+            case 4:
+                ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();
+                for (JobPosting posting : removedPostings)
+                    System.out.println(posting);
+                break;
+            case 5:
+                go = false;
+            default:
                 System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Returning to main menu!");
         input.close();
     }
@@ -478,9 +471,9 @@ public class AdminUI {
         boolean go = true;
         int option;
         int option2;
-        while(go) {
+        while (go) {
             System.out.print("\033[H\033[2J");
-            System.out.flush(); // clearing the screen 
+            System.out.flush(); // clearing the screen
             System.out.println("What would you like to do with the reviews?");
             System.out.println("(1) See all reviews");
             System.out.println("(2) Search for a review");
@@ -489,95 +482,96 @@ public class AdminUI {
             System.out.println("(5) Return to main menu");
             option = input.nextInt();
             input.nextLine();
-            switch(option) {
+            switch (option) {
+            case 1:
+                System.out.println("Here are all of the reviews");
+                ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviews();
+                for (Review review : reviews)
+                    System.out.println(review);
+                break;
+            case 2:
+                String username;
+                User user;
+                ArrayList<Review> reviewFound;
+                System.out.println("How would you like to search?");
+                System.out.println("(1) By reviewer");
+                System.out.println("(2) By reviewee");
+                option2 = input.nextInt();
+                input.nextLine();
+                switch (option2) {
                 case 1:
-                    System.out.println("Here are all of the reviews");
-                    ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviews();
-                    for(Review review: reviews)
-                        System.out.println(review); 
-                    break;
-                case 2:
-                    String username;
-                    User user;
-                    ArrayList <Review> reviewFound;
-                    System.out.println("How would you like to search?");
-                    System.out.println("(1) By reviewer");
-                    System.out.println("(2) By reviewee");
-                    option2 = input.nextInt();
-                    input.nextLine();
-                        switch(option2) {
-                            case 1:
-                            System.out.println("Please enter the username for the reviewer");
-                            username = input.nextLine();
-                            user = UserDatabase.getInstance().findByUsername(username);
-                            if(username != null) {
-                            reviewFound = ReviewDatabase.getInstance().getReviewsByReviewer(user);
-                                if(reviewFound != null) {
-                                    System.out.println("Here are all reviews made by @" + username);
-                                    for(Review review: reviewFound)
-                                            System.out.println(review);
-                                } else {
-                                System.out.println("@" + username + " has not made any reviews");
-                                }
-                            } else {
-                                System.out.println("There is no user with that username");
-                            } 
-                                break;
-                            case 2:
-                                System.out.println("Please enter the username for the reviewee");
-                                username = input.nextLine();
-                                user = UserDatabase.getInstance().findByUsername(username);
-                                if(username != null) {
-                                reviewFound = ReviewDatabase.getInstance().getReviewsByReviewee(user);
-                                    if(reviewFound != null) {
-                                        System.out.println("Here are all reviews made about @" + username);
-                                        for(Review review: reviewFound)
-                                            System.out.println(review);
-                                    } else {
-                                    System.out.println("@" + username + " has not had any reviews made about them");
-                                    }
-                                } else {
-                                    System.out.println("There is no user with that username");
-                                } 
-                                
-                                break;
-                            default:
-                            System.out.println("Invalid option " + option);
+                    System.out.println("Please enter the username for the reviewer");
+                    username = input.nextLine();
+                    user = UserDatabase.getInstance().findByUsername(username);
+                    if (username != null) {
+                        reviewFound = ReviewDatabase.getInstance().getReviewsByReviewer(user);
+                        if (reviewFound != null) {
+                            System.out.println("Here are all reviews made by @" + username);
+                            for (Review review : reviewFound)
+                                System.out.println(review);
+                        } else {
+                            System.out.println("@" + username + " has not made any reviews");
                         }
-                    break;
-                case 3:
-                    String reviewerUser;
-                    String revieweeUser;
-                    System.out.println("To remove a review, we need both the reviewer and reviewees usernames");
-                    System.out.println("Reviwewer username:");
-                    reviewerUser = input.nextLine();
-                    System.out.println("Reviewee username: ");
-                    revieweeUser = input.nextLine();
-                    System.out.println("Searching for review to remove...");
-                    Review toRemove = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(reviewerUser, revieweeUser);
-                    if(toRemove!=null) {
-                        System.out.println("Removing...");
-                        admin.removeReviews(toRemove);
                     } else {
-                        System.out.println("@" + reviewerUser + " has not made a review about @" + revieweeUser);
+                        System.out.println("There is no user with that username");
                     }
                     break;
-                case 4:
-                        System.out.println("Here are all of the removed reviews");
-                    ArrayList<Review> removedReviews = ReviewDatabase.getInstance().getRemovedReviews();
-                    for(Review review: removedReviews)
-                        System.out.println(review);
+                case 2:
+                    System.out.println("Please enter the username for the reviewee");
+                    username = input.nextLine();
+                    user = UserDatabase.getInstance().findByUsername(username);
+                    if (username != null) {
+                        reviewFound = ReviewDatabase.getInstance().getReviewsByReviewee(user);
+                        if (reviewFound != null) {
+                            System.out.println("Here are all reviews made about @" + username);
+                            for (Review review : reviewFound)
+                                System.out.println(review);
+                        } else {
+                            System.out.println("@" + username + " has not had any reviews made about them");
+                        }
+                    } else {
+                        System.out.println("There is no user with that username");
+                    }
+
                     break;
-                case 5:
-                    go = false;
                 default:
+                    System.out.println("Invalid option " + option);
+                }
+                break;
+            case 3:
+                String reviewerUser;
+                String revieweeUser;
+                System.out.println("To remove a review, we need both the reviewer and reviewees usernames");
+                System.out.println("Reviwewer username:");
+                reviewerUser = input.nextLine();
+                System.out.println("Reviewee username: ");
+                revieweeUser = input.nextLine();
+                System.out.println("Searching for review to remove...");
+                Review toRemove = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(reviewerUser,
+                        revieweeUser);
+                if (toRemove != null) {
+                    System.out.println("Removing...");
+                    admin.removeReviews(toRemove);
+                } else {
+                    System.out.println("@" + reviewerUser + " has not made a review about @" + revieweeUser);
+                }
+                break;
+            case 4:
+                System.out.println("Here are all of the removed reviews");
+                ArrayList<Review> removedReviews = ReviewDatabase.getInstance().getRemovedReviews();
+                for (Review review : removedReviews)
+                    System.out.println(review);
+                break;
+            case 5:
+                go = false;
+            default:
                 System.out.println("Invalid option " + option);
             }
         }
         System.out.print("\033[H\033[2J");
-        System.out.flush(); // clearing the screen 
+        System.out.flush(); // clearing the screen
         System.out.println("Returning to main menu!");
         input.close();
     }
-  
+
 }

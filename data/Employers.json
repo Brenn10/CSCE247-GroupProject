@@ -1,26 +1,26 @@
 [
-    {
-        "id": "ee51f05b-c153-4536-8900-5d475768164c",
-        "username": "amazon",
-        "password": "p9ab8t6acV@#$bwaal",
-        "email": "hiring@amazon.jobs",
-        "firstName": "Amazon",
-        "lastName": "Rep",
-        "approved": true,
-        "company": "Amazon",
-        "averageRating": 4.9,
-        "removed": false
-    },
-    {
-        "id": "69599de1-4423-4573-b40d-145d290282e1",
-        "username": "google",
-        "password": "WE$%TVE$%^B&SE%VY",
-        "email": "go@og.le",
-        "firstName": "Hiring",
-        "lastName": "Representative",
-        "approved": false,
-        "company": "Google",
-        "averageRating": 4.2,
-        "removed": false
-    }
+  {
+    "firstName": "Amazon",
+    "lastName": "Rep",
+    "password": "p9ab8t6acV@#$bwaal",
+    "approved": true,
+    "removed": false,
+    "averageRating": 4.9,
+    "company": "Amazon",
+    "id": "ee51f05b-c153-4536-8900-5d475768164c",
+    "email": "hiring@amazon.jobs",
+    "username": "amazon"
+  },
+  {
+    "firstName": "Hiring",
+    "lastName": "Representative",
+    "password": "WE$%TVE$%^B&SE%VY",
+    "approved": false,
+    "removed": false,
+    "averageRating": 4.2,
+    "company": "Google",
+    "id": "69599de1-4423-4573-b40d-145d290282e1",
+    "email": "go@og.le",
+    "username": "google"
+  }
 ]
