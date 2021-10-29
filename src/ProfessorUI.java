@@ -25,13 +25,13 @@ public class ProfessorUI {
         System.out.println("Welcome Professor " + professor.getFirstName() + " " + professor.getLastName());
         while (keepLooping) {
             System.out.println("Please select a valid option: \n\n");
-            System.out.println("(1) Enter Student Review Mode\n");
+            System.out.println("(1) Enter Professor Review Mode\n");
             System.out.println("(0) Exit Neurotic Job Search");
             option = input.nextInt();
             if (option == 0) {
                 keepLooping = false;
             } else if(option == 1) {
-                reviewMenuStudent(professor);
+                reviewMenuProfessor(professor);
                 keepLooping = false;
             } else {
                 System.out.println("ERROR: The number you typed is not an option!\n");
@@ -39,7 +39,7 @@ public class ProfessorUI {
         }
         input.close();
 }
-private void reviewMenuStudent(Professor professor) {
+private void reviewMenuProfessor(Professor professor) {
     boolean looking = true;
     Scanner input = new Scanner (System.in);
     String studentname = "";
