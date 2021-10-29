@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import dataTypes.User;
 
 public class ProfessorUI {
-    public ProfessorUI () {
+    private Professor professor;
+    public ProfessorUI (Professor professor) {
+        this.professor = professor;
     }
     /**
      * Prof
@@ -170,8 +172,8 @@ public static void doSignup() {
         System.out.print("Invalid email. Please enter a valid email: ");
         email = input.nextLine();
     }
-
-
+    professor = new Professor.Builder().username(username).password(password).firstName(firstName).lastName(lastName).email(email).approved(true).removed(false).build();
+    UserDatabase.getInstance().addUser(professor);
     
 }
 }
