@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import dataTypes.User;
+//import dataTypes.User;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
 import dataTypes.Review;
@@ -77,7 +77,7 @@ public class EmployerUI {
                 viewJob(employer);
                 break;
             case 0:
-                // exit message?
+                System.out.println("Exiting Job Edit Menu");
                 employerScanner.close();
                 return;
             }
@@ -85,12 +85,15 @@ public class EmployerUI {
     }
 private void editJob(Employer employer) {
     Scanner employerScanner = new Scanner(System.in);
-    System.out.println("Which one would you like to edit?");
     boolean jobMatched = false;
     JobPosting matchedJob = null;
     while (!jobMatched) {
+        System.out.println("Which job posting would you like to edit?");
+        System.out.println("Input (0) to exit");
         String selectedTitle = employerScanner.nextLine();
-        // TODO create an exit option
+       if (selectedTitle.equals("0")) {
+        System.out.println("Exiting Job Edit Mode");
+       }
         for(JobPosting i : employer.getPostings()) {
         if (i.getJobTitle().equals(selectedTitle)) {
             jobMatched = true;
@@ -133,22 +136,22 @@ private void editJob(Employer employer) {
                         matchedJob.addRequirement(employerScanner.nextLine());
                         break;
                     case 2:
-                    ArrayList<String> allRequirements = matchedJob.getRequirements();
-                    for (int i = 0; i<allRequirements.size()-1; i++) {
-                        System.out.print((i+1) + " )" + allRequirements.get(i));
-                    }
-                    System.out.println("Please input the number of the requirement you would like to edit");
-                    requirementNum = employerScanner.nextInt()+1;
-                    if (requirementNum > allRequirements.size() || requirementNum <= 0) {
-                        // error message?
-                        break;
-                    }
-                    System.out.println("Please input the new Requirement");
-                    allRequirements.set(requirementNum, employerScanner.nextLine());
-                    matchedJob.setRequirements(allRequirements);
+                        ArrayList<String> allRequirements = matchedJob.getRequirements();
+                        for (int i = 0; i<allRequirements.size()-1; i++) {
+                            System.out.print((i+1) + " )" + allRequirements.get(i));
+                        }
+                        System.out.println("Please input the number of the requirement you would like to edit");
+                        requirementNum = employerScanner.nextInt()+1;
+                        if (requirementNum > allRequirements.size() || requirementNum <= 0) {
+                            System.out.println("Sorry, that number is not in range");
+                            break;
+                        }
+                        System.out.println("Please input the new Requirement");
+                        allRequirements.set(requirementNum, employerScanner.nextLine());
+                        matchedJob.setRequirements(allRequirements);
                         break;
                     default:
-                        // error message?
+                        System.out.println("Please input a correct option");
                         break;
                 }
                 break;
@@ -158,10 +161,31 @@ private void editJob(Employer employer) {
                 break;
             case 5:
             System.out.println("Please input the new Status");
-                // do the enum thing
+            String stats;
+            boolean rightThing = false;
+                while (!rightThing) {
+                    stats = employerScanner.nextLine();
+                    if (stats.equalsIgnoreCase(JobPostingStatus.NA.toString())) {
+                        matchedJob.setStatus(JobPostingStatus.NA);
+                        rightThing = true;
+                    } else if (stats.equalsIgnoreCase(JobPostingStatus.OPEN.toString())) {
+                        matchedJob.setStatus(JobPostingStatus.OPEN);
+                        rightThing = true;
+                    } else if (stats.equalsIgnoreCase(JobPostingStatus.PENDING.toString())) {
+                        matchedJob.setStatus(JobPostingStatus.PENDING);
+                        rightThing = true;
+                    } else if (stats.equalsIgnoreCase(JobPostingStatus.CLOSED.toString())) {
+                        matchedJob.setStatus(JobPostingStatus.CLOSED);
+                        rightThing = true;
+                    } else {
+                        System.out.println("Invalid Status");
+                    }
+                }
+                
                 break;
             case 0:
             System.out.println("Exiting JobEdit");
+                keepLooping = false;
                 break;
             default:
             System.out.println("Exiting JobEdit");
@@ -188,7 +212,6 @@ private void viewJob (Employer employer) {
     employScanner.close();
 }
 private void makeJob (Employer employer) {
-// can newjob.--(nextLine) work? 
     Scanner employScanner = new Scanner(System.in);
     dataTypes.JobPosting.Builder newJob = new JobPosting.Builder();
     System.out.println("Title");
@@ -198,7 +221,7 @@ private void makeJob (Employer employer) {
     System.out.println("Description");
     String description = employScanner.nextLine();
     newJob.description(description);
-    System.out.println("Requirements"); // loop until no more
+    System.out.println("Requirements");
     boolean keepLooping = true;
     ArrayList<String> requirements = new ArrayList<>();
     while (keepLooping) {
@@ -213,15 +236,34 @@ private void makeJob (Employer employer) {
     System.out.println("Hourly Wage");
     double hourlyWage = employScanner.nextDouble();
     newJob.hourlyWage(hourlyWage);
-    System.out.println("Current Status ()"); // list enum
-    // TODO see how to use enum efficiently
+    System.out.println("Current Status (NA, OPEN, PENDING, CLOSED)");
+    newJob.status(JobPostingStatus.NA);
+    String stats;
+    boolean rightThing = false;
+        while (!rightThing) {
+            stats = employScanner.nextLine();
+            if (stats.equalsIgnoreCase(JobPostingStatus.NA.toString())) {
+                newJob.status(JobPostingStatus.NA);
+                rightThing = true;
+            } else if (stats.equalsIgnoreCase(JobPostingStatus.OPEN.toString())) {
+                newJob.status(JobPostingStatus.OPEN);
+                rightThing = true;
+            } else if (stats.equalsIgnoreCase(JobPostingStatus.PENDING.toString())) {
+                newJob.status(JobPostingStatus.PENDING);
+                rightThing = true;
+            } else if (stats.equalsIgnoreCase(JobPostingStatus.CLOSED.toString())) {
+                newJob.status(JobPostingStatus.CLOSED);
+                rightThing = true;
+            } else {
+                System.out.println("Invalid Status");
+            }
+        }
     
     JobPostingDatabase.getInstance().addPosting(newJob.build());
     employScanner.close();
     // used for testing
     //System.out.println(newJob.build());
 }
-
 
 
 private void doStudentReviewMenu(Employer employer) {
@@ -258,12 +300,10 @@ private void doStudentReviewMenu(Employer employer) {
         employerScanner.close();
         return;
     }
-
-    System.out.println("Would you like to 1 create a review 2 edit a review or 0 quit");
-    
     boolean keepLooping = true;
     while (keepLooping) {
         int employerInput = employerScanner.nextInt();
+        System.out.println("Would you like to (1) create a review (2) edit a review or (0) quit");
         switch (employerInput) {
             case 1:
                 createNewReview(foundStudent, employer);
@@ -271,7 +311,8 @@ private void doStudentReviewMenu(Employer employer) {
             case 2:
                 editReview(foundStudent);
                 break;
-            case 0 :
+            case 0:
+                System.out.println("Exiting Review Menu");
                 keepLooping = false;
                 break;
             default:
@@ -295,7 +336,7 @@ private void createNewReview(Student foundStudent, Employer employer) {
     newReview.comment(comment);
     newReview.reviewer(foundStudent);
     newReview.reviewee(employer);
-    ReviewDatabase.getInstance().addReview(newReview.build()); // chosen student
+    ReviewDatabase.getInstance().addReview(newReview.build());
     employerScanner.close();
     // for testing
     //System.out.println(newReview.build());
@@ -339,6 +380,7 @@ private void editReview(Student foundStudent) {
                     chosenReview.setCommment(comment);
                     break;
                 case 0: 
+                    System.out.println("Exiting Review Mode");
                     employerScanner.close();
                     return;
             }
