@@ -64,7 +64,7 @@ public class EmployerUI {
         System.out.println("Would you like to:");
         System.out.println("(1) Edit a Current Job Posting");
         System.out.println("(2) Create a New Job Posting");
-        // TODO make an option to just view a posting and its students
+        System.out.println("(3) View Job Posting");
         System.out.println("(0) Exit Job Edit Mode");
         switch(employerScanner.nextInt()) {
             case 1:
@@ -72,6 +72,9 @@ public class EmployerUI {
                 break;
             case 2:
                 makeJob(employer);
+                break;
+            case 3:
+                viewJob(employer);
                 break;
             case 0:
                 // exit message?
@@ -167,11 +170,28 @@ private void editJob(Employer employer) {
     }
     employerScanner.close();
 }
+private void viewJob (Employer employer) {
+    Scanner employScanner = new Scanner (System.in);
+    ArrayList<JobPosting> allPostings = JobPostingDatabase.getInstance().getPostingsByEmployer(employer);
+    for (int i = 0; i<allPostings.size(); i++) {
+        System.out.print((i+1) + ")");
+        System.out.println(allPostings.get(i).getJobTitle());
+    }
+    System.out.println("Select the job you'd like to view by its number");
+    Integer jobNumber = employScanner.nextInt();
+    System.out.println(allPostings.get(jobNumber-1));
+    System.out.println("Current Applicants: ");
+    ArrayList<Student> applicants = allPostings.get(jobNumber-1).getApplicants();
+    for( Student i : applicants) {
+        System.out.println(i);
+    }
+    employScanner.close();
+}
 private void makeJob (Employer employer) {
 // can newjob.--(nextLine) work? 
     Scanner employScanner = new Scanner(System.in);
     dataTypes.JobPosting.Builder newJob = new JobPosting.Builder();
-    System.out.println("Title"); // remember to add empl.company
+    System.out.println("Title");
     String jobTitle = employScanner.nextLine();
     newJob.jobTitle(jobTitle);
     newJob.employer(employer);
