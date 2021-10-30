@@ -134,12 +134,12 @@ private void editJob(Employer employer) {
                         break;
                     case 2:
                     ArrayList<String> allRequirements = matchedJob.getRequirements();
-                    for (int i = 0; i<allRequirements.size(); i++) {
+                    for (int i = 0; i<allRequirements.size()-1; i++) {
                         System.out.print((i+1) + " )" + allRequirements.get(i));
                     }
                     System.out.println("Please input the number of the requirement you would like to edit");
                     requirementNum = employerScanner.nextInt()+1;
-                    if (requirementNum > allRequirements.size()+1 || requirementNum <= 0) {
+                    if (requirementNum > allRequirements.size() || requirementNum <= 0) {
                         // error message?
                         break;
                     }
@@ -173,7 +173,7 @@ private void editJob(Employer employer) {
 private void viewJob (Employer employer) {
     Scanner employScanner = new Scanner (System.in);
     ArrayList<JobPosting> allPostings = JobPostingDatabase.getInstance().getPostingsByEmployer(employer);
-    for (int i = 0; i<allPostings.size(); i++) {
+    for (int i = 0; i<allPostings.size()-1; i++) {
         System.out.print((i+1) + ")");
         System.out.println(allPostings.get(i).getJobTitle());
     }
@@ -306,14 +306,14 @@ private void editReview(Student foundStudent) {
         ReviewDatabase reviewDatabase = ReviewDatabase.getInstance();
         ArrayList <Review> selfReviews = reviewDatabase.getReviewsByReviewee(foundStudent);
 
-        for (int i = 0; i < selfReviews.size(); i++) {
+        for (int i = 0; i < selfReviews.size()-1; i++) {
             System.out.print(i+1 + ")");
             System.out.println(selfReviews.get(i));
         }
         System.out.println("Please Select a Review from the list");
         
         int reviewInput = employerScanner.nextInt();
-        if(reviewInput<=0 || reviewInput >= selfReviews.size()) {
+        if(reviewInput<=0 || reviewInput >= selfReviews.size()-1) {
             System.out.println("ERROR: Out of range");
             employerScanner.close();
             return;
