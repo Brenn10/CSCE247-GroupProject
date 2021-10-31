@@ -1,4 +1,5 @@
 package database;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
 
-
 public class JsonDataWriter extends DataWriter {
     private String adminFilePath;
     private String studentFilePath;
@@ -32,17 +32,13 @@ public class JsonDataWriter extends DataWriter {
     private String reviewFilePath;
     private String jobPostingFilePath;
 
-    public JsonDataWriter(String adminFilePath, 
-                          String studentFilePath, 
-                          String employerFilePath, 
-                          String professorFilePath, 
-                          String reviewFilePath, 
-                          String jobPostingFilePath) {
+    public JsonDataWriter(String adminFilePath, String studentFilePath, String employerFilePath,
+            String professorFilePath, String reviewFilePath, String jobPostingFilePath) {
         this.adminFilePath = adminFilePath;
         this.studentFilePath = studentFilePath;
         this.employerFilePath = employerFilePath;
         this.professorFilePath = professorFilePath;
-        this.reviewFilePath = reviewFilePath;               
+        this.reviewFilePath = reviewFilePath;
         this.jobPostingFilePath = jobPostingFilePath;
     }
 
@@ -55,7 +51,7 @@ public class JsonDataWriter extends DataWriter {
         writeReviews(reviews);
         writeJobPostings(postings);
     }
-    
+
     public void writeReviews(ArrayList<Review> reviews) {
         JSONArray jsonReviews = new JSONArray();
         for (Review review : reviews) {
@@ -103,7 +99,7 @@ public class JsonDataWriter extends DataWriter {
         JsonElement je = JsonParser.parseString(json.toJSONString());
         String prettyJsonString = gson.toJson(je);
 
-        FileWriter writer= null;
+        FileWriter writer = null;
         try {
 
             writer = new FileWriter(fileName);
@@ -122,7 +118,7 @@ public class JsonDataWriter extends DataWriter {
         }
     }
 
-    private JSONObject jsonify(Student student) { //TODO: implement
+    private JSONObject jsonify(Student student) { // TODO: implement
         JSONObject studentJson = new JSONObject();
         studentJson.put(JsonDataLabels.USER_ID.toString(), student.getId());
         studentJson.put(JsonDataLabels.USER_USERNAME, student.getUsername());
@@ -135,7 +131,7 @@ public class JsonDataWriter extends DataWriter {
         studentJson.put(JsonDataLabels.STUDENT_CREATEDRESUME, student.hasCreatedResume());
         studentJson.put(JsonDataLabels.REMOVED, student.isRemoved());
         studentJson.put(JsonDataLabels.STUDENT_AVERAGERATING, student.getAverageReview());
-        if(student.hasCreatedResume()) {
+        if (student.hasCreatedResume()) {
             JSONArray jsonSkills = new JSONArray();
             for (String skill : student.getTechnicalSkills()) {
                 jsonSkills.add(skill);
@@ -158,8 +154,7 @@ public class JsonDataWriter extends DataWriter {
                 jsonEmployments.add(jsonEmployment);
             }
             studentJson.put(JsonDataLabels.STUDENT_EMPLOYMENTS, jsonEmployments);
-        
-        
+
             JSONArray jsonEducations = new JSONArray();
             for (Education education : student.getEducations()) {
                 JSONObject jsonEducation = new JSONObject();
@@ -171,7 +166,7 @@ public class JsonDataWriter extends DataWriter {
             }
             studentJson.put(JsonDataLabels.STUDENT_EDUCATIONS.toString(), jsonEducations);
         }
-        
+
         return studentJson;
     }
 
@@ -215,7 +210,7 @@ public class JsonDataWriter extends DataWriter {
         return adminJson;
     }
 
-    private JSONObject jsonify(Review review) { //TODO: implement
+    private JSONObject jsonify(Review review) { // TODO: implement
         JSONObject reviewJson = new JSONObject();
 
         reviewJson.put(JsonDataLabels.REVIEW_ID, review.getId().toString());
@@ -227,7 +222,7 @@ public class JsonDataWriter extends DataWriter {
         return reviewJson;
     }
 
-    private JSONObject jsonify(JobPosting posting) { //TODO: implement
+    private JSONObject jsonify(JobPosting posting) { // TODO: implement
         JSONObject postingJson = new JSONObject();
 
         postingJson.put(JsonDataLabels.JOBPOSTING_ID, posting.getId().toString());
@@ -252,7 +247,5 @@ public class JsonDataWriter extends DataWriter {
         postingJson.put(JsonDataLabels.REMOVED, posting.isRemoved());
         return postingJson;
     }
-
-
 
 }

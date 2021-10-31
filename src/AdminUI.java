@@ -37,7 +37,8 @@ public class AdminUI {
             System.out.println("(2) Look through Unapproved users"); // Decide on useres?
             System.out.println("(3) Access Job Postings");
             System.out.println("(4) Access reviews");
-            System.out.println("(5) Exit the program");
+            System.out.println("(5) Create a new administrator account");
+            System.out.println("(6) Exit the program");
             System.out.print("What would you like to do: ");
             option = Integer.parseInt(input.nextLine());
             switch (option) {
@@ -54,6 +55,9 @@ public class AdminUI {
                 accessReviews();
                 break;
             case 5:
+                makeAdmin();
+                break;
+            case 6:
                 doMenu = false;
                 break;
             default:
@@ -161,13 +165,13 @@ public class AdminUI {
 
                 System.out.println("Please enter a password for the student:");
                 String password = input.nextLine();
-                System.out.println("Please enter their email:");
+                System.out.println("Please enter the student's email:");
                 String email = input.nextLine();
-                System.out.println("Please enter their first name:");
+                System.out.println("Please enter the student's first name:");
                 String firstName = input.nextLine();
-                System.out.println("Please enter their last name:");
+                System.out.println("Please enter the student's last name:");
                 String lastName = input.nextLine();
-                System.out.println("Please enter their major");
+                System.out.println("Please enter the student's major");
                 System.out.println("(0) for Computer Science");
                 System.out.println("(1) for Computer Engineering");
                 System.out.println("(2) for Integrated Information Technology");
@@ -265,13 +269,13 @@ public class AdminUI {
                 } while (userTest != null);
                 System.out.println("Please enter a password for the employer:");
                 String password = input.nextLine();
-                System.out.println("Please enter their email:");
+                System.out.println("Please enter the employer's email:");
                 String email = input.nextLine();
-                System.out.println("Please enter their first name:");
+                System.out.println("Please enter the employer's first name:");
                 String firstName = input.nextLine();
-                System.out.println("Please enter their last name:");
+                System.out.println("Please enter the employer's last name:");
                 String lastName = input.nextLine();
-                System.out.println("Please enter their company's name");
+                System.out.println("Please enter the employer's company's name");
                 String company = input.nextLine();
 
                 Employer employer = new Employer.Builder().username(userName).password(password).email(email)
@@ -350,11 +354,11 @@ public class AdminUI {
 
                 System.out.println("Please enter a password for the professor:");
                 String password = input.nextLine();
-                System.out.println("Please enter their email:");
+                System.out.println("Please enter the professor's email:");
                 String email = input.nextLine();
-                System.out.println("Please enter their first name:");
+                System.out.println("Please enter the professor's first name:");
                 String firstName = input.nextLine();
-                System.out.println("Please enter their last name:");
+                System.out.println("Please enter the professor's last name:");
                 String lastName = input.nextLine();
 
                 Professor professor = new Professor.Builder().username(userName).password(password).email(email)
@@ -586,6 +590,32 @@ public class AdminUI {
          * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
          */
         System.out.println("Returning to main menu!");
+    }
+
+    private void makeAdmin() {
+        System.out.println("Please enter a username for the new administrator:");
+        User userTest;
+        String userName;
+        do {
+            userName = input.nextLine();
+            userTest = UserDatabase.getInstance().findByUsername(userName);
+            if (userTest != null)
+                System.out.println("That username is taken, please try another!");
+        } while (userTest != null);
+
+        System.out.println("Please enter a password:");
+        String password = input.nextLine();
+        System.out.println("Please enter the administrator's email:");
+        String email = input.nextLine();
+        System.out.println("Please enter the adminstrator's first name:");
+        String firstName = input.nextLine();
+        System.out.println("Please enter the adminstrator's last name:");
+        String lastName = input.nextLine();
+
+        Admin adminToAdd = new Admin.Builder().username(userName).password(password).email(email).firstName(firstName)
+                .lastName(lastName).approved(true).build();
+        admin.addUser(adminToAdd);
+        System.out.println("A new administrator account @" + userName + " has been created");
     }
 
 }
