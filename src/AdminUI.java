@@ -245,7 +245,7 @@ public class AdminUI {
                     System.out.println("An employer with that username does not exist!");
                 break;
             case 3:
-                System.out.println("Please enter the employers username that you would like to delete!");
+                System.out.println("Please enter the employer's username that you would like to delete!");
                 username = input.nextLine();
                 search = UserDatabase.getInstance().findByUsername(username);
                 if (search != null) {
@@ -383,6 +383,7 @@ public class AdminUI {
          * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
          */
         System.out.println("Lets go through all of the pending approval requests");
+        System.out.println("Enter 'STOP' at any time to quit");
         ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
         for (User user : unapprovedUsers) {
             System.out.println("The following user is waiting for approval");
@@ -390,6 +391,8 @@ public class AdminUI {
             System.out.println("Would you like to approve them? Enter (Y) for yes and (N) for no");
             String answer = input.nextLine();
             answer = answer.toUpperCase();
+            if (answer.equals("STOP"))
+                return;
             if (answer.equals("Y")) {
                 System.out.println("User approved!");
                 user.setApproved(true);
@@ -399,6 +402,8 @@ public class AdminUI {
                 System.out.println("Would you like to remove unapproved user? Enter (Y) for yes and (N) for no");
                 answer = input.nextLine();
                 answer = answer.toUpperCase();
+                if (answer.equals("STOP"))
+                    return;
                 if (answer.equals("Y")) {
                     System.out.println("Removing user");
                     admin.removeUser(user);
