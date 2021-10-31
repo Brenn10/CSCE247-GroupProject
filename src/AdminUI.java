@@ -14,6 +14,11 @@ import database.ReviewDatabase;
 import database.UserDatabase;
 import enums.Major;
 
+/**
+ * AdminUI Runs the admin type user
+ * 
+ * @author Stella Garcia
+ */
 public class AdminUI {
 
     /**
@@ -24,6 +29,11 @@ public class AdminUI {
     Admin admin;
     Scanner input = new Scanner(System.in);
 
+    /**
+     * The main menu for the administrator user
+     * 
+     * @param admin what admin is access the program
+     */
     public void doMainMenu(Admin admin) {
         this.admin = admin;
         System.out.println("Welcome " + admin.getFirstName() + " " + admin.getLastName());
@@ -34,7 +44,7 @@ public class AdminUI {
              * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
              */
             System.out.println("(1) Access User accounts");
-            System.out.println("(2) Look through Unapproved users"); // Decide on useres?
+            System.out.println("(2) Look through Unapproved users");
             System.out.println("(3) Access Job Postings");
             System.out.println("(4) Access reviews");
             System.out.println("(5) Create a new administrator account");
@@ -43,19 +53,19 @@ public class AdminUI {
             option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                accessUsers();
+                accessUsers(); // sub menu
                 break;
             case 2:
-                approvalMenu();
+                approvalMenu(); // sub menu
                 break;
             case 3:
-                accessPostings();
+                accessPostings(); // sub menu
                 break;
             case 4:
-                accessReviews();
+                accessReviews(); // sub menu
                 break;
             case 5:
-                makeAdmin();
+                makeAdmin(); // sub menu
                 break;
             case 6:
                 doMenu = false;
@@ -71,6 +81,10 @@ public class AdminUI {
         input.close();
     }
 
+    /**
+     * The user access part of the admin (does not include creating a new admin
+     * account)
+     */
     private void accessUsers() {
         boolean access = true;
         int option;
@@ -86,13 +100,13 @@ public class AdminUI {
             option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                runStudents();
+                runStudents(); // sub menu
                 break;
             case 2:
-                runEmployers();
+                runEmployers(); // sub menu
                 break;
             case 3:
-                runProfessors();
+                runProfessors(); // sub menu
                 break;
             case 4:
                 access = false;
@@ -107,6 +121,9 @@ public class AdminUI {
         System.out.println("Returning to main menu!");
     }
 
+    /**
+     * Handles the student access part for the admin
+     */
     private void runStudents() {
         boolean go = true;
         int option;
@@ -212,6 +229,9 @@ public class AdminUI {
         System.out.println("Exiting student menu!");
     }
 
+    /**
+     * Handles the employer access part for the admin
+     */
     private void runEmployers() {
         boolean go = true;
         int option;
@@ -296,6 +316,9 @@ public class AdminUI {
         System.out.println("Exiting employer menu!");
     }
 
+    /**
+     * Handles the professor access part for the admin
+     */
     private void runProfessors() {
         boolean go = true;
         int option;
@@ -378,6 +401,11 @@ public class AdminUI {
         System.out.println("Exiting professor menu!");
     }
 
+    /**
+     * The admin can go through unapproved users and either approve them or not The
+     * admin also gets the option to delete users they don't approve or leave them
+     * as unapproved
+     */
     private void approvalMenu() {
         /*
          * System.out.print("\033[H\033[2J"); System.out.flush(); // clearing the screen
@@ -415,6 +443,9 @@ public class AdminUI {
         }
     }
 
+    /**
+     * This is the job posting access part for the admin
+     */
     private void accessPostings() {
         boolean go = true;
         int option;
@@ -491,6 +522,9 @@ public class AdminUI {
         System.out.println("Returning to main menu!");
     }
 
+    /**
+     * This is the review access part for the admin
+     */
     private void accessReviews() {
         boolean go = true;
         int option;
@@ -597,6 +631,9 @@ public class AdminUI {
         System.out.println("Returning to main menu!");
     }
 
+    /**
+     * This allows existing admins to create new admins
+     */
     private void makeAdmin() {
         System.out.println("Please enter a username for the new administrator:");
         User userTest;
