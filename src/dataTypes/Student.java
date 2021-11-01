@@ -1,4 +1,5 @@
 package dataTypes;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -14,20 +15,9 @@ public class Student extends User {
     private double averageRating;
     private boolean removed;
 
-    public Student(UUID id,
-                   String username, 
-                   String password, 
-                   String email,
-                   String firstName,
-                   String lastName,
-                   boolean approved,
-                   Major major,
-                   boolean createdResume,
-                   ArrayList<Employment> employments,
-                   ArrayList<Education> educations,
-                   ArrayList<String> technicalSkills,
-                   double averageRating,
-                   boolean removed) {
+    public Student(UUID id, String username, String password, String email, String firstName, String lastName,
+            boolean approved, Major major, boolean createdResume, ArrayList<Employment> employments,
+            ArrayList<Education> educations, ArrayList<String> technicalSkills, double averageRating, boolean removed) {
         super(id, username, password, email, firstName, lastName, approved, removed);
         this.major = major;
         this.createdResume = createdResume;
@@ -38,41 +28,46 @@ public class Student extends User {
     }
 
     public void reviewEmployer(Employer employer, int score, String comment) {
-        Review rating = new Review.Builder().reviewer(this)
-                                            .reviewee(employer)
-                                            .rating(score)
-                                            .comment(comment)
-                                            .build();
+        Review rating = new Review.Builder().reviewer(this).reviewee(employer).rating(score).comment(comment).build();
         ReviewDatabase.getInstance().addReview(rating);
-        // TODO something with the database 
     }
+
     public void apply(JobPosting job) {
         job.addApplicant(this);
     }
+
     public void addEmployment(Employment employment) {
         this.employments.add(employment);
     }
+
     public void editEmployment(ArrayList<Employment> employment) {
         this.employments = employment;
     }
+
     public ArrayList<Employment> getEmployments() {
         return this.employments;
     }
+
     public void changeTechnicalSkills(ArrayList<String> technicalSkills) {
         this.technicalSkills = technicalSkills;
     }
+
     public void addTechincalSkill(String skill) {
         this.technicalSkills.add(skill);
     }
+
     public void removeTechincalSkill(String skill) {
         this.technicalSkills.remove(skill);
     }
+
     public void addEducation(Education education) {
         this.educations.add(education);
     }
+
     public void removeEducation(Education education) {
         this.educations.remove(education);
     }
+
     public ArrayList<Education> getEducations() {
         return this.educations;
     }
@@ -80,12 +75,15 @@ public class Student extends User {
     public Major getMajor() {
         return this.major;
     }
+
     public boolean hasCreatedResume() {
         return this.createdResume;
     }
+
     public ArrayList<Review> getReviews() {
         return null;
     }
+
     public double getAverageReview() {
         return averageRating;
     }
@@ -105,9 +103,11 @@ public class Student extends User {
     public void setMajor(Major major) {
         this.major = major;
     }
+
     public void setCreated(Boolean createdResume) {
         this.createdResume = createdResume;
     }
+
     public void setReviews(ArrayList<Review> reviews) {
 
     }
@@ -146,6 +146,10 @@ public class Student extends User {
 
     public String toString() {
         return getPrintableResume();
+    }
+
+    public boolean equals(Student student) {
+        return this.id == student.getId();
     }
 
     public static class Builder {
@@ -240,9 +244,9 @@ public class Student extends User {
         }
 
         public Student build() {
-            return new Student(id, username, password, email, firstName, lastName, approved, major, createdResume, employments, educations, technicalSkills, averageRating, removed);
+            return new Student(id, username, password, email, firstName, lastName, approved, major, createdResume,
+                    employments, educations, technicalSkills, averageRating, removed);
         }
-
 
     }
 }

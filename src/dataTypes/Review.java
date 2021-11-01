@@ -1,4 +1,5 @@
 package dataTypes;
+
 import java.util.UUID;
 
 public class Review {
@@ -9,7 +10,7 @@ public class Review {
     private String comment;
     private boolean removed;
 
-    public Review (UUID id, User reveiwer, User reviewee, int rating, String comment, boolean removed) {
+    public Review(UUID id, User reveiwer, User reviewee, int rating, String comment, boolean removed) {
         this.id = id;
         this.reviewer = reveiwer;
         this.reviewee = reviewee;
@@ -56,8 +57,7 @@ public class Review {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Review of " + reviewee.getFullName() + 
-        " by " + this.reviewer.getFullName() + ": ");
+        sb.append("Review of " + reviewee.getFullName() + " by " + this.reviewer.getFullName() + ": ");
         sb.append("\n\tRating: " + this.rating);
         sb.append("\n\tComment: " + this.comment);
         return sb.toString();
@@ -79,7 +79,7 @@ public class Review {
             this.id = id;
             return this;
         }
-        
+
         public Builder reviewer(User reviewer) {
             this.reviewer = reviewer;
             return this;

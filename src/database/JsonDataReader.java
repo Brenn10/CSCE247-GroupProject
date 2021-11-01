@@ -23,6 +23,12 @@ import enums.JsonDataLabels;
 import enums.Major;
 import utilities.Logger;
 
+/**
+ * JsonDataReader class subclass of DataReader gets all the data from the JSON
+ * files
+ * 
+ * @author Brennan Cain
+ */
 public class JsonDataReader extends DataReader {
     private DataBlob dataBlob;
 
@@ -35,6 +41,16 @@ public class JsonDataReader extends DataReader {
 
     private static final JSONParser parser = new JSONParser();
 
+    /**
+     * Construtor method
+     * 
+     * @param adminFilePath      where the admins are stored
+     * @param studentFilePath    where the students are stored
+     * @param employerFilePath   where the employers are stored
+     * @param professorFilePath  where the professors are stored
+     * @param reviewFilePath     where the reviews are stored
+     * @param jobPostingFilePath where the job postings are stored
+     */
     public JsonDataReader(String adminFilePath, String studentFilePath, String employerFilePath,
             String professorFilePath, String reviewFilePath, String jobPostingFilePath) {
         this.adminFilePath = adminFilePath;
@@ -148,7 +164,7 @@ public class JsonDataReader extends DataReader {
 
                     ArrayList<Education> educations = new ArrayList<Education>();
                     JSONArray educationsJson = (JSONArray) studentJson.get(JsonDataLabels.STUDENT_EDUCATIONS);
-                    if(educationsJson !=null) {
+                    if (educationsJson != null) {
                         for (Object educationObj : educationsJson) {
                             JSONObject educationJson = (JSONObject) educationObj;
 
@@ -199,7 +215,7 @@ public class JsonDataReader extends DataReader {
         try {
             FileReader reader = new FileReader(employerFilePath);
             JSONArray jsonList = (JSONArray) parser.parse(reader);
-            if(jsonList !=null) {
+            if (jsonList != null) {
                 for (Object employerObj : jsonList) {
                     JSONObject employerJson = (JSONObject) employerObj;
 
@@ -228,7 +244,7 @@ public class JsonDataReader extends DataReader {
         try {
             FileReader reader = new FileReader(professorFilePath);
             JSONArray jsonList = (JSONArray) parser.parse(reader);
-            if(jsonList !=null) {
+            if (jsonList != null) {
                 for (Object professorObj : jsonList) {
                     JSONObject professorJson = (JSONObject) professorObj;
 
@@ -255,14 +271,14 @@ public class JsonDataReader extends DataReader {
         try {
             FileReader reader = new FileReader(reviewFilePath);
             JSONArray jsonList = (JSONArray) parser.parse(reader);
-            if(jsonList != null) {
+            if (jsonList != null) {
                 for (Object reviewObj : jsonList) {
                     JSONObject reviewJson = (JSONObject) reviewObj;
 
-
                     User reviewee = null;
                     for (User user : dataBlob.getUsers()) {
-                        if (user.getId().equals(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_REVIEWEE)))) {
+                        if (user.getId()
+                                .equals(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_REVIEWEE)))) {
                             reviewee = user;
                             break;
                         }
@@ -273,7 +289,8 @@ public class JsonDataReader extends DataReader {
 
                     User reviewer = null;
                     for (User user : dataBlob.getUsers()) {
-                        if (user.getId().equals(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_REVIEWER)))) {
+                        if (user.getId()
+                                .equals(UUID.fromString((String) reviewJson.get(JsonDataLabels.REVIEW_REVIEWER)))) {
                             reviewer = user;
                             break;
                         }
@@ -301,14 +318,14 @@ public class JsonDataReader extends DataReader {
         try {
             FileReader reader = new FileReader(jobPostingFilePath);
             JSONArray jsonList = (JSONArray) parser.parse(reader);
-            if(jsonList != null) {
+            if (jsonList != null) {
                 for (Object jobPostingObj : jsonList) {
                     JSONObject jobPostingJson = (JSONObject) jobPostingObj;
 
                     Employer employer = null;
                     for (User e : dataBlob.getUsers()) {
-                        if (e.getId()
-                                .equals(UUID.fromString((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_EMPLOYER)))) {
+                        if (e.getId().equals(
+                                UUID.fromString((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_EMPLOYER)))) {
                             employer = (Employer) e;
                             break;
                         }
@@ -319,30 +336,30 @@ public class JsonDataReader extends DataReader {
 
                     ArrayList<String> requirements = new ArrayList<String>();
                     JSONArray requirementList = (JSONArray) jobPostingJson.get(JsonDataLabels.JOBPOSTING_REQUIREMENTS);
-                    if(requirementList != null) {
+                    if (requirementList != null) {
                         for (Object requirementObj : requirementList) {
                             requirements.add((String) requirementObj);
                         }
                     }
 
                     JobPostingStatus status = JobPostingStatus.NA;
-                    switch(((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_STATUS)).toLowerCase()) {
-                        case "open":
-                            status = JobPostingStatus.OPEN;
-                            break;
-                        case "closed":
-                            status = JobPostingStatus.CLOSED;
-                            break;
-                        case "pending":
-                            status = JobPostingStatus.PENDING;
-                            break;
+                    switch (((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_STATUS)).toLowerCase()) {
+                    case "open":
+                        status = JobPostingStatus.OPEN;
+                        break;
+                    case "closed":
+                        status = JobPostingStatus.CLOSED;
+                        break;
+                    case "pending":
+                        status = JobPostingStatus.PENDING;
+                        break;
                     }
 
                     // Get students by getting UUIDS and then searching for each UUID
                     ArrayList<UUID> applicantIds = new ArrayList<UUID>();
                     JSONArray applicantList = (JSONArray) jobPostingJson.get(JsonDataLabels.JOBPOSTING_APPLICANTS);
-                    if(applicantList != null) {
-                            
+                    if (applicantList != null) {
+
                         for (Object applicantObj : applicantList) {
                             applicantIds.add(UUID.fromString((String) applicantObj));
                         }
@@ -366,12 +383,12 @@ public class JsonDataReader extends DataReader {
 
                     JobPosting jobPosting = new JobPosting.Builder()
                             .id(UUID.fromString((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_ID)))
-                            .employer(employer)
-                            .jobTitle((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_TITLE))
+                            .employer(employer).jobTitle((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_TITLE))
                             .description((String) jobPostingJson.get(JsonDataLabels.JOBPOSTING_DESCRIPTION))
                             .requirements(requirements)
-                            .hourlyWage((double) jobPostingJson.get(JsonDataLabels.JOBPOSTING_HOURLYWAGE)).status(status)
-                            .applicants(applicants).removed((boolean) jobPostingJson.get(JsonDataLabels.REMOVED)).build();
+                            .hourlyWage((double) jobPostingJson.get(JsonDataLabels.JOBPOSTING_HOURLYWAGE))
+                            .status(status).applicants(applicants)
+                            .removed((boolean) jobPostingJson.get(JsonDataLabels.REMOVED)).build();
                     jobPostingList.add(jobPosting);
                 }
             }

@@ -1,4 +1,5 @@
 package dataTypes;
+
 import java.util.UUID;
 
 import database.JobPostingDatabase;
@@ -6,31 +7,31 @@ import database.ReviewDatabase;
 import database.UserDatabase;
 
 public class Admin extends User {
-    public Admin(UUID id,
-                         String username, 
-                         String password, 
-                         String email,
-                         String firstName,
-                         String lastName,
-                         boolean approved) {
-         super(id, username, password, email, firstName, lastName, approved, false);
+    public Admin(UUID id, String username, String password, String email, String firstName, String lastName,
+            boolean approved) {
+        super(id, username, password, email, firstName, lastName, approved, false);
     }
 
     public void setJobPosting(Employer employer, JobPosting job) {
         employer.makePosting(job);
     }
+
     public void removeUser(User user) {
         UserDatabase.getInstance().removeUser(user);
     }
+
     public void removeReviews(Review review) {
         ReviewDatabase.getInstance().removeReveiw(review);
     }
+
     public void removeResume(Student student) {
         student.setCreated(false);
     }
+
     public void removeJobPosting(JobPosting jobposting) {
         JobPostingDatabase.getInstance().removePosting(jobposting);
     }
+
     public void addUser(User user) {
         UserDatabase.getInstance().addUser(user);
     }
@@ -41,6 +42,10 @@ public class Admin extends User {
         sb.append(this.getEmail() + "\n");
         sb.append(this.getUsername() + "\n");
         return sb.toString();
+    }
+
+    public boolean equals(Admin admin) {
+        return this.id == admin.getId();
     }
 
     public static class Builder {

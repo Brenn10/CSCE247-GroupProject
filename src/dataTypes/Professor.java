@@ -1,4 +1,5 @@
 package dataTypes;
+
 import java.util.ArrayList;
 import java.util.UUID;
 import database.ReviewDatabase;
@@ -7,36 +8,27 @@ public class Professor extends User {
     private boolean removed;
     private ArrayList<Student> students;
 
-    public Professor(UUID id, 
-            String username, 
-            String password,
-            String email, 
-            String firstName,
-            String lastName,
-            boolean approved,
-            boolean removed) {
+    public Professor(UUID id, String username, String password, String email, String firstName, String lastName,
+            boolean approved, boolean removed) {
         super(id, username, password, email, firstName, lastName, approved, removed);
     }
-   
+
     public void rateStudent(Student student, int rating, String comment) {
-        Review reviewToAdd = new Review.Builder()
-                                       .reviewer(this)
-                                       .reviewee(student)
-                                       .rating(rating)
-                                       .comment(comment)
-                                       .build();
-        ReviewDatabase.getInstance().addReview(reviewToAdd); 
+        Review reviewToAdd = new Review.Builder().reviewer(this).reviewee(student).rating(rating).comment(comment)
+                .build();
+        ReviewDatabase.getInstance().addReview(reviewToAdd);
     }
 
     public ArrayList<Review> getStudentReviewed(User user) {
         ArrayList<Review> reviews = new ArrayList<Review>();
         reviews = ReviewDatabase.getInstance().getReviewsByReviewer(user);
-        //TODO access all of the students reviewed by this professor
         return reviews;
     }
+
     public ArrayList<Student> getStudents() {
         return this.students;
     }
+
     public String getUsername() {
         return this.username;
     }
@@ -61,8 +53,6 @@ public class Professor extends User {
         this.email = email;
     }
 
-
-
     public boolean isRemoved() {
         return removed;
     }
@@ -78,7 +68,11 @@ public class Professor extends User {
         sb.append(this.getUsername() + "\n");
         return sb.toString();
     }
-    
+
+    public boolean equals(Professor professor) {
+        return this.id == professor.getId();
+    }
+
     public static class Builder {
         private UUID id;
         private String username;

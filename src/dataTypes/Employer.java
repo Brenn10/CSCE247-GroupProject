@@ -1,4 +1,5 @@
 package dataTypes;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -13,73 +14,63 @@ public class Employer extends User {
     private double averageRating;
     private boolean removed;
 
-    public Employer(UUID id, 
-            String username, 
-            String password,
-            String email, 
-            String firstName,
-            String lastName,
-            boolean approved,
-            String company,
-            double averageRating,
-            boolean removed) {
+    public Employer(UUID id, String username, String password, String email, String firstName, String lastName,
+            boolean approved, String company, double averageRating, boolean removed) {
         super(id, username, password, email, firstName, lastName, approved, removed);
         this.company = company;
         this.averageRating = averageRating;
     }
+
     public void makePosting(JobPosting job) {
         postings.add(job);
         JobPostingDatabase.getInstance().addPosting(job);
         // add to database somehow
     }
 
-    //overload make posting method
-    public void makePosting(String description, ArrayList<String> requirements, 
-    double hourlyWage, JobPostingStatus status, ArrayList<Student> applicants) {
-        makePosting(new JobPosting.Builder().description(description)
-        .requirements(requirements)
-        .hourlyWage(hourlyWage)
-        .status(status)
-        .applicants(applicants)
-        .build());
+    // overload make posting method
+    public void makePosting(String description, ArrayList<String> requirements, double hourlyWage,
+            JobPostingStatus status, ArrayList<Student> applicants) {
+        makePosting(new JobPosting.Builder().description(description).requirements(requirements).hourlyWage(hourlyWage)
+                .status(status).applicants(applicants).build());
     }
-    
-    // edit posting methods 
-    public  void editDescription(JobPosting job, String toChange) {
+
+    // edit posting methods
+    public void editDescription(JobPosting job, String toChange) {
         job.setDescription(toChange);
     }
+
     public void addPostingRequirement(JobPosting job, String toChange) {
         job.addRequirement(toChange);
     }
+
     public void removePostingRequirement(JobPosting job, String toRemove) {
         job.removeRequriement(toRemove);
     }
+
     public void editPostingWage(JobPosting job, double wage) {
         job.setWage(wage);
     }
+
     public void editPostingStatus(JobPosting job, JobPostingStatus status) {
         job.setStatus(status);
-        
+
     }
+
     public void removePosting(JobPosting job) {
         JobPostingDatabase.getInstance().getPostings().remove(job);
         JobPostingDatabase.getInstance().getRemovedPostings().add(job);
     }
-    
+
     public ArrayList<Student> viewApplicants(JobPosting job) {
-         return job.getApplicants();
+        return job.getApplicants();
     }
-    
+
     public void rateStudent(Student student, int score, String comment) {
-        Review rating = new Review.Builder().reviewer(this)
-                                            .reviewee(student)
-                                            .rating(score)
-                                            .comment(comment)
-                                            .build();
+        Review rating = new Review.Builder().reviewer(this).reviewee(student).rating(score).comment(comment).build();
         ReviewDatabase.getInstance().addReview(rating);
     }
 
-    // get and set methods 
+    // get and set methods
     public String getCompany() {
         return this.company;
     }
@@ -96,7 +87,7 @@ public class Employer extends User {
         return this.averageRating;
     }
 
-     public String getUsername() {
+    public String getUsername() {
         return this.username;
     }
 
@@ -109,7 +100,7 @@ public class Employer extends User {
     }
 
     public void setCompany(String company) {
-       this.company = company;
+        this.company = company;
     }
 
     public void setPostings(ArrayList<JobPosting> postings) {
@@ -117,14 +108,14 @@ public class Employer extends User {
     }
 
     public void setReviews(ArrayList<Review> reviews) {
-       this.reviews = reviews;
+        this.reviews = reviews;
     }
 
     public void setAverageRating(double rating) {
         this.averageRating = rating;
     }
 
-     public void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -142,6 +133,10 @@ public class Employer extends User {
 
     public void setRemoved(boolean removed) {
         this.removed = removed;
+    }
+
+    public boolean equals(Employer employer) {
+        return this.id == employer.getId();
     }
 
     public String toString() {
@@ -165,7 +160,6 @@ public class Employer extends User {
         private double averageRating;
         private String company;
         private boolean removed;
-
 
         public Builder() {
             this.id = UUID.randomUUID();
@@ -223,7 +217,8 @@ public class Employer extends User {
         }
 
         public Employer build() {
-            return new Employer(id, username, password, email, firstName, lastName, approved, company, averageRating, removed);
+            return new Employer(id, username, password, email, firstName, lastName, approved, company, averageRating,
+                    removed);
         }
 
     }
