@@ -2,6 +2,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 //import dataTypes.User;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -26,6 +28,7 @@ public class EmployerUI {
      * View Reviews (of self to all stu)
      */
     public void doMainMenu(Employer employer) {
+        employer.getCurrentPostings();
         Scanner input = new Scanner (System.in);
         System.out.println("Welcome Employer " + employer.getFirstName() + " " + employer.getLastName());
 
@@ -57,8 +60,10 @@ public class EmployerUI {
 
     private void doJobEditMenu(Employer employer) {
         System.out.println("Here are your current Job Postings: ");
-        for(JobPosting i : employer.getPostings()) {
-            System.out.println(i.getJobTitle());
+        if (employer.getPostings()!=null) {
+            for(JobPosting i : employer.getPostings()) {
+                System.out.println(i.getJobTitle());
+            }
         }
         Scanner employerScanner = new Scanner(System.in);
         System.out.println("Would you like to:");
@@ -84,6 +89,10 @@ public class EmployerUI {
         employerScanner.close();
     }
 private void editJob(Employer employer) {
+    if (employer.getPostings() == null) {
+        System.out.println("Sorry, there are no jobs to edit!");
+        return;
+    }
     Scanner employerScanner = new Scanner(System.in);
     boolean jobMatched = false;
     JobPosting matchedJob = null;
@@ -93,7 +102,10 @@ private void editJob(Employer employer) {
         String selectedTitle = employerScanner.nextLine();
        if (selectedTitle.equals("0")) {
         System.out.println("Exiting Job Edit Mode");
+        employerScanner.close();
+        return;
        }
+       if(employer.getPostings() != null) {
         for(JobPosting i : employer.getPostings()) {
         if (i.getJobTitle().equals(selectedTitle)) {
             jobMatched = true;
@@ -104,6 +116,7 @@ private void editJob(Employer employer) {
     if(matchedJob == null) {
         employerScanner.close();
         return;
+    }
     }
     System.out.print(matchedJob);
 
@@ -196,6 +209,10 @@ private void editJob(Employer employer) {
 }
 private void viewJob (Employer employer) {
     Scanner employScanner = new Scanner (System.in);
+    if (employer.getPostings() == null) {
+        System.out.println("Sorry, there are no jobs to review!");
+        return;
+    }
     ArrayList<JobPosting> allPostings = JobPostingDatabase.getInstance().getPostingsByEmployer(employer);
     for (int i = 0; i<allPostings.size()-1; i++) {
         System.out.print((i+1) + ")");
@@ -270,6 +287,10 @@ private void doStudentReviewMenu(Employer employer) {
     System.out.print("\033[H\033[2J");  
     System.out.flush(); 
     // since this is for just the employer, look through all self job postings, post all students attatched to self
+    if (employer.getPostings() == null) {
+        System.out.println("Sorry, you have no postings to review students from!");
+        return;
+    }
     for (JobPosting i : employer.getPostings()) {
         System.out.println("Job Posting: ");
         System.out.println(i.getJobTitle());

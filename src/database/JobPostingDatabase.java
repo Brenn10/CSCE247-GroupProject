@@ -164,5 +164,4 @@ public class JobPostingDatabase {
         }
         return openPostings;
     }
-
 }

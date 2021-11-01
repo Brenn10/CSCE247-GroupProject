@@ -5,7 +5,7 @@
       "Rust",
       "C++"
     ],
-    "jobPostingStatus": "Open",
+    "jobPostingStatus": "Pending",
     "removed": false,
     "hourlyWage": 10.0,
     "jobTitle": "Software Developement Intern",
@@ -20,9 +20,10 @@
     "requirements": [
       "Team Player",
       "OpenCV",
-      "C++"
+      "C++",
+      "JavaScript"
     ],
-    "jobPostingStatus": "Pending",
+    "jobPostingStatus": "Open",
     "removed": false,
     "hourlyWage": 20.0,
     "jobTitle": "Computer Vision Interm",
@@ -33,5 +34,20 @@
     "employer": "69599de1-4423-4573-b40d-145d290282e1",
     "description": "Develop novel CV algorithms",
     "id": "6760cb5e-503c-4c3f-a361-6ea4ea1739ae"
+  },
+  {
+    "requirements": [
+      "AGILE",
+      "C++",
+      "JavaScript"
+    ],
+    "jobPostingStatus": "Open",
+    "removed": false,
+    "hourlyWage": 15.0,
+    "jobTitle": "SE Interm",
+    "applicants": [],
+    "employer": "69599de1-4423-4573-b40d-145d290282e1",
+    "description": "Develop cool algorithms",
+    "id": "01356e90-e369-4b60-931d-79986f09e91b"
   }
 ]

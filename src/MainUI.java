@@ -20,7 +20,7 @@ public class MainUI {
         System.out.println("Welcome to the Neurotic Job Search!");
         boolean doLoop = true;
         while (doLoop) {
-            System.out.print("(1) Login\n(2) Sign Up\n(0)Exit\nChoice: ");
+            System.out.print("(1) Login\n(2) Sign Up\n(0) Exit\nChoice: ");
 
             switch (Integer.parseInt(scanner.nextLine())) {
             case 1:

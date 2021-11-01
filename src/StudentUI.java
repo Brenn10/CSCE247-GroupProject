@@ -1,4 +1,6 @@
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,10 +41,12 @@ public class StudentUI {
         while (keepLooping) {
             System.out.println("Please select a valid option: ");
             System.out.println("1) View Job Listings");
-            System.out.println("2) View Job Applications");
-            System.out.println("3) View Resume");
-            System.out.println("4) Edit Resume");
-            System.out.println("5) View Reviews");
+            System.out.println("2) Apply to job");
+            System.out.println("3) View Job Applications");
+            System.out.println("4) View Resume");
+            System.out.println("5) Edit Resume");
+            System.out.println("6) View Reviews");
+            System.out.println("7) Print Resume");
             System.out.println("0) Exit Neurotic Job Search");
             System.out.print("Enter your option: ");
             option = Integer.parseInt(scanner.nextLine());
@@ -51,16 +55,22 @@ public class StudentUI {
                     doViewJobListings();
                     break;
                 case 2:
-                    doViewJobApplications();
+                    doApplyToJob();
                     break;
                 case 3:
-                    doViewResume();
+                    doViewJobApplications();
                     break;
                 case 4:
-                    doEditResume();
+                    doViewResume();
                     break;
                 case 5:
+                    doEditResume();
+                    break;
+                case 6:
                     doViewReviews();
+                    break;
+                case 7:
+                    doPrintResume();
                     break;
                 case 0:
                     keepLooping = false;
@@ -71,6 +81,59 @@ public class StudentUI {
             }
 
         }
+    }
+
+    private void doPrintResume() {
+        System.out.println("Where would you like to save your resume: ");
+        String fileName = scanner.nextLine();
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(fileName);
+            fw.write(student.getPrintableResume().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void doApplyToJob() {
+        System.out.print("Type a keyword or leave empty to view all: ");
+        String keyword = scanner.nextLine();
+        ArrayList<JobPosting> jobPostings;
+        if(!keyword.equals("")) {
+            jobPostings = JobPostingDatabase.getInstance().getOpenPostingByRequirement(keyword);
+
+        } else {
+            jobPostings = JobPostingDatabase.getInstance().getOpenPostings();
+        }
+        if(jobPostings.size() == 0) {
+            System.out.println("No job postings found");
+            return;
+        }
+        System.out.println("Job Postings:");
+        for(int i = 1; i <= jobPostings.size(); i++) {
+            while(!jobPostings.get(i-1).getApplicants().contains(student)) {
+                jobPostings.remove(i-1);
+            }
+
+            System.out.println(i + ") " + jobPostings.get(i-1));
+        }
+        System.out.print("Enter the number of the job you would like to apply to: ");
+        int option = Integer.parseInt(scanner.nextLine());
+        if(option < 0 || option >= jobPostings.size()) {
+            System.out.println("Invalid option");
+            return;
+        }
+        jobPostings.get(option).addApplicant(student);
+        System.out.println("You have successfully applied to the " + jobPostings.get(option).getJobTitle() + " job at " + jobPostings.get(option).getEmployer().getCompany());
+
     }
 
     private void doViewReviews() {
@@ -85,9 +148,9 @@ public class StudentUI {
     }
 
     private void doViewJobApplications() {
-        ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostingsByStudent(student);
-        for (JobPosting posting : postings) {
-            System.out.println(posting);
+        ArrayList<JobPosting> jobPostings = JobPostingDatabase.getInstance().getPostingsByStudent(student);
+        for (JobPosting jobPosting : jobPostings) {
+            System.out.println(jobPosting.toString());
         }
     }
 
@@ -140,6 +203,7 @@ public class StudentUI {
             System.out.println("2) Remove Employment");
             //TODO: Add an edit. In the meantime removed and add works
             System.out.println("0) Stop Editing\n");
+            System.out.print("Choice: ");
             int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
@@ -204,6 +268,7 @@ public class StudentUI {
             System.out.println("1) Add Skill");
             System.out.println("2) Remove Skill");
             System.out.println("0) Stop Editing");
+            System.out.print("Choice: ");
             switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
                     doAddSkill();
@@ -256,6 +321,7 @@ public class StudentUI {
             System.out.println("2) Remove Education");
             //TODO: Add an edit. In the meantime removed and add works
             System.out.println("0) Stop Editing");
+            System.out.print("Choice: ");
             int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
@@ -294,7 +360,7 @@ public class StudentUI {
         System.out.print("Please enter the name of the school: ");
         String schoolName = scanner.nextLine();
         System.out.print("Please enter your gpa: ");
-        double gpa = scanner.nextDouble();
+        double gpa = Double.parseDouble(scanner.nextLine());
         System.out.print("Please enter the graduation date: ");
         String gradDate = scanner.nextLine();
         student.addEducation(new Education.Builder().place(schoolName).gpa(gpa).gradDate(gradDate).build());
@@ -303,9 +369,9 @@ public class StudentUI {
 
     private void doEditMajor() {
         boolean majorChanged = false;
-        String major = scanner.nextLine();
         while (!majorChanged) {
-            System.out.print("scanner your new major: ");
+            System.out.print("Please enter your major: ");
+            String major = scanner.nextLine();
             if(major.equalsIgnoreCase(Major.COMPUTER_ENGINEERING.toString())) {
                 student.setMajor(Major.COMPUTER_ENGINEERING);
                 majorChanged = true;
