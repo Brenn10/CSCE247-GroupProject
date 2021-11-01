@@ -46,6 +46,7 @@ public class StudentUI {
             System.out.println("4) View Resume");
             System.out.println("5) Edit Resume");
             System.out.println("6) View Reviews");
+            System.out.println("7) Print Resume");
             System.out.println("0) Exit Neurotic Job Search");
             System.out.print("Enter your option: ");
             option = Integer.parseInt(scanner.nextLine());
@@ -117,8 +118,12 @@ public class StudentUI {
             return;
         }
         System.out.println("Job Postings:");
-        for(int i = 0; i < jobPostings.size(); i++) {
-            System.out.println(i + ") " + jobPostings.get(i));
+        for(int i = 1; i <= jobPostings.size(); i++) {
+            while(!jobPostings.get(i-1).getApplicants().contains(student)) {
+                jobPostings.remove(i-1);
+            }
+
+            System.out.println(i + ") " + jobPostings.get(i-1));
         }
         System.out.print("Enter the number of the job you would like to apply to: ");
         int option = Integer.parseInt(scanner.nextLine());
@@ -143,15 +148,7 @@ public class StudentUI {
     }
 
     private void doViewJobApplications() {
-        System.out.print("Type a keyword or leave empty to view all: ");
-        String keyword = scanner.nextLine();
-        ArrayList<JobPosting> jobPostings;
-        if(!keyword.equals("")) {
-            jobPostings = JobPostingDatabase.getInstance().getOpenPostingByRequirement(keyword);
-
-        } else {
-            jobPostings = JobPostingDatabase.getInstance().getOpenPostings();
-        }
+        ArrayList<JobPosting> jobPostings = JobPostingDatabase.getInstance().getPostingsByStudent(student);
         for (JobPosting jobPosting : jobPostings) {
             System.out.println(jobPosting.toString());
         }
@@ -206,6 +203,7 @@ public class StudentUI {
             System.out.println("2) Remove Employment");
             //TODO: Add an edit. In the meantime removed and add works
             System.out.println("0) Stop Editing\n");
+            System.out.print("Choice: ");
             int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:
@@ -270,6 +268,7 @@ public class StudentUI {
             System.out.println("1) Add Skill");
             System.out.println("2) Remove Skill");
             System.out.println("0) Stop Editing");
+            System.out.print("Choice: ");
             switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
                     doAddSkill();
@@ -322,6 +321,7 @@ public class StudentUI {
             System.out.println("2) Remove Education");
             //TODO: Add an edit. In the meantime removed and add works
             System.out.println("0) Stop Editing");
+            System.out.print("Choice: ");
             int option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1:

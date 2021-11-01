@@ -52,5 +52,19 @@
     "id": "d76cd90a-0954-481f-a4c6-d3fd9af084de",
     "email": "segarcia@email.sc.edu",
     "username": "segarcia"
+  },
+  {
+    "firstName": "Trey",
+    "lastName": "Sturman",
+    "password": "12345678",
+    "approved": false,
+    "major": "Computer Science",
+    "removed": false,
+    "createdResume": false,
+    "averageRating": 4.4,
+    "id": "724e53cb-d609-4656-9d5f-1380740cd3cc",
+    "email": "rsturman@email.sc.edu",
+    "username": "rsturman"
   }
+
 ]
