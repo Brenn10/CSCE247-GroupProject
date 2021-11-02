@@ -24,6 +24,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.Gson;
 
+/**
+ * This class is used to write data to a JSON file.
+ * @author Brennan Cain (Brenn10)
+ */
 public class JsonDataWriter extends DataWriter {
     private String adminFilePath;
     private String studentFilePath;
@@ -32,6 +36,15 @@ public class JsonDataWriter extends DataWriter {
     private String reviewFilePath;
     private String jobPostingFilePath;
 
+    /**
+     * Constructor for JsonDataWriter.
+     * @param adminFilePath The path to the admin file.
+     * @param studentFilePath The path to the student file.
+     * @param employerFilePath The path to the employer file.
+     * @param professorFilePath The path to the professor file.
+     * @param reviewFilePath The path to the review file.
+     * @param jobPostingFilePath The path to the job posting file.
+     */
     public JsonDataWriter(String adminFilePath, String studentFilePath, String employerFilePath,
             String professorFilePath, String reviewFilePath, String jobPostingFilePath) {
         this.adminFilePath = adminFilePath;
@@ -42,16 +55,30 @@ public class JsonDataWriter extends DataWriter {
         this.jobPostingFilePath = jobPostingFilePath;
     }
 
+    /**
+     * Writes the data to the JSON files.
+     * @param data The data to write.
+     */
     public void write(DataBlob data) {
         write(data.getUsers(), data.getReviews(), data.getJobPostings());
     }
 
+    /**
+     * Writes the data to the JSON files.
+     * @param users The users to write.
+     * @param reviews The reviews to write.
+     * @param jobPostings The job postings to write.
+     */
     public void write(ArrayList<User> users, ArrayList<Review> reviews, ArrayList<JobPosting> postings) {
         writeUsers(users);
         writeReviews(reviews);
         writeJobPostings(postings);
     }
 
+    /**
+     * Writes the reviews to the JSON files.
+     * @param reviews The reviews to write.
+     */
     public void writeReviews(ArrayList<Review> reviews) {
         JSONArray jsonReviews = new JSONArray();
         for (Review review : reviews) {
@@ -60,6 +87,10 @@ public class JsonDataWriter extends DataWriter {
         writePrettyJson(jsonReviews, reviewFilePath);
     }
 
+    /**
+     * Writes the job postings to the JSON files.
+     * @param postings The job postings to write.
+     */
     public void writeJobPostings(ArrayList<JobPosting> postings) {
         JSONArray jsonPostings = new JSONArray();
         for (JobPosting posting : postings) {
@@ -68,6 +99,10 @@ public class JsonDataWriter extends DataWriter {
         writePrettyJson(jsonPostings, jobPostingFilePath);
     }
 
+    /**
+     * Writes the users to the JSON files.
+     * @param users The users to write.
+     */
     public void writeUsers(ArrayList<User> users) {
         JSONArray studentArray = new JSONArray();
         JSONArray employerArray = new JSONArray();
@@ -94,6 +129,11 @@ public class JsonDataWriter extends DataWriter {
         writePrettyJson(adminArray, adminFilePath);
     }
 
+    /**
+     * Writes the JSON data in a pretty format to a file.
+     * @param json The JSON data to write.
+     * @param fileName The file to write to.
+     */
     private void writePrettyJson(JSONArray json, String fileName) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         JsonElement je = JsonParser.parseString(json.toJSONString());
@@ -118,7 +158,12 @@ public class JsonDataWriter extends DataWriter {
         }
     }
 
-    private JSONObject jsonify(Student student) { // TODO: implement
+    /**
+     * Converts a student to a JSON object.
+     * @param student The student to convert.
+     * @return The JSON object.
+     */
+    private JSONObject jsonify(Student student) {
         JSONObject studentJson = new JSONObject();
         studentJson.put(JsonDataLabels.USER_ID.toString(), student.getId());
         studentJson.put(JsonDataLabels.USER_USERNAME, student.getUsername());
@@ -170,6 +215,11 @@ public class JsonDataWriter extends DataWriter {
         return studentJson;
     }
 
+    /**
+     * Converts an employer to a JSON object.
+     * @param employer The employer to convert.
+     * @return The JSON object.
+     */
     private JSONObject jsonify(Employer employer) {
         JSONObject employerJson = new JSONObject();
         employerJson.put(JsonDataLabels.USER_ID, employer.getId());
@@ -185,6 +235,11 @@ public class JsonDataWriter extends DataWriter {
         return employerJson;
     }
 
+    /**
+     * Converts a professor to a JSON object.
+     * @param professor The professor to convert.
+     * @return The JSON object.
+     */
     private JSONObject jsonify(Professor professor) {
         JSONObject professorJson = new JSONObject();
         professorJson.put(JsonDataLabels.USER_ID, professor.getId());
@@ -198,6 +253,11 @@ public class JsonDataWriter extends DataWriter {
         return professorJson;
     }
 
+    /**
+     * Converts an admin to a JSON object.
+     * @param admin The admin to convert.
+     * @return The JSON object.
+     */
     private JSONObject jsonify(Admin admin) {
         JSONObject adminJson = new JSONObject();
         adminJson.put(JsonDataLabels.USER_ID, admin.getId().toString());
@@ -210,6 +270,11 @@ public class JsonDataWriter extends DataWriter {
         return adminJson;
     }
 
+    /**
+     * Converts a review to a JSON object.
+     * @param review The review to convert.
+     * @return The JSON object.
+     */
     private JSONObject jsonify(Review review) { // TODO: implement
         JSONObject reviewJson = new JSONObject();
 
@@ -222,6 +287,11 @@ public class JsonDataWriter extends DataWriter {
         return reviewJson;
     }
 
+    /**
+     * Converts a job posting to a JSON object.
+     * @param posting The posting to convert.
+     * @return The JSON object.
+     */
     private JSONObject jsonify(JobPosting posting) { // TODO: implement
         JSONObject postingJson = new JSONObject();
 

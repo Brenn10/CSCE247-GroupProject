@@ -61,6 +61,9 @@ public class JsonDataReader extends DataReader {
         this.jobPostingFilePath = jobPostingFilePath;
     }
 
+    /**
+     * Reads the data from the JSON files and stores it in a DataBlob object.
+     */
     public DataBlob read() {
         Logger.getInstance().log("Reading from files");
         dataBlob = new DataBlob();
@@ -98,6 +101,11 @@ public class JsonDataReader extends DataReader {
         return dataBlob;
     }
 
+    /**
+     * Reads the administrators from the JSON file and returns them in an ArrayList.
+     * 
+     * @return ArrayList of administrators
+     */
     private ArrayList<Admin> readAdministrators() {
         ArrayList<Admin> adminList = new ArrayList<Admin>();
         try {
@@ -120,6 +128,10 @@ public class JsonDataReader extends DataReader {
         return adminList;
     }
 
+    /**
+     * Reads the students from the JSON file and returns them in an ArrayList.
+     * @return ArrayList of students
+     */
     private ArrayList<Student> readStudents() {
         ArrayList<Student> studentList = new ArrayList<Student>();
         try {
@@ -210,6 +222,10 @@ public class JsonDataReader extends DataReader {
         return studentList;
     }
 
+    /**
+     * Reads the employers from the JSON file and returns them in an ArrayList.
+     * @return ArrayList of employers
+     */
     private ArrayList<Employer> readEmployers() {
         ArrayList<Employer> employerList = new ArrayList<Employer>();
         try {
@@ -239,6 +255,10 @@ public class JsonDataReader extends DataReader {
         return employerList;
     }
 
+    /**
+     * Reads the professors from the JSON file and returns them in an ArrayList.
+     * @return ArrayList of professors
+     */
     private ArrayList<Professor> readProfessors() {
         ArrayList<Professor> professorList = new ArrayList<Professor>();
         try {
@@ -266,6 +286,10 @@ public class JsonDataReader extends DataReader {
         return professorList;
     }
 
+    /**
+     * Reads the reviews from the JSON file and returns them in an ArrayList.
+     * @return ArrayList of reviews
+     */
     private ArrayList<Review> readReviews() {
         ArrayList<Review> reviewList = new ArrayList<Review>();
         try {
@@ -313,6 +337,10 @@ public class JsonDataReader extends DataReader {
         return reviewList;
     }
 
+    /**
+     * Reads the job postings from the JSON file and returns them in an ArrayList.
+     * @return ArrayList of job postings
+     */
     private ArrayList<JobPosting> readJobPostings() {
         ArrayList<JobPosting> jobPostingList = new ArrayList<JobPosting>();
         try {
