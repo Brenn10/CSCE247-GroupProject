@@ -8,8 +8,20 @@ import dataTypes.Student;
 import java.util.ArrayList;
 import dataTypes.User;
 
+
+/**
+ * The User Interface for the Professor 
+ * @author Ian McDevitt
+ */
 public class ProfessorUI {
+/** 
+ * @param professor creating private varible for the current user (professor)
+ */
     private Professor professor;
+/**
+ * create Constructor for professor 
+ * @param professor the User object professor
+ */
     public ProfessorUI (Professor professor) {
         this.professor = professor;
     }
@@ -17,13 +29,11 @@ public class ProfessorUI {
         
         this.professor = null;
     }
-    /**
-     * Prof
-     * 
-     * Review Student
-     * Edit Review
-     * View Reviews (of self to all stu)
-     */
+/**
+ * taking in the current professor displaying the menu 
+ * to see if the user wants to advance into Review Mode
+ * @param professor
+ */
     public void doMainMenu(Professor professor) {
         boolean keepLooping = true;
         Scanner input = new Scanner (System.in);
@@ -45,6 +55,10 @@ public class ProfessorUI {
         }
         input.close();
 }
+/**
+ * @param professor takes in the current professor to display the options available 
+ * to the professor for reviewing students
+ */
 private void reviewMenuProfessor(Professor professor) {
     boolean looking = true;
     Scanner input = new Scanner (System.in);
@@ -74,6 +88,10 @@ private void reviewMenuProfessor(Professor professor) {
         }
     }
 }
+/**
+ * takes in current professor and adds the a new review to an existing student.
+ * @param professor
+ */
 public void ReviewStudent(Professor professor) {
     User student;
     Review review = null;
@@ -82,6 +100,10 @@ public void ReviewStudent(Professor professor) {
     review  = addingreview(student, professor);
     ReviewDatabase.getInstance().addReview(review);
 }
+/**
+ * takes in the current professor to select a previously reviewed student and make changes to the sutdent
+ * @param professor
+ */
 public void editReviewStudent(Professor professor) { 
     User student;
     Review review = null;
@@ -93,18 +115,25 @@ public void editReviewStudent(Professor professor) {
     ReviewDatabase.getInstance().addReview(review);
 }
    
-
+/**
+ * takes in a student and a professor to remove a student review given by the current professor
+ * @param student the student selected by the professor
+ * @param professor the current professor
+ * @return a review that been removed
+ */
 public Review removeReview(User student, Professor professor) {
     Review review = null;
     String prof = "";
     String stu = "";
-    displayStudents(professor);
-    student = selectStudent();
     stu = student.getUsername();
     prof = professor.getUsername();
     review = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(prof,stu);
     return review;
 }
+/**
+ * Takes in current professor to remove a student review made by the professor
+ * @param professor
+ */
 public void ReviewStudentRemove(Professor professor) {
     User student;
     Review review = null;
@@ -114,17 +143,28 @@ public void ReviewStudentRemove(Professor professor) {
     ReviewDatabase.getInstance().removeReveiw(review);
 
 }
+/**
+ * Takes in the current professor to display Students reviewed by them
+ * @param professor
+ */
 public void displayStudents(Professor professor) {
     for (Review i: professor.getStudentReviewed(professor)) {
         System.out.println("Student Name: ");
         System.out.println(i.getReviewee().getFullName());
     }
 }
+/**
+ * Displays all students available
+ */
 public void displayAllStudents() {
     ArrayList<Student> students = UserDatabase.getInstance().getStudents();
         for (Student student : students)
             System.out.println(student);
 }
+/**
+ * selecting a student and returning the student selected.
+ * @return
+ */
 public User selectStudent() { 
     String studentname = "";
     User student;
@@ -137,6 +177,13 @@ public User selectStudent() {
     student = UserDatabase.getInstance().findByName(studentname);
     return student;
 }
+/**
+ * takes in the current professor and the student selected and
+ * prompt the current professor to add a rating and comment for a review.
+ * @param student
+ * @param professor
+ * @return
+ */
 public Review addingreview(User student, Professor professor) {
     String comment = "";
     int rating = 0;
@@ -150,6 +197,15 @@ public Review addingreview(User student, Professor professor) {
     return review;
 
 }
+/**
+ * Creating a new User Professor  by prompting the user for info
+ * @param email email address to be confirmed
+ * @param username username the professor will identified as
+ * @param password password for safety
+ * @param firstName First Name
+ * @param lastName Last Name
+ * 
+ */
 public void doSignup() {
     Scanner input = new Scanner (System.in);
 
