@@ -138,6 +138,7 @@ public class Admin extends User {
          * sets the ID
          * 
          * @param id what we want to set the ID to
+         * @return a Builder with that ID
          */
         public Builder id(UUID id) {
             this.id = id;
@@ -148,6 +149,7 @@ public class Admin extends User {
          * sets the username
          * 
          * @param username what we want to set the username to
+         * @return a Builder with that username
          */
         public Builder username(String username) {
             this.username = username;
@@ -158,6 +160,7 @@ public class Admin extends User {
          * sets the password
          * 
          * @param password what we want to set the password to
+         * @return a Builder with that password
          */
         public Builder password(String password) {
             this.password = password;
@@ -168,6 +171,7 @@ public class Admin extends User {
          * sets the email
          * 
          * @param email what we want to set the email to
+         * @return a Builder with that email
          */
         public Builder email(String email) {
             this.email = email;
@@ -178,6 +182,7 @@ public class Admin extends User {
          * sets the firstName
          * 
          * @param firstName what we want to set the firstName to
+         * @return a Builder with that first name
          */
         public Builder firstName(String firstName) {
             this.firstName = firstName;
@@ -188,6 +193,7 @@ public class Admin extends User {
          * sets the lastName
          * 
          * @param lastName what we want to set the lastName to
+         * @return a Builder with that lastname
          */
         public Builder lastName(String lastName) {
             this.lastName = lastName;
@@ -198,6 +204,7 @@ public class Admin extends User {
          * sets the approved boolean
          * 
          * @param approved if the user is approved or not
+         * @return a Builder with that approval status
          */
         public Builder approved(boolean approved) {
             this.approved = approved;

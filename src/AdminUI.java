@@ -78,7 +78,7 @@ public class AdminUI {
         System.out.print("\033[H\033[2J");
         System.out.flush(); // clearing the screen
         System.out.println("Logging you out, have a great day!");
-        input.close();
+        // input.close();
     }
 
     /**
