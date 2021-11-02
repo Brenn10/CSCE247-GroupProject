@@ -13,24 +13,37 @@ import dataTypes.User;
 import database.Database;
 import enums.Major;
 
+/**
+ * This class is the UI for the Student.
+ */
 public class StudentUI {
     private Student student;
     private Scanner scanner;
+
+    /**
+     * Constructor for StudentUI when logged in
+     *
+     * @param scanner Scanner object to read user input.
+     * @param student The student to be used.
+     */
     public StudentUI(Scanner scanner, Student student) {
         this.student = student;
         this.scanner = scanner;
     }
 
+    /**
+     * Constructor for StudentUI when not logged in.
+     * Use when signing up
+     * 
+     * @param scanner Scanner object to read user input.
+     */
     public StudentUI(Scanner scanner) {
         this.scanner = scanner;
         this.student = null;
     }
 
     /**
-     * student
-     * 
-     * View Job Listings -1 View Job Applications -2 Edit/Create Resume -3 Check
-     * Review -4
+     * Runs the student main menu.
      */
     public void doMainMenu() {
         boolean keepLooping = true;
@@ -81,6 +94,9 @@ public class StudentUI {
         }
     }
 
+    /**
+     * Prints the student resume to a file.
+     */
     private void doPrintResume() {
         System.out.println("Where would you like to save your resume: ");
         String fileName = scanner.nextLine();
@@ -101,6 +117,9 @@ public class StudentUI {
         }
     }
 
+    /**
+     * Search and apply for a job.
+     */
     private void doApplyToJob() {
         System.out.print("Type a keyword or leave empty to view all: ");
         String keyword = scanner.nextLine();
@@ -141,6 +160,9 @@ public class StudentUI {
 
     }
 
+    /**
+     * View reviews of the student.
+     */
     private void doViewReviews() {
         ArrayList<Review> reviews = Database.getInstance().getReviewsByReviewee(student);
         for (Review review : reviews) {
@@ -148,10 +170,16 @@ public class StudentUI {
         }
     }
 
+    /**
+     * View the resume of the student.
+     */
     private void doViewResume() {
         System.out.println(student.getPrintableResume());
     }
 
+    /**
+     * View the job applications of the student.
+     */
     private void doViewJobApplications() {
         ArrayList<JobPosting> jobPostings = Database.getInstance().getPostingsByStudent(student);
         for (JobPosting jobPosting : jobPostings) {
@@ -159,6 +187,9 @@ public class StudentUI {
         }
     }
 
+    /**
+     * Edit the student's resume.
+     */
     private void doEditResume() {
         boolean keepEditing = true;
         while(keepEditing) {
@@ -195,7 +226,9 @@ public class StudentUI {
         student.setCreated(true);
     }
 
-
+    /**
+     * Edit the student's employment history.
+     */
     private void doEditEmployment() {
         ArrayList<Employment> employments = student.getEmployments();
         for (int i = 0; i < employments.size(); i++) {
@@ -228,6 +261,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Remove an employment from the student's employment history.
+     */
     private void doRemoveEmployment() {
         ArrayList<Employment> employments = student.getEmployments();
         for (int i = 0; i < employments.size(); i++) {
@@ -243,6 +279,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Add an employment to the student's employment history.
+     */
     private void doAddEmployment() {
         System.out.print("Please enter the company name: ");
         String companyName = scanner.nextLine();
@@ -262,6 +301,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Edit the student's skills.
+     */
     private void doEditSkills() {
         ArrayList<String> skills = student.getTechnicalSkills();
         for (int i = 0; i < skills.size(); i++) {
@@ -292,6 +334,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Remove a skill from the student's skills.
+     */
     private void doRemoveSkill() {
         ArrayList<String> skills = student.getTechnicalSkills();
         for (int i = 0; i < skills.size(); i++) {
@@ -314,6 +359,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Edit the student's educations.
+     */
     private void doEditEducations() {
         ArrayList<Education> educations = student.getEducations();
         for (int i = 0; i < educations.size(); i++) {
@@ -346,6 +394,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Remove an education from the student's educations.
+     */
     private void doRemoveEducation() {
         ArrayList<Education> educations = student.getEducations();
         for (int i = 0; i < educations.size(); i++) {
@@ -361,6 +412,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Add an education to the student's educations.
+     */
     private void doAddEducation() {
         System.out.print("Please enter the name of the school: ");
         String schoolName = scanner.nextLine();
@@ -372,6 +426,9 @@ public class StudentUI {
         
     }
 
+    /**
+     * Edit the student's major.
+     */
     private void doEditMajor() {
         boolean majorChanged = false;
         while (!majorChanged) {
@@ -396,12 +453,18 @@ public class StudentUI {
         
     }
 
+    /**
+     * View all job listings.
+     */
     private void doViewJobListings() {
         for (JobPosting posting : Database.getInstance().getOpenPostings()) {
             System.out.println(posting);
         }
     }
 
+    /**
+     * Signup a new student.
+     */
     public void doSignup() {
         System.out.print("Email:");
         String email = scanner.nextLine();
@@ -450,6 +513,5 @@ public class StudentUI {
             doEditResume();
         }
         Database.getInstance().addUser(student);
-        
     }
 }
