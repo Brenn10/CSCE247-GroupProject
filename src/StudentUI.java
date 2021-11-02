@@ -118,12 +118,13 @@ public class StudentUI {
             return;
         }
         System.out.println("Job Postings:");
-        for(int i = 1; i <= jobPostings.size(); i++) {
-            while(jobPostings.size() > 1 && !jobPostings.get(i-1).getApplicants().contains(student)) {
-                jobPostings.remove(i-1);
+        for(int i = 0; i <= jobPostings.size(); i++) {
+            while(i < jobPostings.size() && jobPostings.get(i).getApplicants().contains(student)) {
+                jobPostings.remove(i);
             }
-
-            System.out.println(i + ") " + jobPostings.get(i-1));
+            
+            if(i < jobPostings.size())
+                System.out.println(i + ") " + jobPostings.get(i));
         }
         System.out.print("Enter the number of the job you would like to apply to: ");
         int option = Integer.parseInt(scanner.nextLine());
