@@ -3,8 +3,7 @@ package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import database.JobPostingDatabase;
-import database.ReviewDatabase;
+import database.Database;
 import enums.JobPostingStatus;
 
 /**
@@ -48,7 +47,7 @@ public class Employer extends User {
      */
     public void makePosting(JobPosting job) {
         postings.add(job);
-        JobPostingDatabase.getInstance().addPosting(job);
+        Database.getInstance().addPosting(job);
     }
 
     /**
@@ -123,8 +122,8 @@ public class Employer extends User {
      * @param job posting the want to remove
      */
     public void removePosting(JobPosting job) {
-        JobPostingDatabase.getInstance().getPostings().remove(job);
-        JobPostingDatabase.getInstance().getRemovedPostings().add(job);
+        Database.getInstance().getPostings().remove(job);
+        Database.getInstance().getRemovedPostings().add(job);
     }
 
     /**
@@ -146,7 +145,7 @@ public class Employer extends User {
      */
     public void rateStudent(Student student, int score, String comment) {
         Review rating = new Review.Builder().reviewer(this).reviewee(student).rating(score).comment(comment).build();
-        ReviewDatabase.getInstance().addReview(rating);
+        Database.getInstance().addReview(rating);
     }
 
     // get and set methods
@@ -166,7 +165,7 @@ public class Employer extends User {
      * @return the ArrayList of postings
      */
     public ArrayList<JobPosting> getPostings() {
-        this.postings = JobPostingDatabase.getInstance().getPostingsByEmployer(this);
+        this.postings = Database.getInstance().getPostingsByEmployer(this);
         return this.postings;
     }
 

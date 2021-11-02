@@ -13,10 +13,8 @@ import dataTypes.JobPosting;
 import dataTypes.Review;
 import dataTypes.Student;
 import dataTypes.Review.Builder;
-import database.ReviewDatabase;
-import database.UserDatabase;
+import database.Database;
 import enums.JobPostingStatus;
-import database.JobPostingDatabase;
 
 public class EmployerUI {
     Scanner employScanner;
@@ -214,7 +212,7 @@ private void viewJob (Employer employer) {
         System.out.println("Sorry, there are no jobs to review!");
         return;
     }
-    ArrayList<JobPosting> allPostings = JobPostingDatabase.getInstance().getPostingsByEmployer(employer);
+    ArrayList<JobPosting> allPostings = Database.getInstance().getPostingsByEmployer(employer);
     for (int i = 0; i<allPostings.size()-1; i++) {
         System.out.print((i+1) + ")");
         System.out.println(allPostings.get(i).getJobTitle());
@@ -279,7 +277,7 @@ private void makeJob (Employer employer) {
             }
         }
     
-    JobPostingDatabase.getInstance().addPosting(newJob.build());
+    Database.getInstance().addPosting(newJob.build());
 }
 
 /**
@@ -359,7 +357,7 @@ private void createNewReview(Student foundStudent, Employer employer) {
     newReview.comment(comment);
     newReview.reviewer(foundStudent);
     newReview.reviewee(employer);
-    ReviewDatabase.getInstance().addReview(newReview.build());
+    Database.getInstance().addReview(newReview.build());
     employScanner.close();
     // for testing
     //System.out.println(newReview.build());
@@ -369,8 +367,7 @@ private void createNewReview(Student foundStudent, Employer employer) {
  * @param foundStudent
  */
 private void editReview(Student foundStudent) {
-        ReviewDatabase reviewDatabase = ReviewDatabase.getInstance();
-        ArrayList <Review> selfReviews = reviewDatabase.getReviewsByReviewee(foundStudent);
+        ArrayList <Review> selfReviews = Database.getInstance().getReviewsByReviewee(foundStudent);
 
         for (int i = 0; i < selfReviews.size()-1; i++) {
             System.out.print(i+1 + ")");
@@ -436,7 +433,7 @@ private void editReview(Student foundStudent) {
                                                     .email(email)
                                                     .company(company)
                                                     .build();
-        UserDatabase.getInstance().addUser(newEmployer);
+        Database.getInstance().addUser(newEmployer);
         input.close();
     }
 }

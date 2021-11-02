@@ -8,7 +8,7 @@ import dataTypes.User;
 import database.Database;
 import database.JsonDataReader;
 import database.JsonDataWriter;
-import database.UserDatabase;
+import database.Database;
 
 public class JobSystem {
     private static JobSystem instance;
@@ -41,7 +41,7 @@ public class JobSystem {
 
 
     public User login (String username, String password) {
-        User user = UserDatabase.getInstance().findByUsername(username);
+        User user = Database.getInstance().findByUsername(username);
         if (user == null) {
             return null;
         }
@@ -52,9 +52,9 @@ public class JobSystem {
     }
 
     public boolean signup(User user) {
-        if (UserDatabase.getInstance().findByUsername(user.getUsername()) == null) {
+        if (Database.getInstance().findByUsername(user.getUsername()) == null) {
             // TODO ask user for other inputs. ex. what type of user, email, etc.
-            UserDatabase.getInstance().addUser(user);
+            Database.getInstance().addUser(user);
             return true;
         }
         return false;

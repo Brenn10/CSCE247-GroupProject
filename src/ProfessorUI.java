@@ -2,8 +2,9 @@
 import java.util.Scanner;
 import dataTypes.Professor;
 import dataTypes.Review;
-import database.ReviewDatabase;
-import database.UserDatabase;
+import database.Database;
+import database.Database;
+import database.Database;
 import dataTypes.Student;
 import java.util.ArrayList;
 import dataTypes.User;
@@ -98,7 +99,7 @@ private void ReviewStudent(Professor professor) {
     displayAllStudents();
     student = selectStudent();
     review  = addingreview(student, professor);
-    ReviewDatabase.getInstance().addReview(review);
+    Database.getInstance().addReview(review);
 }
 /**
  * takes in the current professor to select a previously reviewed student and make changes to the sutdent
@@ -110,9 +111,9 @@ private void editReviewStudent(Professor professor) {
     displayStudents(professor);
     student = selectStudent();
     review = removeReview(student, professor);
-    ReviewDatabase.getInstance().removeReveiw(review);
+    Database.getInstance().removeReveiw(review);
     review = addingreview(student, professor);
-    ReviewDatabase.getInstance().addReview(review);
+    Database.getInstance().addReview(review);
 }
    
 /**
@@ -127,7 +128,7 @@ private Review removeReview(User student, Professor professor) {
     String stu = "";
     stu = student.getUsername();
     prof = professor.getUsername();
-    review = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(prof,stu);
+    review = Database.getInstance().getReviewByRevieweeAndReviewer(prof,stu);
     return review;
 }
 /**
@@ -140,7 +141,7 @@ private void ReviewStudentRemove(Professor professor) {
     displayStudents(professor);
     student = selectStudent();
     review = removeReview(student, professor);
-    ReviewDatabase.getInstance().removeReveiw(review);
+    Database.getInstance().removeReveiw(review);
 
 }
 /**
@@ -157,7 +158,7 @@ private void displayStudents(Professor professor) {
  * Displays all students available
  */
 private void displayAllStudents() {
-    ArrayList<Student> students = UserDatabase.getInstance().getStudents();
+    ArrayList<Student> students = Database.getInstance().getStudents();
         for (Student student : students)
             System.out.println(student);
 }
@@ -174,7 +175,7 @@ private User selectStudent() {
     studentname += " ";
     System.out.println("Please select a student's last name");
     studentname += input.next();
-    student = UserDatabase.getInstance().findByName(studentname);
+    student = Database.getInstance().findByName(studentname);
     return student;
 }
 /**
@@ -215,14 +216,14 @@ public void doSignup() {
         System.out.println("This email is invalid");
         return;
     }
-    if (UserDatabase.getInstance().getUserByEmail(email) != null) {
+    if (Database.getInstance().getUserByEmail(email) != null) {
         System.out.println("Email already in use");
         return;
     }
 
     System.out.print("Enter in Username:");
     String username = input.nextLine();
-    if (UserDatabase.getInstance().findByUsername(username) != null) {
+    if (Database.getInstance().findByUsername(username) != null) {
         System.out.println("Username already exists");
         return;
     }
@@ -238,7 +239,7 @@ public void doSignup() {
         email = input.nextLine();
     }
     professor = new Professor.Builder().username(username).password(password).firstName(firstName).lastName(lastName).email(email).approved(true).removed(false).build();
-    UserDatabase.getInstance().addUser(professor);
+    Database.getInstance().addUser(professor);
     
 }
 }

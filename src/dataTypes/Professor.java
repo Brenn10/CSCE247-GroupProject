@@ -2,7 +2,7 @@ package dataTypes;
 
 import java.util.ArrayList;
 import java.util.UUID;
-import database.ReviewDatabase;
+import database.Database;
 
 /**
  * Professor User datatype
@@ -40,7 +40,7 @@ public class Professor extends User {
     public void rateStudent(Student student, int rating, String comment) {
         Review reviewToAdd = new Review.Builder().reviewer(this).reviewee(student).rating(rating).comment(comment)
                 .build();
-        ReviewDatabase.getInstance().addReview(reviewToAdd);
+        Database.getInstance().addReview(reviewToAdd);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Professor extends User {
      */
     public ArrayList<Review> getStudentReviewed(User user) {
         ArrayList<Review> reviews = new ArrayList<Review>();
-        reviews = ReviewDatabase.getInstance().getReviewsByReviewer(user);
+        reviews = Database.getInstance().getReviewsByReviewer(user);
         return reviews;
     }
 

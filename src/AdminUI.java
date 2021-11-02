@@ -9,9 +9,7 @@ import dataTypes.Professor;
 import dataTypes.Review;
 import dataTypes.Student;
 import dataTypes.User;
-import database.JobPostingDatabase;
-import database.ReviewDatabase;
-import database.UserDatabase;
+import database.Database;
 import enums.Major;
 
 /**
@@ -142,14 +140,14 @@ public class AdminUI {
             option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                ArrayList<Student> students = UserDatabase.getInstance().getStudents();
+                ArrayList<Student> students = Database.getInstance().getStudents();
                 for (Student student : students)
                     System.out.println(student);
                 break;
             case 2:
                 System.out.println("Please enter the students username:");
                 username = input.nextLine();
-                search = UserDatabase.getInstance().findByUsername(username);
+                search = Database.getInstance().findByUsername(username);
                 if (search != null) {
                     System.out.println("That student exists, here is their information:");
                     System.out.println(search);
@@ -159,7 +157,7 @@ public class AdminUI {
             case 3:
                 System.out.println("Please enter the students username that you would like to delete!");
                 username = input.nextLine();
-                search = UserDatabase.getInstance().findByUsername(username);
+                search = Database.getInstance().findByUsername(username);
                 if (search != null) {
                     System.out.println("Here is that student's information:");
                     System.out.println(search);
@@ -175,7 +173,7 @@ public class AdminUI {
                 String userName;
                 do {
                     userName = input.nextLine();
-                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    userTest = Database.getInstance().findByUsername(userName);
                     if (userTest != null)
                         System.out.println("That username is taken, please try another!");
                 } while (userTest != null);
@@ -250,14 +248,14 @@ public class AdminUI {
             option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                ArrayList<Employer> employers = UserDatabase.getInstance().getEmployers();
+                ArrayList<Employer> employers = Database.getInstance().getEmployers();
                 for (Employer employer : employers)
                     System.out.println(employer);
                 break;
             case 2:
                 System.out.println("Please enter the employer's username:");
                 username = input.nextLine();
-                search = UserDatabase.getInstance().findByUsername(username);
+                search = Database.getInstance().findByUsername(username);
                 if (search != null) {
                     System.out.println("That employer exists, here is their information:");
                     System.out.println(search);
@@ -267,7 +265,7 @@ public class AdminUI {
             case 3:
                 System.out.println("Please enter the employer's username that you would like to delete!");
                 username = input.nextLine();
-                search = UserDatabase.getInstance().findByUsername(username);
+                search = Database.getInstance().findByUsername(username);
                 if (search != null) {
                     System.out.println("Here is that employers's information:");
                     System.out.println(search);
@@ -283,7 +281,7 @@ public class AdminUI {
                 String userName;
                 do {
                     userName = input.nextLine();
-                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    userTest = Database.getInstance().findByUsername(userName);
                     if (userTest != null)
                         System.out.println("That username is taken, please try another!");
                 } while (userTest != null);
@@ -337,14 +335,14 @@ public class AdminUI {
             option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                ArrayList<Professor> professors = UserDatabase.getInstance().getProfessor();
+                ArrayList<Professor> professors = Database.getInstance().getProfessor();
                 for (Professor prof : professors)
                     System.out.println(prof);
                 break;
             case 2:
                 System.out.println("Please enter the professors username:");
                 username = input.nextLine();
-                search = UserDatabase.getInstance().findByUsername(username);
+                search = Database.getInstance().findByUsername(username);
                 if (search != null) {
                     System.out.println("That professor exists, here is their information:");
                     System.out.println(search);
@@ -354,7 +352,7 @@ public class AdminUI {
             case 3:
                 System.out.println("Please enter the professor's username that you would like to delete!");
                 username = input.nextLine();
-                search = UserDatabase.getInstance().findByUsername(username);
+                search = Database.getInstance().findByUsername(username);
                 if (search != null) {
                     System.out.println("Here is that professor's information:");
                     System.out.println(search);
@@ -370,7 +368,7 @@ public class AdminUI {
                 String userName;
                 do {
                     userName = input.nextLine();
-                    userTest = UserDatabase.getInstance().findByUsername(userName);
+                    userTest = Database.getInstance().findByUsername(userName);
                     if (userTest != null)
                         System.out.println("That username is taken, please try another!");
                 } while (userTest != null);
@@ -412,7 +410,7 @@ public class AdminUI {
          */
         System.out.println("Lets go through all of the pending approval requests");
         System.out.println("Enter 'STOP' at any time to quit");
-        ArrayList<User> unapprovedUsers = UserDatabase.getInstance().getUnapprovedUsers();
+        ArrayList<User> unapprovedUsers = Database.getInstance().getUnapprovedUsers();
         for (User user : unapprovedUsers) {
             System.out.println("The following user is waiting for approval");
             System.out.println(user);
@@ -424,7 +422,6 @@ public class AdminUI {
             if (answer.equals("Y")) {
                 System.out.println("User approved!");
                 user.setApproved(true);
-                UserDatabase.getInstance().updateDatabase();
             } else {
                 System.out.println("User not approved!");
                 System.out.println("Would you like to remove unapproved user? Enter (Y) for yes and (N) for no");
@@ -462,16 +459,16 @@ public class AdminUI {
             option = Integer.parseInt(input.nextLine());
             switch (option) {
             case 1:
-                ArrayList<JobPosting> postings = JobPostingDatabase.getInstance().getPostings();
+                ArrayList<JobPosting> postings = Database.getInstance().getPostings();
                 for (JobPosting posting : postings)
                     System.out.println(posting);
                 break;
             case 2:
                 System.out.println("Please enter the employer's username who posted the job");
                 String employerUser = input.nextLine();
-                User employer = UserDatabase.getInstance().findByUsername(employerUser);
+                User employer = Database.getInstance().findByUsername(employerUser);
                 if (employer != null) {
-                    ArrayList<JobPosting> postingByUser = JobPostingDatabase.getInstance()
+                    ArrayList<JobPosting> postingByUser = Database.getInstance()
                             .getPostingsByEmployer((Employer) employer);
                     if (postingByUser != null) {
                         System.out.println("Here are the postings by @" + employerUser);
@@ -491,9 +488,9 @@ public class AdminUI {
                 String user = input.nextLine();
                 System.out.println("What is the job's title?");
                 String title = input.nextLine();
-                User userOf = UserDatabase.getInstance().findByUsername(user);
+                User userOf = Database.getInstance().findByUsername(user);
                 if (userOf != null) {
-                    JobPosting toRemove = JobPostingDatabase.getInstance().getPostingByEmployerAndTitle(user, title);
+                    JobPosting toRemove = Database.getInstance().getPostingByEmployerAndTitle(user, title);
                     if (toRemove != null) {
                         System.out.println("Removing...");
                         admin.removeJobPosting(toRemove);
@@ -506,7 +503,7 @@ public class AdminUI {
                 }
                 break;
             case 4:
-                ArrayList<JobPosting> removedPostings = JobPostingDatabase.getInstance().getRemovedPostings();
+                ArrayList<JobPosting> removedPostings = Database.getInstance().getRemovedPostings();
                 for (JobPosting posting : removedPostings)
                     System.out.println(posting);
                 break;
@@ -543,7 +540,7 @@ public class AdminUI {
             switch (option) {
             case 1:
                 System.out.println("Here are all of the reviews");
-                ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviews();
+                ArrayList<Review> reviews = Database.getInstance().getReviews();
                 for (Review review : reviews)
                     System.out.println(review);
                 break;
@@ -559,9 +556,9 @@ public class AdminUI {
                 case 1:
                     System.out.println("Please enter the username for the reviewer");
                     username = input.nextLine();
-                    user = UserDatabase.getInstance().findByUsername(username);
+                    user = Database.getInstance().findByUsername(username);
                     if (username != null) {
-                        reviewFound = ReviewDatabase.getInstance().getReviewsByReviewer(user);
+                        reviewFound = Database.getInstance().getReviewsByReviewer(user);
                         if (reviewFound != null) {
                             System.out.println("Here are all reviews made by @" + username);
                             for (Review review : reviewFound)
@@ -576,9 +573,9 @@ public class AdminUI {
                 case 2:
                     System.out.println("Please enter the username for the reviewee");
                     username = input.nextLine();
-                    user = UserDatabase.getInstance().findByUsername(username);
+                    user = Database.getInstance().findByUsername(username);
                     if (username != null) {
-                        reviewFound = ReviewDatabase.getInstance().getReviewsByReviewee(user);
+                        reviewFound = Database.getInstance().getReviewsByReviewee(user);
                         if (reviewFound != null) {
                             System.out.println("Here are all reviews made about @" + username);
                             for (Review review : reviewFound)
@@ -604,7 +601,7 @@ public class AdminUI {
                 System.out.println("Reviewee username: ");
                 revieweeUser = input.nextLine();
                 System.out.println("Searching for review to remove...");
-                Review toRemove = ReviewDatabase.getInstance().getReviewByRevieweeAndReviewer(reviewerUser,
+                Review toRemove = Database.getInstance().getReviewByRevieweeAndReviewer(reviewerUser,
                         revieweeUser);
                 if (toRemove != null) {
                     System.out.println("Removing...");
@@ -615,7 +612,7 @@ public class AdminUI {
                 break;
             case 4:
                 System.out.println("Here are all of the removed reviews");
-                ArrayList<Review> removedReviews = ReviewDatabase.getInstance().getRemovedReviews();
+                ArrayList<Review> removedReviews = Database.getInstance().getRemovedReviews();
                 for (Review review : removedReviews)
                     System.out.println(review);
                 break;
@@ -640,7 +637,7 @@ public class AdminUI {
         String userName;
         do {
             userName = input.nextLine();
-            userTest = UserDatabase.getInstance().findByUsername(userName);
+            userTest = Database.getInstance().findByUsername(userName);
             if (userTest != null)
                 System.out.println("That username is taken, please try another!");
         } while (userTest != null);

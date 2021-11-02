@@ -2,9 +2,7 @@ package dataTypes;
 
 import java.util.UUID;
 
-import database.JobPostingDatabase;
-import database.ReviewDatabase;
-import database.UserDatabase;
+import database.Database;
 
 /**
  * Admin User dataType type of User
@@ -45,7 +43,7 @@ public class Admin extends User {
      * @param user the user account we want to remomve
      */
     public void removeUser(User user) {
-        UserDatabase.getInstance().removeUser(user);
+        Database.getInstance().removeUser(user);
     }
 
     /**
@@ -54,7 +52,7 @@ public class Admin extends User {
      * @param review the review we want to remove
      */
     public void removeReviews(Review review) {
-        ReviewDatabase.getInstance().removeReveiw(review);
+        Database.getInstance().removeReveiw(review);
     }
 
     /**
@@ -72,7 +70,7 @@ public class Admin extends User {
      * @param jobposting the posting to be deleted
      */
     public void removeJobPosting(JobPosting jobposting) {
-        JobPostingDatabase.getInstance().removePosting(jobposting);
+        Database.getInstance().removePosting(jobposting);
     }
 
     /**
@@ -81,7 +79,7 @@ public class Admin extends User {
      * @param user the user we want to add
      */
     public void addUser(User user) {
-        UserDatabase.getInstance().addUser(user);
+        Database.getInstance().addUser(user);
     }
 
     /**

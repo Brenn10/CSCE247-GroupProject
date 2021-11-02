@@ -10,9 +10,7 @@ import dataTypes.JobPosting;
 import dataTypes.Review;
 import dataTypes.Student;
 import dataTypes.User;
-import database.JobPostingDatabase;
-import database.ReviewDatabase;
-import database.UserDatabase;
+import database.Database;
 import enums.Major;
 
 public class StudentUI {
@@ -108,10 +106,10 @@ public class StudentUI {
         String keyword = scanner.nextLine();
         ArrayList<JobPosting> jobPostings;
         if(!keyword.equals("")) {
-            jobPostings = JobPostingDatabase.getInstance().getOpenPostingByRequirement(keyword);
+            jobPostings = Database.getInstance().getOpenPostingByRequirement(keyword);
 
         } else {
-            jobPostings = JobPostingDatabase.getInstance().getOpenPostings();
+            jobPostings = Database.getInstance().getOpenPostings();
         }
         if(jobPostings.size() == 0) {
             System.out.println("No job postings found");
@@ -129,10 +127,10 @@ public class StudentUI {
         System.out.print("Enter the number of the job you would like to apply to: ");
         int option = Integer.parseInt(scanner.nextLine());
         if(!keyword.equals("")) {
-            jobPostings = JobPostingDatabase.getInstance().getOpenPostingByRequirement(keyword);
+            jobPostings = Database.getInstance().getOpenPostingByRequirement(keyword);
 
         } else {
-            jobPostings = JobPostingDatabase.getInstance().getOpenPostings();
+            jobPostings = Database.getInstance().getOpenPostings();
         }
         if(option < 0 || option >= jobPostings.size()) {
             System.out.println("Invalid option");
@@ -144,7 +142,7 @@ public class StudentUI {
     }
 
     private void doViewReviews() {
-        ArrayList<Review> reviews = ReviewDatabase.getInstance().getReviewsByReviewee(student);
+        ArrayList<Review> reviews = Database.getInstance().getReviewsByReviewee(student);
         for (Review review : reviews) {
             System.out.println(review.toString());
         }
@@ -155,7 +153,7 @@ public class StudentUI {
     }
 
     private void doViewJobApplications() {
-        ArrayList<JobPosting> jobPostings = JobPostingDatabase.getInstance().getPostingsByStudent(student);
+        ArrayList<JobPosting> jobPostings = Database.getInstance().getPostingsByStudent(student);
         for (JobPosting jobPosting : jobPostings) {
             System.out.println(jobPosting.toString());
         }
@@ -399,7 +397,7 @@ public class StudentUI {
     }
 
     private void doViewJobListings() {
-        for (JobPosting posting : JobPostingDatabase.getInstance().getOpenPostings()) {
+        for (JobPosting posting : Database.getInstance().getOpenPostings()) {
             System.out.println(posting);
         }
     }
@@ -411,14 +409,14 @@ public class StudentUI {
             System.out.println("Invalid email");
             return;
         }
-        if (UserDatabase.getInstance().getUserByEmail(email) != null) {
+        if (Database.getInstance().getUserByEmail(email) != null) {
             System.out.println("Email already in use");
             return;
         }
 
         System.out.print("Username:");
         String username = scanner.nextLine();
-        if (UserDatabase.getInstance().findByUsername(username) != null) {
+        if (Database.getInstance().findByUsername(username) != null) {
             System.out.println("Username already exists");
             return;
         }
@@ -451,7 +449,7 @@ public class StudentUI {
         if (doResume.equalsIgnoreCase("yes")) {
             doEditResume();
         }
-        UserDatabase.getInstance().addUser(student);
+        Database.getInstance().addUser(student);
         
     }
 }

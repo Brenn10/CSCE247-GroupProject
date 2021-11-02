@@ -8,7 +8,7 @@ package dataTypes;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import database.ReviewDatabase;
+import database.Database;
 import enums.Major;
 
 public class Student extends User {
@@ -39,7 +39,7 @@ public class Student extends User {
      */
     public void reviewEmployer(Employer employer, int score, String comment) {
         Review rating = new Review.Builder().reviewer(this).reviewee(employer).rating(score).comment(comment).build();
-        ReviewDatabase.getInstance().addReview(rating);
+        Database.getInstance().addReview(rating);
     }
     /**
      * Applies self to target job
