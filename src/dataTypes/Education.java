@@ -1,4 +1,5 @@
 package dataTypes;
+
 public class Education {
     private String place;
     private double gpa;
@@ -35,7 +36,7 @@ public class Education {
     }
 
     public String toString() {
-        return "\t" + place + "\n\t"+ gradDate + "\n\tGPA: " + gpa;
+        return "\t" + place + "\n\t" + gradDate + "\n\tGPA: " + gpa;
     }
 
     public static class Builder {
