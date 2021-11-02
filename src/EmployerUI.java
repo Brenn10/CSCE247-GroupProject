@@ -27,8 +27,10 @@ public class EmployerUI {
      * Edit Review
      * View Reviews (of self to all stu)
      */
-    public void doMainMenu(Employer employer) {  
+    public EmployerUI() {
         employScanner = new Scanner(System.in);
+    }
+    public void doMainMenu(Employer employer) {  
         System.out.println("Welcome Employer " + employer.getFirstName() + " " + employer.getLastName());
 
         boolean doLoop = true;
@@ -40,26 +42,20 @@ public class EmployerUI {
             switch(employScanner.nextInt()) {
                 case 1:
                     doJobEditMenu(employer);
-                    employScanner.close();
                     break;
                 case 2:
                     doStudentReviewMenu(employer);
-                    employScanner.close();
                     break;
                 case 0:
                     doLoop = false;
                     break;
                 default:
                     System.out.println("Invalid Option");
-                    employScanner.close();
                     break;
             }
         }
-        System.out.print("\033[H\033[2J");  
-        System.out.flush(); 
-        employScanner.close();
+        //employScanner.close();
     }
-
     private void doJobEditMenu(Employer employer) {
         System.out.println("Here are your current Job Postings: ");
         if (employer.getPostings()!=null) {
@@ -67,13 +63,12 @@ public class EmployerUI {
                 System.out.println(i.getJobTitle());
             }
         }
-        Scanner employerScanner = new Scanner(System.in);
         System.out.println("Would you like to:");
         System.out.println("(1) Edit a Current Job Posting");
         System.out.println("(2) Create a New Job Posting");
         System.out.println("(3) View Job Posting");
         System.out.println("(0) Exit Job Edit Mode");
-        switch(employerScanner.nextInt()) {
+        switch(employScanner.nextInt()) {
             case 1:
                 editJob(employer);
                 break;
@@ -85,26 +80,23 @@ public class EmployerUI {
                 break;
             case 0:
                 System.out.println("Exiting Job Edit Menu");
-                employerScanner.close();
                 return;
             }
-        employerScanner.close();
     }
 private void editJob(Employer employer) {
     if (employer.getPostings() == null) {
         System.out.println("Sorry, there are no jobs to edit!");
         return;
     }
-    Scanner employerScanner = new Scanner(System.in);
     boolean jobMatched = false;
     JobPosting matchedJob = null;
     while (!jobMatched) {
         System.out.println("Which job posting would you like to edit?");
         System.out.println("Input (0) to exit");
-        String selectedTitle = employerScanner.nextLine();
+        String selectedTitle = employScanner.nextLine();
        if (selectedTitle.equals("0")) {
         System.out.println("Exiting Job Edit Mode");
-        employerScanner.close();
+        employScanner.close();
         return;
        }
        if(employer.getPostings() != null) {
@@ -116,7 +108,6 @@ private void editJob(Employer employer) {
         }
     }
     if(matchedJob == null) {
-        employerScanner.close();
         return;
     }
     }
@@ -132,23 +123,23 @@ private void editJob(Employer employer) {
     System.out.println("0) Exit");
     boolean keepLooping = true;
     while (keepLooping) {
-        int changeNum = employerScanner.nextInt();
+        int changeNum = employScanner.nextInt();
         switch(changeNum) {
             case 1:
             System.out.println("Please input the new Title");
-            matchedJob.setTitle(employerScanner.nextLine());
+            matchedJob.setTitle(employScanner.nextLine());
                 break;
             case 2:
             System.out.println("Please input the new Description");
-                matchedJob.setDescription(employerScanner.nextLine());    
+                matchedJob.setDescription(employScanner.nextLine());    
                 break;
             case 3:
             System.out.println("Would you like to add a requirement(1) or change an existing one?(2)");
-                int requirementNum = employerScanner.nextInt();
+                int requirementNum = employScanner.nextInt();
                 switch(requirementNum) {
                     case 1:
                         System.out.println("Please input the new requirement");
-                        matchedJob.addRequirement(employerScanner.nextLine());
+                        matchedJob.addRequirement(employScanner.nextLine());
                         break;
                     case 2:
                         ArrayList<String> allRequirements = matchedJob.getRequirements();
@@ -156,13 +147,13 @@ private void editJob(Employer employer) {
                             System.out.print((i+1) + " )" + allRequirements.get(i));
                         }
                         System.out.println("Please input the number of the requirement you would like to edit");
-                        requirementNum = employerScanner.nextInt()+1;
+                        requirementNum = employScanner.nextInt()+1;
                         if (requirementNum > allRequirements.size() || requirementNum <= 0) {
                             System.out.println("Sorry, that number is not in range");
                             break;
                         }
                         System.out.println("Please input the new Requirement");
-                        allRequirements.set(requirementNum, employerScanner.nextLine());
+                        allRequirements.set(requirementNum, employScanner.nextLine());
                         matchedJob.setRequirements(allRequirements);
                         break;
                     default:
@@ -172,14 +163,14 @@ private void editJob(Employer employer) {
                 break;
             case 4:
             System.out.println("Please input the new Hourly Wage");
-                matchedJob.setWage(employerScanner.nextDouble());
+                matchedJob.setWage(employScanner.nextDouble());
                 break;
             case 5:
             System.out.println("Please input the new Status");
             String stats;
             boolean rightThing = false;
                 while (!rightThing) {
-                    stats = employerScanner.nextLine();
+                    stats = employScanner.nextLine();
                     if (stats.equalsIgnoreCase(JobPostingStatus.NA.toString())) {
                         matchedJob.setStatus(JobPostingStatus.NA);
                         rightThing = true;
@@ -207,13 +198,10 @@ private void editJob(Employer employer) {
                 break;
         }
     }
-    employerScanner.close();
 }
 private void viewJob (Employer employer) {
-    Scanner employScanner = new Scanner (System.in);
     if (employer.getPostings() == null) {
         System.out.println("Sorry, there are no jobs to review!");
-        employScanner.close();
         return;
     }
     ArrayList<JobPosting> allPostings = JobPostingDatabase.getInstance().getPostingsByEmployer(employer);
@@ -229,10 +217,8 @@ private void viewJob (Employer employer) {
     for( Student i : applicants) {
         System.out.println(i);
     }
-    employScanner.close();
 }
 private void makeJob (Employer employer) {
-    Scanner employScanner = new Scanner(System.in);
     dataTypes.JobPosting.Builder newJob = new JobPosting.Builder();
     System.out.println("Title");
     String jobTitle = employScanner.nextLine();
@@ -280,16 +266,10 @@ private void makeJob (Employer employer) {
         }
     
     JobPostingDatabase.getInstance().addPosting(newJob.build());
-    employScanner.close();
-    // used for testing
-    //System.out.println(newJob.build());
 }
 
 
 private void doStudentReviewMenu(Employer employer) {
-    System.out.print("\033[H\033[2J");  
-    System.out.flush(); 
-    // since this is for just the employer, look through all self job postings, post all students attatched to self
     if (employer.getPostings() == null) {
         System.out.println("Sorry, you have no postings to review students from!");
         return;
@@ -302,18 +282,17 @@ private void doStudentReviewMenu(Employer employer) {
         }
     }
     boolean studentFound = false;
-    Scanner employerScanner = new Scanner(System.in);
     Student foundStudent = null;
     while (!studentFound) {
         System.out.println("Please input a student's first name, or (0) to quit");
-        String studentName = employerScanner.nextLine();
+        String studentName = employScanner.nextLine();
         if (studentName.equals("0")) {
-            employerScanner.close();
+            employScanner.close();
             return;
         }
         for (JobPosting i : employer.getPostings()) {
             for (Student j : i.getApplicants()) {
-                if(studentName.equals(j.getFirstName())){
+                if(studentName.equalsIgnoreCase(j.getFirstName())){
                     studentFound = true;
                     foundStudent = j;
                 }
@@ -321,12 +300,12 @@ private void doStudentReviewMenu(Employer employer) {
         }
     }
     if(foundStudent == null) {
-        employerScanner.close();
+        employScanner.close();
         return;
     }
     boolean keepLooping = true;
     while (keepLooping) {
-        int employerInput = employerScanner.nextInt();
+        int employerInput = employScanner.nextInt();
         System.out.println("Would you like to (1) create a review (2) edit a review or (0) quit");
         switch (employerInput) {
             case 1:
@@ -345,29 +324,26 @@ private void doStudentReviewMenu(Employer employer) {
         }
 
     }
-    employerScanner.close();
 }
 
 
 private void createNewReview(Student foundStudent, Employer employer) {
     Builder newReview = new Review.Builder();
-    Scanner employerScanner = new Scanner(System.in);
     System.out.println("What do you rate" + foundStudent.getFirstName());
-    Integer rating = employerScanner.nextInt();
+    Integer rating = employScanner.nextInt();
     newReview.rating(rating);
     System.out.println("What would you like to comment?");
-    String comment = employerScanner.nextLine();
+    String comment = employScanner.nextLine();
     newReview.comment(comment);
     newReview.reviewer(foundStudent);
     newReview.reviewee(employer);
     ReviewDatabase.getInstance().addReview(newReview.build());
-    employerScanner.close();
+    employScanner.close();
     // for testing
     //System.out.println(newReview.build());
 }
 
 private void editReview(Student foundStudent) {
-        Scanner employerScanner = new Scanner(System.in);
         ReviewDatabase reviewDatabase = ReviewDatabase.getInstance();
         ArrayList <Review> selfReviews = reviewDatabase.getReviewsByReviewee(foundStudent);
 
@@ -377,10 +353,10 @@ private void editReview(Student foundStudent) {
         }
         System.out.println("Please Select a Review from the list");
         
-        int reviewInput = employerScanner.nextInt();
+        int reviewInput = employScanner.nextInt();
         if(reviewInput<=0 || reviewInput >= selfReviews.size()-1) {
             System.out.println("ERROR: Out of range");
-            employerScanner.close();
+            employScanner.close();
             return;
         }
         Review chosenReview = selfReviews.get(reviewInput-1);
@@ -393,23 +369,23 @@ private void editReview(Student foundStudent) {
         System.out.println("0) Exit");
         boolean keepLooping = true;
         while(keepLooping) {
-            reviewInput = employerScanner.nextInt();
+            reviewInput = employScanner.nextInt();
             switch (reviewInput) {
                 case 1:
-                    int rating = employerScanner.nextInt();
+                    int rating = employScanner.nextInt();
                     chosenReview.setRating(rating);
                     break;
                 case 2:
-                    String comment = employerScanner.nextLine();
+                    String comment = employScanner.nextLine();
                     chosenReview.setCommment(comment);
                     break;
                 case 0: 
                     System.out.println("Exiting Review Mode");
-                    employerScanner.close();
+                    employScanner.close();
                     return;
             }
         }
-        employerScanner.close();
+        employScanner.close();
         System.out.print("\033[H\033[2J");  
         System.out.flush(); 
     }
