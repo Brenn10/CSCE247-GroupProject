@@ -77,7 +77,7 @@ private void reviewMenuProfessor(Professor professor) {
 public void ReviewStudent(Professor professor) {
     User student;
     Review review = null;
-    displayStudents(professor);
+    displayAllStudents();
     student = selectStudent();
     review  = addingreview(student, professor);
     ReviewDatabase.getInstance().addReview(review);
@@ -119,6 +119,11 @@ public void displayStudents(Professor professor) {
         System.out.println("Student Name: ");
         System.out.println(i.getReviewee().getFullName());
     }
+}
+public void displayAllStudents() {
+    ArrayList<Student> students = UserDatabase.getInstance().getStudents();
+        for (Student student : students)
+            System.out.println(student);
 }
 public User selectStudent() { 
     String studentname = "";
