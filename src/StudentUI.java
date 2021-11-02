@@ -119,7 +119,7 @@ public class StudentUI {
         }
         System.out.println("Job Postings:");
         for(int i = 1; i <= jobPostings.size(); i++) {
-            while(!jobPostings.get(i-1).getApplicants().contains(student)) {
+            while(jobPostings.size() > 0 && !jobPostings.get(i-1).getApplicants().contains(student)) {
                 jobPostings.remove(i-1);
             }
 

@@ -16,7 +16,7 @@ import enums.JobPostingStatus;
 import database.JobPostingDatabase;
 
 public class EmployerUI {
-
+    Scanner employScanner;
     /**
      * employer
      * 
@@ -28,7 +28,7 @@ public class EmployerUI {
      * View Reviews (of self to all stu)
      */
     public void doMainMenu(Employer employer) {  
-        Scanner input = new Scanner (System.in);
+        employScanner = new Scanner(System.in);
         System.out.println("Welcome Employer " + employer.getFirstName() + " " + employer.getLastName());
 
         boolean doLoop = true;
@@ -37,24 +37,27 @@ public class EmployerUI {
             System.out.println("(1) Enter Job Edit Mode");
             System.out.println("(2) Enter Student Review Mode");
             System.out.println("(0) Exit Neurotic Job Search");
-            switch(input.nextInt()) {
+            switch(employScanner.nextInt()) {
                 case 1:
                     doJobEditMenu(employer);
+                    employScanner.close();
                     break;
                 case 2:
                     doStudentReviewMenu(employer);
+                    employScanner.close();
                     break;
                 case 0:
                     doLoop = false;
                     break;
                 default:
                     System.out.println("Invalid Option");
+                    employScanner.close();
                     break;
             }
         }
-        input.close();
         System.out.print("\033[H\033[2J");  
         System.out.flush(); 
+        employScanner.close();
     }
 
     private void doJobEditMenu(Employer employer) {
