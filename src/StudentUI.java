@@ -119,7 +119,7 @@ public class StudentUI {
         }
         System.out.println("Job Postings:");
         for(int i = 1; i <= jobPostings.size(); i++) {
-            while(jobPostings.size() > 0 && !jobPostings.get(i-1).getApplicants().contains(student)) {
+            while(jobPostings.size() > 1 && !jobPostings.get(i-1).getApplicants().contains(student)) {
                 jobPostings.remove(i-1);
             }
 
@@ -127,6 +127,12 @@ public class StudentUI {
         }
         System.out.print("Enter the number of the job you would like to apply to: ");
         int option = Integer.parseInt(scanner.nextLine());
+        if(!keyword.equals("")) {
+            jobPostings = JobPostingDatabase.getInstance().getOpenPostingByRequirement(keyword);
+
+        } else {
+            jobPostings = JobPostingDatabase.getInstance().getOpenPostings();
+        }
         if(option < 0 || option >= jobPostings.size()) {
             System.out.println("Invalid option");
             return;
