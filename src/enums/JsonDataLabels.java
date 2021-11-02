@@ -1,4 +1,10 @@
 package enums;
+
+/**
+ * JSONDataLabels enums all that can be labeled in the JSON files
+ * 
+ * @author Brennan Cain
+ */
 public class JsonDataLabels {
     public static final String REMOVED = "removed";
 
@@ -26,7 +32,7 @@ public class JsonDataLabels {
 
     public static final String EMPLOYER_COMPANY = "company";
     public static final String EMPLOYER_AVERAGERATING = "averageRating";
-    
+
     public static final String REVIEW_ID = "id";
     public static final String REVIEW_REVIEWEE = "reviewee";
     public static final String REVIEW_REVIEWER = "reviewer";
