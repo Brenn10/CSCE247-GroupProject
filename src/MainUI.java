@@ -1,4 +1,9 @@
-
+/**
+ * Hosts the main interface for users to interact with Neurotic Job Search
+ * Allows users to login and signup, and directs the user to the correct interface
+ * based upon what type of account they have
+ * @author Brennan Cain, Robert Sturman
+ */
 import java.util.Scanner;
 
 import dataTypes.Admin;
@@ -13,7 +18,9 @@ public class MainUI {
     public MainUI() {
         scanner = new Scanner(System.in);
     }
-
+    /**
+     * Creates a main menu interface for users to get into the system
+     */
     public void doMainMenu() {
         JobSystem.getInstance().loadData();
 
@@ -41,7 +48,9 @@ public class MainUI {
 
         JobSystem.getInstance().saveData();
     }
-
+    /**
+     * Matches a user to their login info, and sends them to the correct Interface
+     */
     public void doLogin() {
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
@@ -63,7 +72,10 @@ public class MainUI {
             System.out.println("Invalid user type.");
         }
     }
-
+    /**
+     * Creates a new user based on input, and makes sure they are sent to the correct
+     * interface
+     */
     public void doSignup() {
         System.out.println("Are you an...\n");
         System.out.println("1) Student");

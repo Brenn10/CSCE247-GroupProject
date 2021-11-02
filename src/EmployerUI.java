@@ -1,10 +1,13 @@
-
+/**
+ * Hosts all items pertaining to Employer interaction with the 
+ * Neurotic Job Search, including
+ * Creating Job Postings, Edit Job Postings, Reviewing Students
+ * Viewing Job Postings, Viewing Reviews From Self
+ * @author Robert Sturman
+ */
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//import javax.swing.JOptionPane;
-
-//import dataTypes.User;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
 import dataTypes.Review;
@@ -17,19 +20,14 @@ import database.JobPostingDatabase;
 
 public class EmployerUI {
     Scanner employScanner;
-    /**
-     * employer
-     * 
-     * Create Job Posting
-     * Edit Job P
-     * View Job P
-     * Review Student
-     * Edit Review
-     * View Reviews (of self to all stu)
-     */
+
     public EmployerUI() {
         employScanner = new Scanner(System.in);
     }
+    /**
+     * Creates a main menu Interface for the user to interact with
+     * @param employer
+     */
     public void doMainMenu(Employer employer) {  
         System.out.println("Welcome Employer " + employer.getFirstName() + " " + employer.getLastName());
 
@@ -56,6 +54,10 @@ public class EmployerUI {
         }
         //employScanner.close();
     }
+    /**
+     * Creates a menu for the employer to navigate through their Job Postings
+     * @param employer
+     */
     private void doJobEditMenu(Employer employer) {
         System.out.println("Here are your current Job Postings: ");
         if (employer.getPostings()!=null) {
@@ -83,6 +85,10 @@ public class EmployerUI {
                 return;
             }
     }
+/**
+ * Allows the employer to edit any of their existing Job Postings
+ * @param employer
+ */
 private void editJob(Employer employer) {
     if (employer.getPostings() == null) {
         System.out.println("Sorry, there are no jobs to edit!");
@@ -199,6 +205,10 @@ private void editJob(Employer employer) {
         }
     }
 }
+/**
+ * Prints target job from the employer's posted jobs
+ * @param employer
+ */
 private void viewJob (Employer employer) {
     if (employer.getPostings() == null) {
         System.out.println("Sorry, there are no jobs to review!");
@@ -218,6 +228,10 @@ private void viewJob (Employer employer) {
         System.out.println(i);
     }
 }
+/**
+ * Creates a new job postings based on user input
+ * @param employer
+ */
 private void makeJob (Employer employer) {
     dataTypes.JobPosting.Builder newJob = new JobPosting.Builder();
     System.out.println("Title");
@@ -268,7 +282,11 @@ private void makeJob (Employer employer) {
     JobPostingDatabase.getInstance().addPosting(newJob.build());
 }
 
-
+/**
+ * Creates a menu for the employer to edit any of the students that have applied 
+ * to their job postings
+ * @param employer
+ */
 private void doStudentReviewMenu(Employer employer) {
     if (employer.getPostings() == null) {
         System.out.println("Sorry, you have no postings to review students from!");
@@ -326,7 +344,11 @@ private void doStudentReviewMenu(Employer employer) {
     }
 }
 
-
+/**
+ * Creates a new review for a student from an employer
+ * @param foundStudent
+ * @param employer
+ */
 private void createNewReview(Student foundStudent, Employer employer) {
     Builder newReview = new Review.Builder();
     System.out.println("What do you rate" + foundStudent.getFirstName());
@@ -342,7 +364,10 @@ private void createNewReview(Student foundStudent, Employer employer) {
     // for testing
     //System.out.println(newReview.build());
 }
-
+/**
+ * Allows the user to edit a student's review
+ * @param foundStudent
+ */
 private void editReview(Student foundStudent) {
         ReviewDatabase reviewDatabase = ReviewDatabase.getInstance();
         ArrayList <Review> selfReviews = reviewDatabase.getReviewsByReviewee(foundStudent);

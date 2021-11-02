@@ -1,3 +1,9 @@
+/**
+ * Facilitates all information going to/from the data readers/writers
+ * to verify user inputs throughout the program
+ * @author Brennan Cain
+ */
+
 import dataTypes.User;
 import database.Database;
 import database.JsonDataReader;
