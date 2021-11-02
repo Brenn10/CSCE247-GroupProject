@@ -117,7 +117,6 @@ public class Database {
      * @return ArrayList of all of the postings
      */
     public ArrayList<JobPosting> getPostings() {
-        ArrayList<JobPosting> postings = Database.getInstance().getJobPostings();
         ArrayList<JobPosting> toReturn = new ArrayList<JobPosting>();
         for (JobPosting posting : postings)
             if (!posting.isRemoved())
@@ -132,7 +131,7 @@ public class Database {
      */
     public ArrayList<JobPosting> getRemovedPostings() {
         ArrayList<JobPosting> removedPostings = new ArrayList<JobPosting>();
-        for (JobPosting posting : Database.getInstance().getJobPostings()) {
+        for (JobPosting posting : postings) {
             if (posting.isRemoved())
                 removedPostings.add(posting);
         }
@@ -148,7 +147,7 @@ public class Database {
      */
     public JobPosting getPostingByEmployerAndTitle(String employerUser, String title) {
 
-        for (JobPosting posting : Database.getInstance().getJobPostings()) {
+        for (JobPosting posting : postings) {
             if (posting.getEmployer().getUsername().equals(employerUser) && posting.getJobTitle().equals(title))
                 return posting;
         }
@@ -163,7 +162,7 @@ public class Database {
      */
     public ArrayList<JobPosting> getPostingsByStudent(Student student) {
         ArrayList<JobPosting> applications = new ArrayList<JobPosting>();
-        for (JobPosting posting : Database.getInstance().getJobPostings()) {
+        for (JobPosting posting : postings) {
             if (posting.getApplicants().contains(student) && !posting.isRemoved())
                 applications.add(posting);
         }
@@ -178,7 +177,7 @@ public class Database {
      */
     public ArrayList<JobPosting> getPostingsByEmployer(Employer employer) {
         ArrayList<JobPosting> returnPostings = new ArrayList<JobPosting>();
-        for (JobPosting posting : Database.getInstance().getJobPostings()) {
+        for (JobPosting posting : postings) {
             if (posting.getEmployer().equals(employer))
                 ; // TODO implement equals
             returnPostings.add(posting);
@@ -193,7 +192,7 @@ public class Database {
      */
     public ArrayList<JobPosting> getOpenPostings() {
         ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
-        for (JobPosting posting : Database.getInstance().getJobPostings()) {
+        for (JobPosting posting : postings) {
             if (!posting.isRemoved())
                 openPostings.add(posting);
         }
@@ -209,7 +208,7 @@ public class Database {
      */
     public ArrayList<JobPosting> getOpenPostingByRequirement(String requirement) {
         ArrayList<JobPosting> openPostings = new ArrayList<JobPosting>();
-        for (JobPosting posting : Database.getInstance().getJobPostings()) {
+        for (JobPosting posting : postings) {
             if (!posting.isRemoved()) {
                 for (String postDetail : posting.getRequirements()) {
                     if (postDetail.toLowerCase().contains(requirement.toLowerCase())) {
@@ -229,7 +228,7 @@ public class Database {
      * @param review the review to be added
      */
     public void addReview(Review review) {
-        Database.getInstance().getReviews().add(review);
+        reviews.add(review);
     }
 
     /**
@@ -248,7 +247,6 @@ public class Database {
      * @return ArrayList of all Reviews
      */
     public ArrayList<Review> getReviews() {
-        ArrayList<Review> reviews = Database.getInstance().getReviews();
         ArrayList<Review> toReturn = new ArrayList<Review>();
         for (Review review : reviews)
             if (!review.isRemoved())
@@ -263,7 +261,7 @@ public class Database {
      */
     public ArrayList<Review> getRemovedReviews() {
         ArrayList<Review> removedReviews = new ArrayList<>();
-        for (Review review : Database.getInstance().getReviews()) {
+        for (Review review : reviews) {
             if (review.isRemoved())
                 removedReviews.add(review);
         }
@@ -277,7 +275,7 @@ public class Database {
      * @return the review made by said user
      */
     public Review getReviewByReviewer(User user) {
-        for (Review review : Database.getInstance().getReviews()) {
+        for (Review review : reviews) {
             if (review.getReviewer().getUsername().equals(user.getUsername()))
                 return review;
         }
@@ -291,7 +289,7 @@ public class Database {
      * @return the review of said user
      */
     public Review getReviewByReviewee(User user) {
-        for (Review review : Database.getInstance().getReviews()) {
+        for (Review review : reviews) {
             if (review.getReviewee().getUsername().equals(user.getUsername()))
                 return review;
         }
@@ -306,7 +304,7 @@ public class Database {
      * @return The review made by reviewer about reviewee
      */
     public Review getReviewByRevieweeAndReviewer(String reviewerUser, String revieweeUser) {
-        for (Review review : Database.getInstance().getReviews()) {
+        for (Review review : reviews) {
             if (review.getReviewer().getUsername().equals(reviewerUser)
                     && review.getReviewee().getUsername().equals(revieweeUser))
                 return review;
@@ -322,7 +320,7 @@ public class Database {
      */
     public ArrayList<Review> getReviewsByReviewee(User user) {
         ArrayList<Review> reviewsByReviewee = new ArrayList<Review>();
-        for (Review review : Database.getInstance().getReviews()) {
+        for (Review review : reviews) {
             if (review.getReviewee().equals(user) && !review.isRemoved())
                 reviewsByReviewee.add(review);
         }
@@ -337,7 +335,7 @@ public class Database {
      */
     public ArrayList<Review> getReviewsByReviewer(User user) {
         ArrayList<Review> reviewsByReviewer = new ArrayList<Review>();
-        for (Review review : Database.getInstance().getReviews()) {
+        for (Review review : reviews) {
             if (review.getReviewer().equals(user) && !review.isRemoved())
                 reviewsByReviewer.add(review);
         }
@@ -350,7 +348,7 @@ public class Database {
      * @return ArrayList of all Users
      */
     public ArrayList<User> getUsers() {
-        return Database.getInstance().getUsers();
+        return users;
     }
 
     /**
@@ -360,7 +358,7 @@ public class Database {
      */
     public ArrayList<Student> getStudents() {
         ArrayList<Student> students = new ArrayList<Student>();
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user instanceof Student) {
                 Student student = (Student) user;
                 if (!student.isRemoved())
@@ -377,7 +375,7 @@ public class Database {
      */
     public ArrayList<Employer> getEmployers() {
         ArrayList<Employer> employers = new ArrayList<Employer>();
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user instanceof Employer) {
                 Employer employer = (Employer) user;
                 if (!employer.isRemoved())
@@ -394,7 +392,7 @@ public class Database {
      */
     public ArrayList<Professor> getProfessor() {
         ArrayList<Professor> professors = new ArrayList<Professor>();
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user instanceof Professor) {
                 Professor professor = (Professor) user;
                 if (!professor.isRemoved())
@@ -411,7 +409,7 @@ public class Database {
      */
     public ArrayList<Admin> getAdmin() {
         ArrayList<Admin> admins = new ArrayList<Admin>();
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user instanceof Admin) {
                 Admin admin = (Admin) user;
                 admins.add(admin);
@@ -427,7 +425,7 @@ public class Database {
      */
     public ArrayList<User> getUnapprovedUsers() {
         ArrayList<User> unapprovedUsers = new ArrayList<User>();
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (!user.isApproved())
                 unapprovedUsers.add(user);
         }
@@ -451,7 +449,7 @@ public class Database {
      */
     public ArrayList<User> getRemovedUsers() {
         ArrayList<User> removedUsers = new ArrayList<User>();
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user.isRemoved())
                 removedUsers.add(user);
         }
@@ -465,7 +463,7 @@ public class Database {
      * @param user
      */
     public void addUser(User user) {
-        Database.getInstance().getUsers().add(user);
+        users.add(user);
     }
 
     /**
@@ -475,7 +473,7 @@ public class Database {
      * @return the User with that username
      */
     public User findByUsername(String username) {
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             Logger.getInstance().log("UserDatabase.findByUsername: " + user.getUsername());
             if (user.getUsername().equalsIgnoreCase(username)) {
                 Logger.getInstance().log("UserDatabase.findByUsername: " + user.getUsername() + " found");
@@ -492,7 +490,7 @@ public class Database {
      * @return the user with that name
      */
     public User findByName(String name) {
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user.getFullName().equalsIgnoreCase(name))
                 return user;
         }
@@ -506,7 +504,7 @@ public class Database {
      * @return the user with that email
      */
     public User getUserByEmail(String email) {
-        for (User user : Database.getInstance().getUsers()) {
+        for (User user : users) {
             if (user.getEmail().equalsIgnoreCase(email))
                 return user;
         }
