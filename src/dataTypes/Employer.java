@@ -19,10 +19,7 @@ public class Employer extends User {
         super(id, username, password, email, firstName, lastName, approved, removed);
         this.company = company;
         this.averageRating = averageRating;
-        //getCurrentPostings();
-    }
-    public void getCurrentPostings() {
-        this.postings = JobPostingDatabase.getInstance().getPostingsByEmployer(this);
+        
     }
 
     public void makePosting(JobPosting job) {
@@ -79,6 +76,7 @@ public class Employer extends User {
     }
 
     public ArrayList<JobPosting> getPostings() {
+        this.postings = JobPostingDatabase.getInstance().getPostingsByEmployer(this);
         return this.postings;
     }
 

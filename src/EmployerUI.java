@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 //import dataTypes.User;
 import dataTypes.Employer;
@@ -27,8 +27,7 @@ public class EmployerUI {
      * Edit Review
      * View Reviews (of self to all stu)
      */
-    public void doMainMenu(Employer employer) {
-        employer.getCurrentPostings();
+    public void doMainMenu(Employer employer) {  
         Scanner input = new Scanner (System.in);
         System.out.println("Welcome Employer " + employer.getFirstName() + " " + employer.getLastName());
 
@@ -211,6 +210,7 @@ private void viewJob (Employer employer) {
     Scanner employScanner = new Scanner (System.in);
     if (employer.getPostings() == null) {
         System.out.println("Sorry, there are no jobs to review!");
+        employScanner.close();
         return;
     }
     ArrayList<JobPosting> allPostings = JobPostingDatabase.getInstance().getPostingsByEmployer(employer);
