@@ -92,7 +92,7 @@ private void reviewMenuProfessor(Professor professor) {
  * takes in current professor and adds the a new review to an existing student.
  * @param professor
  */
-public void ReviewStudent(Professor professor) {
+private void ReviewStudent(Professor professor) {
     User student;
     Review review = null;
     displayAllStudents();
@@ -104,7 +104,7 @@ public void ReviewStudent(Professor professor) {
  * takes in the current professor to select a previously reviewed student and make changes to the sutdent
  * @param professor
  */
-public void editReviewStudent(Professor professor) { 
+private void editReviewStudent(Professor professor) { 
     User student;
     Review review = null;
     displayStudents(professor);
@@ -121,7 +121,7 @@ public void editReviewStudent(Professor professor) {
  * @param professor the current professor
  * @return a review that been removed
  */
-public Review removeReview(User student, Professor professor) {
+private Review removeReview(User student, Professor professor) {
     Review review = null;
     String prof = "";
     String stu = "";
@@ -134,7 +134,7 @@ public Review removeReview(User student, Professor professor) {
  * Takes in current professor to remove a student review made by the professor
  * @param professor
  */
-public void ReviewStudentRemove(Professor professor) {
+private void ReviewStudentRemove(Professor professor) {
     User student;
     Review review = null;
     displayStudents(professor);
@@ -147,7 +147,7 @@ public void ReviewStudentRemove(Professor professor) {
  * Takes in the current professor to display Students reviewed by them
  * @param professor
  */
-public void displayStudents(Professor professor) {
+private void displayStudents(Professor professor) {
     for (Review i: professor.getStudentReviewed(professor)) {
         System.out.println("Student Name: ");
         System.out.println(i.getReviewee().getFullName());
@@ -156,7 +156,7 @@ public void displayStudents(Professor professor) {
 /**
  * Displays all students available
  */
-public void displayAllStudents() {
+private void displayAllStudents() {
     ArrayList<Student> students = UserDatabase.getInstance().getStudents();
         for (Student student : students)
             System.out.println(student);
@@ -165,7 +165,7 @@ public void displayAllStudents() {
  * selecting a student and returning the student selected.
  * @return
  */
-public User selectStudent() { 
+private User selectStudent() { 
     String studentname = "";
     User student;
     Scanner input = new Scanner (System.in);
@@ -184,7 +184,7 @@ public User selectStudent() {
  * @param professor
  * @return
  */
-public Review addingreview(User student, Professor professor) {
+private Review addingreview(User student, Professor professor) {
     String comment = "";
     int rating = 0;
     Review review = null;
