@@ -179,8 +179,7 @@ public class Database {
         ArrayList<JobPosting> returnPostings = new ArrayList<JobPosting>();
         for (JobPosting posting : postings) {
             if (posting.getEmployer().equals(employer))
-                ; // TODO implement equals
-            returnPostings.add(posting);
+                returnPostings.add(posting);
         }
         return returnPostings;
     }
