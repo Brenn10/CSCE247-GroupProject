@@ -3,9 +3,12 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -20,6 +23,7 @@ import enums.Major;
 import java.util.ArrayList;
 import java.util.UUID;
 
+@TestInstance
 class DatabaseTest {
 
     ArrayList<User> users;
@@ -40,16 +44,15 @@ class DatabaseTest {
         writer.write(users, reviews, postings);
     }
 
-    /*
-     * @BeforeEach public void individualSetUp() {
-     * 
-     * }
-     * 
-     * @AfterEach public void individualTearDown() {
-     * 
-     * }
-     */
+    @BeforeEach
+    public void individualSetUp() {
 
+    }
+    @AfterEach 
+    public void individualTearDown() {
+
+    }
+    
     @Test
     void getInstanceIfInstanceIsNull() {
         Database database = Database.getInstance();
