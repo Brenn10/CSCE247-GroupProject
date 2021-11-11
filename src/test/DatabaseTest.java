@@ -3,18 +3,21 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+import dataTypes.Admin;
 import dataTypes.Employer;
 import dataTypes.JobPosting;
+import dataTypes.Professor;
 import dataTypes.Review;
 import dataTypes.Student;
 import dataTypes.User;
 import database.Database;
+import database.JsonDataReader;
 import database.JsonDataWriter;
 import enums.JobPostingStatus;
 import enums.Major;
@@ -24,34 +27,37 @@ import java.util.UUID;
 
 public class DatabaseTest {
 
-    ArrayList<User> users;
-    ArrayList<Review> reviews;
-    ArrayList<JobPosting> postings;
-    JsonDataWriter writer = new JsonDataWriter("data/Administrators.json", "data/Students.json", "data/Employers.json",
-            "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+    static ArrayList<User> users;
+    static ArrayList<Review> reviews;
+    static ArrayList<JobPosting> postings;
+    static JsonDataWriter writer = new JsonDataWriter("data/Administrators.json", "data/Students.json",
+            "data/Employers.json", "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+    static JsonDataReader reader = new JsonDataReader("data/Administrators.json", "data/Students.json",
+            "data/Employers.json", "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
 
     @BeforeAll
-    public void setUp() {
-        Database.getInstance().loadFromFile(); // get what is currently stored in Database
+    public static void setUp() {
+        Database.getInstance().setDataReader(reader);
+        Database.getInstance().setDataWriter(writer);
+        Database.getInstance().loadFromFile(); // get what is currently stored in
         users = Database.getInstance().getUsers();
         reviews = Database.getInstance().getReviews();
         postings = Database.getInstance().getPostings();
     }
 
     @AfterAll
-    public void tearDown() {
+    public static void tearDown() {
         writer.write(users, reviews, postings);
         // gets rid of anything I may have added to the database
     }
 
     @BeforeEach
-    public void beforeEach() {
-        // intentionally empty
+    public void individualSetUp() {
+        Database.getInstance().loadFromFile();
     }
 
     @AfterEach
-    public void afterEach() {
-        // intentionally empty
+    public void individualTearDown() {
     }
 
     @Test
@@ -67,7 +73,11 @@ public class DatabaseTest {
         assertNotNull(database);
     }
 
-    // TODO tests for load from file and write to file
+    /**
+     * I did not test load from file/write to file because these methods are used in
+     * my set up/ tear down methods and testing them would be pointless (they have
+     * to work for the test BeforeAll/BeforeEach/AfterAll/AfterEach to work)
+     */
 
     // Testing add methods
     @Test
@@ -95,7 +105,7 @@ public class DatabaseTest {
                 noNull = false;
         }
         assertTrue(noNull);
-    }
+    } // FAILS because addPosting does not check for null value
 
     @Test
     void addReviewNotNull() {
@@ -150,8 +160,8 @@ public class DatabaseTest {
                 noNull = false;
         }
         assertTrue(noNull);
-    }
-    // end testing add methods
+    } // FAILS because addUser does not check for null value
+      // end testing add methods
 
     // testing remove methods
     @Test
@@ -217,12 +227,13 @@ public class DatabaseTest {
         Database.getInstance().getUsers().add(user);
         Database.getInstance().removeUser(user);
         ArrayList<User> users = Database.getInstance().getUsers();
-        boolean found = false;
+        boolean removed = false;
         for (User us : users) {
-            if (us.equals(user))
-                found = true;
+            if (user.equals(us))
+                if (user.isRemoved())
+                    removed = true;
         }
-        assertFalse(found);
+        assertTrue(removed);
     }
 
     @Test
@@ -234,7 +245,7 @@ public class DatabaseTest {
         ArrayList<User> users = Database.getInstance().getUsers();
         boolean found = false;
         for (User us : users) {
-            if (us.equals(user))
+            if (user.equals(us))
                 found = true;
         }
         assertFalse(found);
@@ -282,8 +293,8 @@ public class DatabaseTest {
 
     @Test
     void getPostingByEmployerThatExists() {
-        JobPosting post = Database.getInstance().getPostings().get(0);
-        Employer employer = post.getEmployer();
+        JobPosting posting = Database.getInstance().getJobPostings().get(0);
+        Employer employer = posting.getEmployer();
         ArrayList<JobPosting> postings = Database.getInstance().getPostingsByEmployer(employer);
         assertNotNull(postings);
     }
@@ -292,7 +303,7 @@ public class DatabaseTest {
     void getPostingByEmployerThatDoesNotExists() {
         Employer employer = new Employer(UUID.randomUUID(), "", "", "", "", "", false, "", 0, true);
         ArrayList<JobPosting> postings = Database.getInstance().getPostingsByEmployer(employer);
-        assertNotEquals(postings.size(), 0);
+        assertTrue(postings.size() == 0);
     }
 
     @Test
@@ -314,11 +325,42 @@ public class DatabaseTest {
         ArrayList<JobPosting> postings = Database.getInstance().getOpenPostingByRequirement("7390185972");
         assertEquals(postings.size(), 0);
     }
+
+    @Test
+    void getRemovedPostings() {
+        JobPosting removedPosting = new JobPosting(UUID.randomUUID(), null, "", "", null, 0, JobPostingStatus.OPEN,
+                null, true);
+        Database.getInstance().getJobPostings().add(removedPosting);
+        ArrayList<JobPosting> removedPostings = Database.getInstance().getRemovedPostings();
+        boolean found = false;
+        for (JobPosting post : removedPostings)
+            if (post.equals(removedPosting))
+                found = true;
+        assertTrue(found);
+    }
+
+    @Test
+    void getOpenPostings() {
+        JobPosting openPosting = new JobPosting(UUID.randomUUID(), null, "", "", null, 0, JobPostingStatus.OPEN, null,
+                false);
+        Database.getInstance().getJobPostings().add(openPosting);
+        ArrayList<JobPosting> openPostings = Database.getInstance().getOpenPostings();
+        boolean found = false;
+        for (JobPosting post : openPostings)
+            if (post.equals(openPosting))
+                found = true;
+        assertTrue(found);
+    }
     // end testing get posting methods
 
     /*
-     * TODO can we get rid of get review by reviewer that returns only one review??
-     * and vise versa
+     * I opted not to test the getReviewByReviwer/byReviewee that only returns a
+     * single Review I believe these methods should have been removed from the
+     * original project as they are unused and kind of pointless (because they only
+     * return one review, it just would return the first review made by/about the
+     * specified user, which would never be necessary)
+     * 
+     * @author Stella Garcia
      */
 
     // testing get reviews methods
@@ -373,7 +415,7 @@ public class DatabaseTest {
     void getReviewByReviewerThatExists() {
         Review review = Database.getInstance().getReviews().get(0);
         User reviewer = review.getReviewer();
-        ArrayList<Review> reviews = Database.getInstance().getReviewsByReviewee(reviewer);
+        ArrayList<Review> reviews = Database.getInstance().getReviewsByReviewer(reviewer);
         boolean correct = true;
         for (Review rev : reviews)
             if (!rev.getReviewer().equals(reviewer))
@@ -387,8 +429,98 @@ public class DatabaseTest {
         ArrayList<Review> reviews = Database.getInstance().getReviewsByReviewer(reviewer);
         assertEquals(reviews.size(), 0);
     }
+
+    @Test
+    void getRemovedReviews() {
+        Review removedReview = new Review(UUID.randomUUID(), null, null, 0, "", true);
+        Database.getInstance().addReview(removedReview);
+        ArrayList<Review> removedReviews = Database.getInstance().getRemovedReviews();
+        boolean found = false;
+        for (Review review : removedReviews)
+            if (review.equals(removedReview))
+                found = true;
+        assertTrue(found);
+    }
     // end testing get reviews method
 
+    // testing get user methods
+    @Test
+    void getUnapprovedUsers() {
+        User user = new Student(UUID.randomUUID(), "", "", "", "", "", false, Major.NA, false, null, null, null, 0,
+                false);
+        Database.getInstance().addUser(user);
+        ArrayList<User> unapproved = Database.getInstance().getUnapprovedUsers();
+        boolean found = false;
+        for (User us : unapproved)
+            if (us.equals(user))
+                found = true;
+        assertTrue(found);
+    }
+
+    @Test
+    void getRemovedUsers() {
+        User removedUser = new Student(UUID.randomUUID(), "", "", "", "", "", true, Major.NA, true, null, null, null, 0,
+                true);
+        Database.getInstance().addUser(removedUser);
+        ArrayList<User> removedUsers = Database.getInstance().getRemovedUsers();
+        boolean found = false;
+        for (User us : removedUsers)
+            if (us.equals(removedUser))
+                found = true;
+        assertTrue(found);
+    } // FAILS does not return all removed users
+
+    @Test
+    void getAdmin() {
+        Admin admin = new Admin(UUID.randomUUID(), "", "", "", "", "", true);
+        Database.getInstance().addUser(admin);
+        ArrayList<Admin> users = Database.getInstance().getAdmin();
+        boolean found = false;
+        for (Admin ad : users)
+            if (ad.equals(admin))
+                found = true;
+        assertTrue(found);
+    }
+
+    @Test
+    void getStudents() {
+        Student student = new Student(UUID.randomUUID(), "", "", "", "", "", false, Major.NA, false, null, null, null,
+                0, true);
+        Database.getInstance().addUser(student);
+        ArrayList<Student> users = Database.getInstance().getStudents();
+        boolean found = false;
+        for (Student stud : users)
+            if (stud.equals(student))
+                found = true;
+        assertTrue(found);
+    }
+
+    @Test
+    void getEmployers() {
+        Employer employer = new Employer(UUID.randomUUID(), "", "", "", "", "", false, "", 0, true);
+        Database.getInstance().addUser(employer);
+        ArrayList<Employer> users = Database.getInstance().getEmployers();
+        boolean found = false;
+        for (Employer emp : users)
+            if (emp.equals(employer))
+                found = true;
+        assertTrue(found);
+    }
+
+    @Test
+    void getProfessors() {
+        Professor professor = new Professor(UUID.randomUUID(), "", "", "", "", "", true, false);
+        Database.getInstance().addUser(professor);
+        ArrayList<Professor> users = Database.getInstance().getProfessor();
+        boolean found = false;
+        for (Professor prof : users)
+            if (prof.equals(professor))
+                found = true;
+        assertTrue(found);
+    }
+
+    // end testing get user methods
+    // testing find user methods
     @Test
     void findUserByUsernameThatExists() {
         User user = Database.getInstance().getUsers().get(0);
@@ -396,7 +528,6 @@ public class DatabaseTest {
         assertEquals(user, Database.getInstance().findByUsername(username));
     }
 
-    // testing find user methods
     @Test
     void findUserByUsernameThatDoesNotExist() {
         assertNull(Database.getInstance().findByUsername(""));
@@ -406,7 +537,7 @@ public class DatabaseTest {
     void findUserByNameThatExists() {
         User user = Database.getInstance().getUsers().get(0);
         String name = user.getFullName();
-        assertEquals(user, Database.getInstance().findByUsername(name));
+        assertEquals(user, Database.getInstance().findByName(name));
     }
 
     @Test
@@ -427,9 +558,4 @@ public class DatabaseTest {
     }
     // end testing find user methods
 
-    /**
-     * TODO - getRemovedReviews? - getOpenPostings? - getRemovedPostngs? TODO
-     * getUnapprovedUsers, getAdmin (and other user types), getRemovedUsers
-     * 
-     */
 }
