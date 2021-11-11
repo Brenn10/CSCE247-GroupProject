@@ -31,31 +31,6 @@ public class Professor extends User {
     }
 
     /**
-     * Create a rating for a student
-     * 
-     * @param student the student they want to rate
-     * @param rating  the rating they are giving
-     * @param comment a comment about the student
-     */
-    public void rateStudent(Student student, int rating, String comment) {
-        Review reviewToAdd = new Review.Builder().reviewer(this).reviewee(student).rating(rating).comment(comment)
-                .build();
-        Database.getInstance().addReview(reviewToAdd);
-    }
-
-    /**
-     * Gets an array of all the student reviews they have left
-     * 
-     * @param user the reviewer
-     * @return ArrayList of reviews
-     */
-    public ArrayList<Review> getStudentReviewed(User user) {
-        ArrayList<Review> reviews = new ArrayList<Review>();
-        reviews = Database.getInstance().getReviewsByReviewer(user);
-        return reviews;
-    }
-
-    /**
      * Get method for all of the students the professor has reviewed
      * 
      * @return ArrayList of students

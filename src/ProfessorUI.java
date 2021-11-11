@@ -149,7 +149,7 @@ private void ReviewStudentRemove(Professor professor) {
  * @param professor
  */
 private void displayStudents(Professor professor) {
-    for (Review i: professor.getStudentReviewed(professor)) {
+    for (Review i: Database.getInstance().getReviewsByReviewer(professor)) {
         System.out.println("Student Name: ");
         System.out.println(i.getReviewee().getFullName());
     }
