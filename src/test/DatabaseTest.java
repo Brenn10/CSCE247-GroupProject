@@ -23,7 +23,6 @@ import enums.Major;
 import java.util.ArrayList;
 import java.util.UUID;
 
-@TestInstance
 class DatabaseTest {
 
     ArrayList<User> users;
