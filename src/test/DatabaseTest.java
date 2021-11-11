@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import dataTypes.Employer;
 import dataTypes.JobPosting;
@@ -20,7 +22,7 @@ import enums.Major;
 import java.util.ArrayList;
 import java.util.UUID;
 
-class DatabaseTest {
+public class DatabaseTest {
 
     ArrayList<User> users;
     ArrayList<Review> reviews;
@@ -30,6 +32,7 @@ class DatabaseTest {
 
     @BeforeAll
     public void setUp() {
+        Database.getInstance().loadFromFile(); // get what is currently stored in Database
         users = Database.getInstance().getUsers();
         reviews = Database.getInstance().getReviews();
         postings = Database.getInstance().getPostings();
@@ -38,17 +41,18 @@ class DatabaseTest {
     @AfterAll
     public void tearDown() {
         writer.write(users, reviews, postings);
+        // gets rid of anything I may have added to the database
     }
 
-    /*
-     * @BeforeEach public void individualSetUp() {
-     * 
-     * }
-     * 
-     * @AfterEach public void individualTearDown() {
-     * 
-     * }
-     */
+    @BeforeEach
+    public void beforeEach() {
+        // intentionally empty
+    }
+
+    @AfterEach
+    public void afterEach() {
+        // intentionally empty
+    }
 
     @Test
     void getInstanceIfInstanceIsNull() {
@@ -237,6 +241,7 @@ class DatabaseTest {
     }
     // end testing remove methods
 
+    // testing get posting methods
     @Test
     void getPostingByEmployerAndTitleThatExist() {
         JobPosting post = Database.getInstance().getPostings().get(0);
@@ -309,12 +314,14 @@ class DatabaseTest {
         ArrayList<JobPosting> postings = Database.getInstance().getOpenPostingByRequirement("7390185972");
         assertEquals(postings.size(), 0);
     }
+    // end testing get posting methods
 
     /*
      * TODO can we get rid of get review by reviewer that returns only one review??
      * and vise versa
      */
 
+    // testing get reviews methods
     @Test
     void getReviewByRevieweeAndReviewerThatExists() {
         Review review = Database.getInstance().getReviews().get(0);
@@ -380,6 +387,7 @@ class DatabaseTest {
         ArrayList<Review> reviews = Database.getInstance().getReviewsByReviewer(reviewer);
         assertEquals(reviews.size(), 0);
     }
+    // end testing get reviews method
 
     @Test
     void findUserByUsernameThatExists() {
@@ -388,6 +396,7 @@ class DatabaseTest {
         assertEquals(user, Database.getInstance().findByUsername(username));
     }
 
+    // testing find user methods
     @Test
     void findUserByUsernameThatDoesNotExist() {
         assertNull(Database.getInstance().findByUsername(""));
@@ -416,9 +425,10 @@ class DatabaseTest {
     void findUserByEmailThatDoesNotExist() {
         assertNull(Database.getInstance().getUserByEmail(""));
     }
+    // end testing find user methods
 
     /**
-     * TODO - getRemovedReviews? - getOpenPostings? - getRemovedPostngs?
+     * TODO - getRemovedReviews? - getOpenPostings? - getRemovedPostngs? TODO
      * getUnapprovedUsers, getAdmin (and other user types), getRemovedUsers
      * 
      */
