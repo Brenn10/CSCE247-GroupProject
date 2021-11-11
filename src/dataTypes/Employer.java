@@ -51,21 +51,6 @@ public class Employer extends User {
     }
 
     /**
-     * Make posting allows an employer to create a new job posting overloaded method
-     * 
-     * @param description  a description of the job
-     * @param requirements the requirements for the job ArrayList
-     * @param hourlyWage   the hourly wage of the job
-     * @param status       if the job is open, pending, or closed
-     * @param applicants   an ArrayList of student applicants
-     */
-    public void makePosting(String description, ArrayList<String> requirements, double hourlyWage,
-            JobPostingStatus status, ArrayList<Student> applicants) {
-        makePosting(new JobPosting.Builder().description(description).requirements(requirements).hourlyWage(hourlyWage)
-                .status(status).applicants(applicants).build());
-    }
-
-    /**
      * If the employer wants to change the description
      * 
      * @param job      the job they want to change
