@@ -171,13 +171,7 @@ public class Student extends User {
     public void setCreated(Boolean createdResume) {
         this.createdResume = createdResume;
     }
-    
-    /**
-     * Sets the reviews attached to this student to another list of reviews
-     */
-    public void setReviews(ArrayList<Review> reviews) {
 
-    }
     /**
      * Checks if the student has ben removed
      */
