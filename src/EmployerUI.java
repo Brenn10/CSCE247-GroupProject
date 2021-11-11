@@ -58,8 +58,8 @@ public class EmployerUI {
      */
     private void doJobEditMenu(Employer employer) {
         System.out.println("Here are your current Job Postings: ");
-        if (employer.getPostings()!=null) {
-            for(JobPosting i : employer.getPostings()) {
+        if (Database.getInstance().getPostingsByEmployer(employer)!=null) {
+            for(JobPosting i : Database.getInstance().getPostingsByEmployer(employer)) {
                 System.out.println(i.getJobTitle());
             }
         }
@@ -88,7 +88,7 @@ public class EmployerUI {
  * @param employer
  */
 private void editJob(Employer employer) {
-    if (employer.getPostings() == null) {
+    if (Database.getInstance().getPostingsByEmployer(employer) == null) {
         System.out.println("Sorry, there are no jobs to edit!");
         return;
     }
@@ -103,8 +103,8 @@ private void editJob(Employer employer) {
         employScanner.close();
         return;
        }
-       if(employer.getPostings() != null) {
-        for(JobPosting i : employer.getPostings()) {
+       if( Database.getInstance().getPostingsByEmployer(employer) != null) {
+        for(JobPosting i : Database.getInstance().getPostingsByEmployer(employer)) {
         if (i.getJobTitle().equals(selectedTitle)) {
             jobMatched = true;
             matchedJob = i;
@@ -208,7 +208,7 @@ private void editJob(Employer employer) {
  * @param employer
  */
 private void viewJob (Employer employer) {
-    if (employer.getPostings() == null) {
+    if (Database.getInstance().getPostingsByEmployer(employer) == null) {
         System.out.println("Sorry, there are no jobs to review!");
         return;
     }
@@ -286,11 +286,11 @@ private void makeJob (Employer employer) {
  * @param employer
  */
 private void doStudentReviewMenu(Employer employer) {
-    if (employer.getPostings() == null) {
+    if (Database.getInstance().getPostingsByEmployer(employer) == null) {
         System.out.println("Sorry, you have no postings to review students from!");
         return;
     }
-    for (JobPosting i : employer.getPostings()) {
+    for (JobPosting i : Database.getInstance().getPostingsByEmployer(employer)) {
         System.out.println("Job Posting: ");
         System.out.println(i.getJobTitle());
         for (Student j : i.getApplicants()) {
@@ -306,7 +306,7 @@ private void doStudentReviewMenu(Employer employer) {
             employScanner.close();
             return;
         }
-        for (JobPosting i : employer.getPostings()) {
+        for (JobPosting i : Database.getInstance().getPostingsByEmployer(employer)) {
             for (Student j : i.getApplicants()) {
                 if(studentName.equalsIgnoreCase(j.getFirstName())){
                     studentFound = true;

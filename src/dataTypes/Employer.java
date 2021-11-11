@@ -117,17 +117,6 @@ public class Employer extends User {
         return job.getApplicants();
     }
 
-    /**
-     * Employer has the option to rate a student
-     * 
-     * @param student the student they want to rate
-     * @param score   the score they want to give the student
-     * @param comment a comment about a student
-     */
-    public void rateStudent(Student student, int score, String comment) {
-        Review rating = new Review.Builder().reviewer(this).reviewee(student).rating(score).comment(comment).build();
-        Database.getInstance().addReview(rating);
-    }
 
     // get and set methods
 
@@ -140,23 +129,6 @@ public class Employer extends User {
         return this.company;
     }
 
-    /**
-     * Get method for postings
-     * 
-     * @return the ArrayList of postings
-     */
-    public ArrayList<JobPosting> getPostings() {
-        return Database.getInstance().getPostingsByEmployer(this);
-    }
-
-    /**
-     * Get method for reviews
-     * 
-     * @return the ArrayList of Reviews
-     */
-    public ArrayList<Review> getReviews() {
-        return Database.getInstance().getReviewsByReviewee(this);
-    }
 
     /**
      * Get method for averageRating
