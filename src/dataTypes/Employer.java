@@ -13,8 +13,6 @@ import enums.JobPostingStatus;
  */
 public class Employer extends User {
     private String company;
-    private ArrayList<JobPosting> postings;
-    private ArrayList<Review> reviews;
     private double averageRating;
     private boolean removed;
 
@@ -46,7 +44,6 @@ public class Employer extends User {
      * @param job the posting they want to make
      */
     public void makePosting(JobPosting job) {
-        postings.add(job);
         Database.getInstance().addPosting(job);
     }
 
@@ -150,8 +147,7 @@ public class Employer extends User {
      * @return the ArrayList of postings
      */
     public ArrayList<JobPosting> getPostings() {
-        this.postings = Database.getInstance().getPostingsByEmployer(this);
-        return this.postings;
+        return Database.getInstance().getPostingsByEmployer(this);
     }
 
     /**
@@ -160,7 +156,7 @@ public class Employer extends User {
      * @return the ArrayList of Reviews
      */
     public ArrayList<Review> getReviews() {
-        return this.reviews;
+        return Database.getInstance().getReviewsByReviewee(this);
     }
 
     /**
@@ -206,24 +202,6 @@ public class Employer extends User {
      */
     public void setCompany(String company) {
         this.company = company;
-    }
-
-    /**
-     * Set method for postings
-     * 
-     * @param posting what we want to set the posting to
-     */
-    public void setPostings(ArrayList<JobPosting> postings) {
-        this.postings = postings;
-    }
-
-    /**
-     * Set method for reviews
-     * 
-     * @param reviews what we want to set the review to
-     */
-    public void setReviews(ArrayList<Review> reviews) {
-        this.reviews = reviews;
     }
 
     /**
