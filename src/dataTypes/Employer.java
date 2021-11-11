@@ -105,7 +105,6 @@ public class Employer extends User {
      */
     public void removePosting(JobPosting job) {
         Database.getInstance().getPostings().remove(job);
-        Database.getInstance().getRemovedPostings().add(job);
     }
 
     /**
