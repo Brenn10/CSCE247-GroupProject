@@ -8,10 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import dataTypes.Admin;
 import dataTypes.Employer;
@@ -69,10 +66,12 @@ public class AdminTest {
         .approved(true)
         .build();
         Database database = mock(Database.class);
-        when(Database.getInstance()).thenReturn(database);
-        Review review = mock(Review.class);
-        admin.removeReviews(review);
-        verify(database, times(1)).removeReveiw(review);
+        try (MockedStatic<Database> staticDatabase = mockStatic(Database.class)) {
+            staticDatabase.when(Database::getInstance).thenReturn(database);
+            Review review = mock(Review.class);
+            admin.removeReviews(review);
+            verify(database, times(1)).removeReveiw(review);
+        }
     }
 
     @Test
@@ -86,10 +85,12 @@ public class AdminTest {
         .approved(true)
         .build();
         Database database = mock(Database.class);
-        when(Database.getInstance()).thenReturn(database);
-        Student student = mock(Student.class);
-        admin.removeResume(student);
-        verify(student, times(1)).setCreated(false);
+        try (MockedStatic<Database> staticDatabase = mockStatic(Database.class)) {
+            staticDatabase.when(Database::getInstance).thenReturn(database);
+            Student student = mock(Student.class);
+            admin.removeResume(student);
+            verify(student, times(1)).setCreated(false);
+        }
     }
 
     @Test
@@ -103,10 +104,12 @@ public class AdminTest {
         .approved(true)
         .build();
         Database database = mock(Database.class);
-        when(Database.getInstance()).thenReturn(database);
-        JobPosting jobPosting = mock(JobPosting.class);
-        admin.removeJobPosting(jobPosting);
-        verify(database, times(1)).removePosting(jobPosting);
+        try (MockedStatic<Database> staticDatabase = mockStatic(Database.class)) {
+            staticDatabase.when(Database::getInstance).thenReturn(database);
+            JobPosting jobPosting = mock(JobPosting.class);
+            admin.removeJobPosting(jobPosting);
+            verify(database, times(1)).removePosting(jobPosting);
+        }
     }
 
     @Test
@@ -120,10 +123,12 @@ public class AdminTest {
         .approved(true)
         .build();
         Database database = mock(Database.class);
-        when(Database.getInstance()).thenReturn(database);
-        Employer employer = mock(Employer.class);
-        admin.addUser(employer);
-        verify(database, times(1)).addUser(employer);
+        try (MockedStatic<Database> staticDatabase = mockStatic(Database.class)) {
+            staticDatabase.when(Database::getInstance).thenReturn(database);
+            Employer employer = mock(Employer.class);
+            admin.addUser(employer);
+            verify(database, times(1)).addUser(employer);
+        }
     }
 
     @Test
