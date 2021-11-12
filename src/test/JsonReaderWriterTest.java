@@ -66,70 +66,109 @@ class JsonReaderWriterTest {
     }
     @BeforeEach
     public void singleSetup() {
+        //allPrevItems = reader.read();
     }
     @AfterEach 
     public void singleBreakdown() {
-
+        //allPrevItems = null;
     }
     @Test
     public void grabFullAll() {
-        
+        DataBlob all = reader.read();
+        assertNotNull(all);
     }
     @Test
     public void grabFullStudent() {
-        
+        // the get user methods are very similar, so I may just not add the rest (depends on time)
+        DataBlob all = reader.read();
+        int numStudents = 0;
+        for(User i: all.getUsers()) {
+            if (i instanceof Student) {
+                numStudents++;
+            }
+        }
+        int numStudentsPrev = 0;
+        for(User i: allPrevItems.getUsers()) {
+            if (i instanceof Student) {
+                numStudentsPrev++;
+            }
+        }
+        assertEquals(numStudents, numStudentsPrev);
     }
     @Test
-    public void grabFullEmploy() {
-
-    }
-    @Test 
-    public void grabFullProf() {
-
-    }
-    @Test
-    public void grabFullAdmin() {
-
+    public void grabFullUsersFromOnlyStudent() {
+        // what happens when the wrong file is inputted? any errors?
+        JsonDataReader readerAllStudent = new JsonDataReader("data/Students.json", "data/Students.json", "data/Students.json",
+        "data/Students.json", "data/Reviews.json", "data/JobPostings.json");
+        DataBlob onlyStudentFilesBlob = readerAllStudent.read();
+        onlyStudentFilesBlob.getUsers();
     }
     @Test
     public void grabFullReview() {
-
+        assertNotNull(allPrevItems.getReviews());
     }
     @Test
     public void grabFullJobPost() {
-
+        assertNotNull(allPrevItems.getJobPostings());
     }
+    // nulls will use the empty file for the path
     @Test
     public void grabNullAll() {
-
+        JsonDataReader nullReader = new JsonDataReader("data/EmptyFile.json", "data/EmptyFile.json", "data/EmptyFile.json",
+        "data/EmptyFile.json", "data/EmptyFile.json", "data/EmptyFile.json");
+        DataBlob nulBlob = nullReader.read();
+        // check if there are any items in DataBlob
+        boolean anything = false;
+        if(!nulBlob.getUsers().isEmpty()) 
+            anything = true;
+        if(!nulBlob.getReviews().isEmpty()) 
+            anything = true;
+        if(!nulBlob.getJobPostings().isEmpty()) 
+            anything = true;
+        assertFalse(anything);
     }
     @Test
     public void grabNullStudent() {
-
-    }
-    @Test
-    public void grabNullEmploy() {
-
-    }
-    @Test 
-    public void grabNullProf() {
-
-    }
-    @Test
-    public void grabNullAdmin() {
-
+        JsonDataReader nullReader = new JsonDataReader("data/Administrators.json", "data/EmptyFile.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+        DataBlob nulBlob = nullReader.read();
+        int numStudents = 0;
+        for(User i: nulBlob.getUsers()) {
+            if (i instanceof Student) {
+                numStudents++;
+            }
+        }
+        assertEquals(0, numStudents);
     }
     @Test
     public void grabNullReview() {
-
+        JsonDataReader nullReader = new JsonDataReader("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/EmptyFile.json", "data/JobPostings.json");
+        DataBlob nulBlob = nullReader.read();
+        int numReview = 0;
+        for(Review i: nulBlob.getReviews()) {
+            if (i instanceof Review) {
+                numReview++;
+            }
+        }
+        assertEquals(0, numReview);
     }
     @Test
     public void grabNullJobPost() {
-        
+        JsonDataReader nullReader = new JsonDataReader("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/EmptyFile.json");
+        DataBlob nulBlob = nullReader.read();
+        int numPost = 0;
+        for(JobPosting i: nulBlob.getJobPostings()) {
+            if (i instanceof JobPosting) {
+                numPost++;
+            }
+        }
+        assertEquals(0, numPost);
     }
     @Test
     public void writeFullAll() {
-
+        
     }
     @Test
     public void writeFullStudent() {
@@ -155,6 +194,7 @@ class JsonReaderWriterTest {
     public void writeFullJobPost() {
         
     }
+    // these will use the empty file 
     @Test
     public void writeNullAll() {
 
