@@ -46,7 +46,14 @@ class JsonReaderWriterTest {
 
     @BeforeAll
     public static void setupJson() {
-        // take everything so that it can be re-fixed
+
+    }
+    @AfterAll
+    public static void breakdown() {
+
+    }
+    @BeforeEach
+    public void singleSetup() {
         allPrevItems = reader.read();
         // also make an empty file
         try {
@@ -56,21 +63,13 @@ class JsonReaderWriterTest {
             e.printStackTrace();
          }
     }
-    @AfterAll
-    public static void breakdown() {
+    @AfterEach 
+    public void singleBreakdown() {
         // fix everything
         writer.write(allPrevItems);
         // delete the empty file (no witnesses)
         File file = new File("data/EmptyFile.json");
         file.delete();
-    }
-    @BeforeEach
-    public void singleSetup() {
-        //allPrevItems = reader.read();
-    }
-    @AfterEach 
-    public void singleBreakdown() {
-        //allPrevItems = null;
     }
     @Test
     public void grabFullAll() {
@@ -168,51 +167,83 @@ class JsonReaderWriterTest {
     }
     @Test
     public void writeFullAll() {
-        
+        writer.write(allPrevItems);
+        DataBlob writeCheck = reader.read();
+        assertNotNull(writeCheck);
     }
     @Test
     public void writeFullStudent() {
-        
-    }
-    @Test
-    public void writeFullEmploy() {
-
-    }
-    @Test 
-    public void writeFullProf() {
-
-    }
-    @Test
-    public void writeFullAdmin() {
-
+        int numStudents = 0;
+        for(User i: allPrevItems.getUsers()) {
+            if (i instanceof Student) {
+                numStudents++;
+            }
+        }
+        JsonDataWriter studentToEmpty = new JsonDataWriter("data/Administrators.json", "data/EmptyFile.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+        studentToEmpty.write(allPrevItems);
+        JsonDataReader studentFromEmpty = new JsonDataReader("data/Administrators.json", "data/EmptyFile.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+        DataBlob allfromEmpt = studentFromEmpty.read();
+        int numStudentsNew = 0;
+        for(User i: allfromEmpt.getUsers()) {
+            if (i instanceof Student) {
+                numStudentsNew++;
+            }
+        }
+        assertEquals(numStudents, numStudentsNew);
     }
     @Test
     public void writeFullReview() {
-
+        int numStudents = 0;
+        for(Review i: allPrevItems.getReviews()) {
+            if (i instanceof Review) {
+                numStudents++;
+            }
+        }
+        JsonDataWriter studentToEmpty = new JsonDataWriter("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/EmptyFile.json", "data/JobPostings.json");
+        studentToEmpty.write(allPrevItems);
+        JsonDataReader studentFromEmpty = new JsonDataReader("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/EmptyFile.json", "data/JobPostings.json");
+        DataBlob allfromEmpt = studentFromEmpty.read();
+        int numReviewNew = 0;
+        for(Review i: allfromEmpt.getReviews()) {
+            if (i instanceof Review) {
+                numReviewNew++;
+            }
+        }
+        assertEquals(numStudents, numReviewNew);
     }
     @Test
     public void writeFullJobPost() {
-        
+        int numjob = 0;
+        for(JobPosting i: allPrevItems.getJobPostings()) {
+            if (i instanceof JobPosting) {
+                numjob++;
+            }
+        }
+        JsonDataWriter studentToEmpty = new JsonDataWriter("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/EmptyFile.json");
+        studentToEmpty.write(allPrevItems);
+        JsonDataReader studentFromEmpty = new JsonDataReader("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/EmptyFile.json");
+        DataBlob allfromEmpt = studentFromEmpty.read();
+        int numjobNew = 0;
+        for(JobPosting i: allfromEmpt.getJobPostings()) {
+            if (i instanceof JobPosting) {
+                numjobNew++;
+            }
+        }
+        assertEquals(numjob, numjobNew);
     }
-    // these will use the empty file 
+    // these will use the empty file to write
     @Test
     public void writeNullAll() {
 
     }
     @Test
     public void writeNullStudent() {
-
-    }
-    @Test
-    public void writeNullEmploy() {
-
-    }
-    @Test 
-    public void writeNullProf() {
-
-    }
-    @Test
-    public void writeNullAdmin() {
 
     }
     @Test
