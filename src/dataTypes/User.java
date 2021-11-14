@@ -3,6 +3,8 @@
  */
 package dataTypes;
 import java.util.UUID;
+import database.Database;
+
 
 public abstract class User {
     protected UUID id;
