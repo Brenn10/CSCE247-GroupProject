@@ -240,18 +240,62 @@ class JsonReaderWriterTest {
     // these will use the empty file to write
     @Test
     public void writeNullAll() {
-
+        DataBlob beforeBlob = new DataBlob();
+        JsonDataWriter nullWriter = new JsonDataWriter("data/EmptyFile.json", "data/EmptyFile.json", "data/EmptyFile.json",
+        "data/EmptyFile.json", "data/EmptyFile.json", "data/EmptyFile.json");
+        JsonDataReader nullReader = new JsonDataReader("data/EmptyFile.json", "data/EmptyFile.json", "data/EmptyFile.json",
+        "data/EmptyFile.json", "data/EmptyFile.json", "data/EmptyFile.json");
+        nullWriter.write(beforeBlob);
+        DataBlob nulBlob = nullReader.read();
+        boolean anything = false;
+        if(!nulBlob.getUsers().isEmpty()) 
+            anything = true;
+        if(!nulBlob.getReviews().isEmpty()) 
+            anything = true;
+        if(!nulBlob.getJobPostings().isEmpty()) 
+            anything = true;
+        assertFalse(anything);
     }
     @Test
     public void writeNullStudent() {
-
+        DataBlob beforeBlob = new DataBlob();
+        JsonDataWriter nullWriter = new JsonDataWriter("data/Administrators.json", "data/EmptyFile.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+        nullWriter.write(beforeBlob);
+        JsonDataReader nullReader = new JsonDataReader("data/Administrators.json", "data/EmptyFile.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/JobPostings.json");
+        DataBlob nulBlob = nullReader.read();
+        boolean anything = false;
+        if(!nulBlob.getUsers().isEmpty()) 
+            anything = true;
+        assertFalse(anything);
     }
     @Test
     public void writeNullReview() {
-
+        DataBlob beforeBlob = new DataBlob();
+        JsonDataWriter nullWriter = new JsonDataWriter("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/EmptyFile.json", "data/JobPostings.json");
+        nullWriter.write(beforeBlob);
+        JsonDataReader nullReader = new JsonDataReader("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/EmptyFile.json", "data/JobPostings.json");
+        DataBlob nulBlob = nullReader.read();
+        boolean anything = false;
+        if(!nulBlob.getUsers().isEmpty()) 
+            anything = true;
+        assertFalse(anything);
     }
     @Test
     public void writeNullJobPost() {
-        
+        DataBlob beforeBlob = new DataBlob();
+        JsonDataWriter nullWriter = new JsonDataWriter("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/EmptyFile.json");
+        nullWriter.write(beforeBlob);
+        JsonDataReader nullReader = new JsonDataReader("data/Administrators.json", "data/Students.json", "data/Employers.json",
+        "data/Professors.json", "data/Reviews.json", "data/EmptyFile.json");
+        DataBlob nulBlob = nullReader.read();
+        boolean anything = false;
+        if(!nulBlob.getUsers().isEmpty()) 
+            anything = true;
+        assertFalse(anything);
     }
 }
