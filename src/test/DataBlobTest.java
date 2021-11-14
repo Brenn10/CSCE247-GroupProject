@@ -35,7 +35,7 @@ public class DataBlobTest {
         DataBlob dataBlob = new DataBlob();
         User user = null;
         dataBlob.addUser(user);
-        assertNull(dataBlob.getUsers().contains(user));
+        assertTrue(dataBlob.getUsers().contains(user));
 
     }
     @Test 
